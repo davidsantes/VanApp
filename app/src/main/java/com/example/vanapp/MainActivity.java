@@ -60,10 +60,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void initProviders() {
         providers = Arrays.asList(
-                new AuthUI.IdpConfig.EmailBuilder().build(),        //Email Builder
-                new AuthUI.IdpConfig.PhoneBuilder().build(),        //PhoneBuilder Builder
-                new AuthUI.IdpConfig.FacebookBuilder().build(),    //PhoneBuilder Builder
-                new AuthUI.IdpConfig.GoogleBuilder().build()        //GoogleBuilder Builder
+                new AuthUI.IdpConfig.EmailBuilder().build(), //Email Builder
+                new AuthUI.IdpConfig.PhoneBuilder().build(), //PhoneBuilder Builder
+                new AuthUI.IdpConfig.GoogleBuilder().build() //GoogleBuilder Builder
         );
     }
 
@@ -89,6 +88,10 @@ public class MainActivity extends AppCompatActivity {
 
                 //Set button signout
                 btn_sign_out.setEnabled(true);
+
+                Intent intent = new Intent(MainActivity.this, SplashActivity.class);
+                startActivity(intent);
+                finish(); //Para que se elimine la actividad de presentación
             }
             else {
                 Toast.makeText(this, "" + response.getError().getMessage(), Toast.LENGTH_SHORT).show();

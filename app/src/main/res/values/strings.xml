@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">VanApp</string>
-    <string name="facebook_application_id" translatable="false">2395582247363344</string>
-    <string name="facebook_login_protocol_scheme" translatable="false">fb2395582247363344</string>
+    <string name="footer_version">David Santesteban | v1.0</string>
 </resources>
