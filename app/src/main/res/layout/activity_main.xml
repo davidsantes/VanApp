@@ -7,12 +7,30 @@
     android:background="@drawable/intro_car"
     tools:context=".MainActivity">
 
-<Button
-    android:id="@+id/btn_sign_out"
-    android:text="SignOut"
-    android:layout_centerInParent="true"
-    android:enabled="false"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"></Button>
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/intro_car_gif"
+        android:background="@color/colorBlanco"
+        />
+
+    <TextView
+        android:id="@+id/tvTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/app_name"
+        android:textColor="@color/colorNaranja"
+        android:textSize="@dimen/tamanioLetraXXl" />
+
+    <TextView
+        android:id="@+id/tvFooter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/footer_version"
+        android:textColor="@color/colorGrisOscuro"
+        android:textSize="@dimen/tamanioLetraNormal"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

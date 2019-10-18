@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="tamanioLetraNormal">12sp</dimen>
+    <dimen name="tamanioLetraXl">20sp</dimen>
+    <dimen name="tamanioLetraXXl">50sp</dimen>
+    <dimen name="tamanioLetraXXXl">80sp</dimen>
+    <dimen name="tamanioMargenSm">10dp</dimen>
+    <dimen name="tamanioMargenXl">50dp</dimen>
+    <dimen name="tamanioMargenBotones">3dp</dimen>
+    <dimen name="tamanioResultado">150dp</dimen>
+    <dimen name="paddingCeldasNormal">20dp</dimen>
+</resources>

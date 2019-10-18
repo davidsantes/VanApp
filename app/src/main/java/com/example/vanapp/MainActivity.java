@@ -1,20 +1,14 @@
 package com.example.vanapp;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -25,34 +19,15 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int MY_REQUEST_CODE = 7117; //Any number you want
     List<AuthUI.IdpConfig> providers;
-    Button btn_sign_out;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btn_sign_out = (Button)findViewById(R.id.btn_sign_out);
-        btn_sign_out.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Logout
-                AuthUI.getInstance()
-                        .signOut(MainActivity.this)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                btn_sign_out.setEnabled(false);
-                                showSignInOptions();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(MainActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
+        //TextView textTituloProgramado = (TextView) findViewById(R.id.tvTitulo);
+        //Animation animation = AnimationUtils.loadAnimation(this, R.anim.animacion_splash);
+        //textTituloProgramado.startAnimation(animation);
 
         initProviders();
         showSignInOptions();
@@ -86,12 +61,10 @@ public class MainActivity extends AppCompatActivity {
                 //Show email on Toast
                 Toast.makeText(this, "" + user.getEmail(), Toast.LENGTH_SHORT).show();
 
-                //Set button signout
-                btn_sign_out.setEnabled(true);
-
-                Intent intent = new Intent(MainActivity.this, SplashActivity.class);
+                Intent intent = new Intent(MainActivity.this, TestActivity.class);
                 startActivity(intent);
-                finish(); //Para que se elimine la actividad de presentación
+                //Para que se elimine la actividad de presentación y no pueda volver a ella
+                finish();
             }
             else {
                 Toast.makeText(this, "" + response.getError().getMessage(), Toast.LENGTH_SHORT).show();
