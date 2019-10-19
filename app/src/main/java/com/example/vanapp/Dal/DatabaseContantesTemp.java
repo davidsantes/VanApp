@@ -1,6 +1,6 @@
 package com.example.vanapp.Dal;
 
-public class DatabaseSchema {
+public class DatabaseContantesTemp {
     public static final String DATABASE_NAME = "VanApp";
     public static final int DATABASE_VERSION = 1; //Versión de la base de datos
 

@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.vanapp.Dal.DatabaseHelper;
-import com.example.vanapp.Dal.DatabaseSchema;
+import com.example.vanapp.Dal.DatabaseContantesTemp;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -81,9 +81,9 @@ public class TestActivity extends AppCompatActivity {
             }
             else{
                 ContentValues contentValues = new ContentValues();
-                contentValues.put(DatabaseSchema.TABLA_LISTA_PERSONAS_NOMBRE, nombre);
-                contentValues.put(DatabaseSchema.TABLA_LISTA_PERSONAS_EDAD, edad);
-                contentValues.put(DatabaseSchema.TABLA_LISTA_PERSONAS_PAIS, pais);
+                contentValues.put(DatabaseContantesTemp.TABLA_LISTA_PERSONAS_NOMBRE, nombre);
+                contentValues.put(DatabaseContantesTemp.TABLA_LISTA_PERSONAS_EDAD, edad);
+                contentValues.put(DatabaseContantesTemp.TABLA_LISTA_PERSONAS_PAIS, pais);
                 db.insertarPersonaEnLaLista(contentValues);
 
                 //Va a la misma vista, pero con otras acciones
