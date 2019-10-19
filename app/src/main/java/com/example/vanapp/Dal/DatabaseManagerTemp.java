@@ -11,30 +11,30 @@ import com.example.vanapp.Entities.Cliente;
 import com.example.vanapp.Entities.DetallePedido;
 import com.example.vanapp.Entities.FormaPago;
 import com.example.vanapp.Entities.Producto;
-import com.example.vanapp.Dal.DatabaseVanApp.Tablas;
+import com.example.vanapp.Dal.DatabaseVanAppTemp.Tablas;
 
-import com.example.vanapp.Dal.DatabaseContracts.CabecerasPedido;
-import com.example.vanapp.Dal.DatabaseContracts.DetallesPedido;
-import com.example.vanapp.Dal.DatabaseContracts.Productos;
-import com.example.vanapp.Dal.DatabaseContracts.Clientes;
-import com.example.vanapp.Dal.DatabaseContracts.FormasPago;
+import com.example.vanapp.Dal.DatabaseContractsTemp.CabecerasPedido;
+import com.example.vanapp.Dal.DatabaseContractsTemp.DetallesPedido;
+import com.example.vanapp.Dal.DatabaseContractsTemp.Productos;
+import com.example.vanapp.Dal.DatabaseContractsTemp.Clientes;
+import com.example.vanapp.Dal.DatabaseContractsTemp.FormasPago;
 
 /**
- * Clase auxiliar que implementa a {@link DatabaseVanApp} para llevar a cabo el CRUD
+ * Clase auxiliar que implementa a {@link DatabaseVanAppTemp} para llevar a cabo el CRUD
  * sobre las entidades existentes.
  * Se realiza mediante un patrón singleton para crear una única instancia de la clase
  */
-public final class DatabaseManager {
-    private static DatabaseVanApp baseDatos;
+public final class DatabaseManagerTemp {
+    private static DatabaseVanAppTemp baseDatos;
 
-    private static DatabaseManager instancia = new DatabaseManager();
+    private static DatabaseManagerTemp instancia = new DatabaseManagerTemp();
 
-    private DatabaseManager() {
+    private DatabaseManagerTemp() {
     }
 
-    public static DatabaseManager obtenerInstancia(Context contexto) {
+    public static DatabaseManagerTemp obtenerInstancia(Context contexto) {
         if (baseDatos == null) {
-            baseDatos = new DatabaseVanApp(contexto);
+            baseDatos = new DatabaseVanAppTemp(contexto);
         }
         return instancia;
     }

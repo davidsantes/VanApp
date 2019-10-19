@@ -9,10 +9,10 @@ import com.example.vanapp.Entities.Persona;
 
 import java.util.ArrayList;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class DatabaseHelperTemp extends SQLiteOpenHelper {
     private Context context;
 
-    public DatabaseHelper(Context context){
+    public DatabaseHelperTemp(Context context){
         super(context, DatabaseContantesTemp.DATABASE_NAME, null, DatabaseContantesTemp.DATABASE_VERSION);
         this.context = context;
     }

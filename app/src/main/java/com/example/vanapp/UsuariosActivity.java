@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.vanapp.Dal.DatabaseHelper;
+import com.example.vanapp.Dal.DatabaseHelperTemp;
 import com.example.vanapp.Entities.Persona;
 import java.util.ArrayList;
 
@@ -23,7 +23,7 @@ public class UsuariosActivity extends AppCompatActivity {
 
         personas = new ArrayList<Persona>();
         lstPersonas = (ListView)findViewById(R.id.lstUsuarios);
-        DatabaseHelper db = new DatabaseHelper(this);
+        DatabaseHelperTemp db = new DatabaseHelperTemp(this);
         personas = db.obtenerPersonas();
 
         ArrayList<String> listaPersonasParseada = new ArrayList<>();

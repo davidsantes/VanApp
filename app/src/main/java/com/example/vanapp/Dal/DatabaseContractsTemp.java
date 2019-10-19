@@ -5,7 +5,7 @@ import java.util.UUID;
 /**
  * Clase que establece los nombres a usar en la base de datos
  */
-public class DatabaseContracts {
+public class DatabaseContractsTemp {
     interface ColumnasCabeceraPedido {
         String ID_CABECERA_PEDIDO = "id";
         String FECHA = "fecha";
@@ -68,6 +68,6 @@ public class DatabaseContracts {
         }
     }
 
-    private DatabaseContracts() {
+    private DatabaseContractsTemp() {
     }
 }

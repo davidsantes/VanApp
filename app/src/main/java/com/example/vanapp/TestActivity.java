@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.vanapp.Dal.DatabaseHelper;
+import com.example.vanapp.Dal.DatabaseHelperTemp;
 import com.example.vanapp.Dal.DatabaseContantesTemp;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -74,7 +74,7 @@ public class TestActivity extends AppCompatActivity {
         }
         else{
 
-            DatabaseHelper db = new DatabaseHelper(this);
+            DatabaseHelperTemp db = new DatabaseHelperTemp(this);
 
             if (db.buscarPersona(nombre)){
                 Toast.makeText(this, "Esta persona ya se ha introducido en la BDD", Toast.LENGTH_LONG).show();
@@ -106,7 +106,7 @@ public class TestActivity extends AppCompatActivity {
     }
 
     public void borrarVista(View v){
-        DatabaseHelper db = new DatabaseHelper(this);
+        DatabaseHelperTemp db = new DatabaseHelperTemp(this);
         db.borrarTablaPersonas();
         Toast.makeText(this, "Se ha borrado la lista de personas", Toast.LENGTH_LONG).show();
     }

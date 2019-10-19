@@ -6,20 +6,20 @@ import android.content.Context;
 import android.os.Build;
 import android.provider.BaseColumns;
 
-import com.example.vanapp.Dal.DatabaseContracts.CabecerasPedido;
-import com.example.vanapp.Dal.DatabaseContracts.DetallesPedido;
-import com.example.vanapp.Dal.DatabaseContracts.Productos;
-import com.example.vanapp.Dal.DatabaseContracts.Clientes;
-import com.example.vanapp.Dal.DatabaseContracts.FormasPago;
+import com.example.vanapp.Dal.DatabaseContractsTemp.CabecerasPedido;
+import com.example.vanapp.Dal.DatabaseContractsTemp.DetallesPedido;
+import com.example.vanapp.Dal.DatabaseContractsTemp.Productos;
+import com.example.vanapp.Dal.DatabaseContractsTemp.Clientes;
+import com.example.vanapp.Dal.DatabaseContractsTemp.FormasPago;
 
-public class DatabaseVanApp extends SQLiteOpenHelper {
+public class DatabaseVanAppTemp extends SQLiteOpenHelper {
 
     private final Context contexto;
     private static final String NOMBRE_BASE_DATOS = "pedidos.db";
 
     private static final int VERSION_ACTUAL = 1;
 
-    public DatabaseVanApp(Context contexto) {
+    public DatabaseVanAppTemp(Context contexto) {
         super(contexto, NOMBRE_BASE_DATOS, null, VERSION_ACTUAL);
         this.contexto = contexto;
     }
@@ -64,7 +64,7 @@ public class DatabaseVanApp extends SQLiteOpenHelper {
                         "%s TEXT UNIQUE NOT NULL,%s DATETIME NOT NULL,%s TEXT NOT NULL %s," +
                         "%s TEXT NOT NULL %s)",
                 Tablas.CABECERA_PEDIDO, BaseColumns._ID,
-                CabecerasPedido.ID_CABECERA_PEDIDO, DatabaseContracts.CabecerasPedido.FECHA,
+                CabecerasPedido.ID_CABECERA_PEDIDO, DatabaseContractsTemp.CabecerasPedido.FECHA,
                 CabecerasPedido.ID_CLIENTE, Referencias.ID_CLIENTE,
                 CabecerasPedido.ID_FORMA_PAGO, Referencias.ID_FORMA_PAGO));
 

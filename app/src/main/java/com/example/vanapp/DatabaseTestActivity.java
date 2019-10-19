@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.database.DatabaseUtils;
 
-import com.example.vanapp.Dal.DatabaseManager;
+import com.example.vanapp.Dal.DatabaseManagerTemp;
 import com.example.vanapp.Entities.CabeceraPedido;
 import com.example.vanapp.Entities.Cliente;
 import com.example.vanapp.Entities.DetallePedido;
@@ -18,7 +18,7 @@ import java.util.Calendar;
 
 public class DatabaseTestActivity extends AppCompatActivity {
 
-    DatabaseManager datos;
+    DatabaseManagerTemp datos;
 
     public class TareaPruebaDatos extends AsyncTask<Void, Void, Void> {
         @Override
@@ -90,7 +90,7 @@ public class DatabaseTestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_database_test);
 
         getApplicationContext().deleteDatabase("pedidos.db");
-        datos = DatabaseManager
+        datos = DatabaseManagerTemp
                 .obtenerInstancia(getApplicationContext());
 
         new TareaPruebaDatos().execute();
