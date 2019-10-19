@@ -7,14 +7,14 @@ import java.util.UUID;
  */
 public class DatabaseContracts {
     interface ColumnasCabeceraPedido {
-        String ID = "id";
+        String ID_CABECERA_PEDIDO = "id";
         String FECHA = "fecha";
         String ID_CLIENTE = "id_cliente";
         String ID_FORMA_PAGO = "id_forma_pago";
     }
 
     interface ColumnasDetallePedido {
-        String ID = "id";
+        String ID_CABECERA_PEDIDO = "id";
         String SECUENCIA = "secuencia";
         String ID_PRODUCTO = "id_producto";
         String CANTIDAD = "cantidad";
@@ -22,21 +22,21 @@ public class DatabaseContracts {
     }
 
     interface ColumnasProducto {
-        String ID = "id";
+        String ID_PRODUCTO = "id";
         String NOMBRE = "nombre";
         String PRECIO = "precio";
         String EXISTENCIAS = "existencias";
     }
 
     interface ColumnasCliente {
-        String ID = "id";
+        String ID_CLIENTE = "id";
         String NOMBRES = "nombres";
         String APELLIDOS = "apellidos";
         String TELEFONO = "telefono";
     }
 
     interface ColumnasFormaPago {
-        String ID = "id";
+        String ID_FORMA_PAGO = "id";
         String NOMBRE = "nombre";
     }
 
