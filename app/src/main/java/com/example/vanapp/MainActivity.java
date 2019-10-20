@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 //Show email on Toast
                 Toast.makeText(this, "" + user.getEmail(), Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(MainActivity.this, TestActivity.class);
+                Intent intent = new Intent(MainActivity.this, TestUsuariosActivity.class);
                 startActivity(intent);
                 //Para que se elimine la actividad de presentación y no pueda volver a ella
                 finish();

@@ -24,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this, TestActivity.class);
+                Intent intent = new Intent(SplashActivity.this, TestUsuariosActivity.class);
                 startActivity(intent);
                 finish(); //Para que se elimine la actividad de presentación
             }

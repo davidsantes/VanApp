@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.database.DatabaseUtils;
 
+import com.example.vanapp.Dal.DatabaseManager;
 import com.example.vanapp.Dal.DatabaseManagerTemp;
 import com.example.vanapp.Entities.CabeceraPedido;
 import com.example.vanapp.Entities.Cliente;
@@ -18,7 +19,8 @@ import java.util.Calendar;
 
 public class DatabaseTestActivity extends AppCompatActivity {
 
-    DatabaseManagerTemp datos;
+    DatabaseManagerTemp databaseManagerTemporal;
+    DatabaseManager databaseManager;
 
     public class TareaPruebaDatos extends AsyncTask<Void, Void, Void> {
         @Override
@@ -28,55 +30,57 @@ public class DatabaseTestActivity extends AppCompatActivity {
             String fechaActual = Calendar.getInstance().getTime().toString();
 
             try {
-
-                datos.getDb().beginTransaction();
+                databaseManager.getDb().beginTransaction();
+                databaseManagerTemporal.getDb().beginTransaction();
 
                 // Inserción Clientes
-                String cliente1 = datos.insertarCliente(new Cliente(null, "Veronica", "Del Topo", "4552000"));
-                String cliente2 = datos.insertarCliente(new Cliente(null, "Carlos", "Villagran", "4440000"));
+                String cliente1 = databaseManagerTemporal.insertarCliente(new Cliente(null, "Veronica", "Del Topo", "4552000"));
+                String cliente2 = databaseManagerTemporal.insertarCliente(new Cliente(null, "Carlos", "Villagran", "4440000"));
 
                 // Inserción Formas de pago
-                String formaPago1 = datos.insertarFormaPago(new FormaPago(null, "Efectivo"));
-                String formaPago2 = datos.insertarFormaPago(new FormaPago(null, "Crédito"));
+                String formaPago1 = databaseManagerTemporal.insertarFormaPago(new FormaPago(null, "Efectivo"));
+                String formaPago2 = databaseManagerTemporal.insertarFormaPago(new FormaPago(null, "Crédito"));
 
                 // Inserción Productos
-                String producto1 = datos.insertarProducto(new Producto(null, "Manzana unidad", 2, 100));
-                String producto2 = datos.insertarProducto(new Producto(null, "Pera unidad", 3, 230));
-                String producto3 = datos.insertarProducto(new Producto(null, "Guayaba unidad", 5, 55));
-                String producto4 = datos.insertarProducto(new Producto(null, "Maní unidad", 3.6f, 60));
+                String producto1 = databaseManagerTemporal.insertarProducto(new Producto(null, "Manzana unidad", 2, 100));
+                String producto2 = databaseManagerTemporal.insertarProducto(new Producto(null, "Pera unidad", 3, 230));
+                String producto3 = databaseManagerTemporal.insertarProducto(new Producto(null, "Guayaba unidad", 5, 55));
+                String producto4 = databaseManagerTemporal.insertarProducto(new Producto(null, "Maní unidad", 3.6f, 60));
 
                 // Inserción Pedidos
-                String pedido1 = datos.insertarCabeceraPedido(
+                String pedido1 = databaseManagerTemporal.insertarCabeceraPedido(
                         new CabeceraPedido(null, fechaActual, cliente1, formaPago1));
-                String pedido2 = datos.insertarCabeceraPedido(
+                String pedido2 = databaseManagerTemporal.insertarCabeceraPedido(
                         new CabeceraPedido(null, fechaActual,cliente2, formaPago2));
 
                 // Inserción Detalles
-                datos.insertarDetallePedido(new DetallePedido(pedido1, 1, producto1, 5, 2));
-                datos.insertarDetallePedido(new DetallePedido(pedido1, 2, producto2, 10, 3));
-                datos.insertarDetallePedido(new DetallePedido(pedido2, 1, producto3, 30, 5));
-                datos.insertarDetallePedido(new DetallePedido(pedido2, 2, producto4, 20, 3.6f));
+                databaseManagerTemporal.insertarDetallePedido(new DetallePedido(pedido1, 1, producto1, 5, 2));
+                databaseManagerTemporal.insertarDetallePedido(new DetallePedido(pedido1, 2, producto2, 10, 3));
+                databaseManagerTemporal.insertarDetallePedido(new DetallePedido(pedido2, 1, producto3, 30, 5));
+                databaseManagerTemporal.insertarDetallePedido(new DetallePedido(pedido2, 2, producto4, 20, 3.6f));
 
                 // Eliminación Pedido
-                datos.eliminarCabeceraPedido(pedido1);
+                databaseManagerTemporal.eliminarCabeceraPedido(pedido1);
 
                 // Actualización Cliente
-                datos.actualizarCliente(new Cliente(cliente2, "Carlos Alberto", "Villagran", "3333333"));
+                databaseManagerTemporal.actualizarCliente(new Cliente(cliente2, "Carlos Alberto", "Villagran", "3333333"));
 
-                datos.getDb().setTransactionSuccessful();
+                databaseManager.getDb().setTransactionSuccessful();
+                databaseManagerTemporal.getDb().setTransactionSuccessful();
             } finally {
-                datos.getDb().endTransaction();
+                databaseManager.getDb().endTransaction();
+                databaseManagerTemporal.getDb().endTransaction();
             }
 
             // [QUERIES]
             Log.d("Clientes","Clientes");
-            DatabaseUtils.dumpCursor(datos.obtenerClientes());
+            DatabaseUtils.dumpCursor(databaseManagerTemporal.obtenerClientes());
             Log.d("Formas de pago", "Formas de pago");
-            DatabaseUtils.dumpCursor(datos.obtenerFormasPago());
+            DatabaseUtils.dumpCursor(databaseManagerTemporal.obtenerFormasPago());
             Log.d("Productos", "Productos");
-            DatabaseUtils.dumpCursor(datos.obtenerProductos());
+            DatabaseUtils.dumpCursor(databaseManagerTemporal.obtenerProductos());
             Log.d("Cabeceras de pedido", "Cabeceras de pedido");
-            DatabaseUtils.dumpCursor(datos.obtenerCabecerasPedidos());
+            DatabaseUtils.dumpCursor(databaseManagerTemporal.obtenerCabecerasPedidos());
             //Log.d("Detalles de pedido", "Detalles de pedido");
             //DatabaseUtils.dumpCursor(datos.obtenerDetallesPedido());
 
@@ -89,8 +93,13 @@ public class DatabaseTestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_database_test);
 
-        getApplicationContext().deleteDatabase("pedidos.db");
-        datos = DatabaseManagerTemp
+        getApplicationContext().deleteDatabase("pedidos.db;");
+        getApplicationContext().deleteDatabase("vanapp.db");
+
+        databaseManagerTemporal = DatabaseManagerTemp
+                .obtenerInstancia(getApplicationContext());
+
+        databaseManager = DatabaseManager
                 .obtenerInstancia(getApplicationContext());
 
         new TareaPruebaDatos().execute();
