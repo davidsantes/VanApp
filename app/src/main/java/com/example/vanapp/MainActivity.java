@@ -25,10 +25,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //TextView textTituloProgramado = (TextView) findViewById(R.id.tvTitulo);
-        //Animation animation = AnimationUtils.loadAnimation(this, R.anim.animacion_splash);
-        //textTituloProgramado.startAnimation(animation);
-
         initProviders();
         showSignInOptions();
     }
@@ -61,8 +57,9 @@ public class MainActivity extends AppCompatActivity {
                 //Show email on Toast
                 Toast.makeText(this, "" + user.getEmail(), Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(MainActivity.this, TestUsuariosActivity.class);
+                Intent intent = new Intent(MainActivity.this, MainSplashActivity.class);
                 startActivity(intent);
+
                 //Para que se elimine la actividad de presentación y no pueda volver a ella
                 finish();
             }

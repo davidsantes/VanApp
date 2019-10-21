@@ -8,13 +8,15 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
-public class SplashActivity extends AppCompatActivity {
-    static final int TIEMPO_EN_PANTALLA = 8000; //8 SEGUNDOS
+import com.example.vanapp.PresentationLayerUsuarios.UsuariosActivity;
+
+public class MainSplashActivity extends AppCompatActivity {
+    static final int TIEMPO_EN_PANTALLA = 5000; //5 SEGUNDOS
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+        setContentView(R.layout.activity_main_splash);
 
         TextView texto = (TextView) findViewById(R.id.tvTituloProgramaAnimado);
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.animacion_splash);
@@ -24,7 +26,7 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this, TestUsuariosActivity.class);
+                Intent intent = new Intent(MainSplashActivity.this, UsuariosActivity.class);
                 startActivity(intent);
                 finish(); //Para que se elimine la actividad de presentación
             }

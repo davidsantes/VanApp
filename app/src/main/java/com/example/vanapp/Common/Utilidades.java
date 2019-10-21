@@ -1,5 +1,7 @@
 package com.example.vanapp.Common;
 
+import android.util.Patterns;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.security.SecureRandom;
@@ -11,6 +13,21 @@ public class Utilidades {
 
     private static final String DATA_FOR_RANDOM_STRING = CHAR_LOWER + CHAR_UPPER + NUMBER;
     private static SecureRandom random = new SecureRandom();
+
+    public static boolean esTelefonoValido(String telefono) {
+        String regExpn =
+                "^(\\+350|00350|350)?[\\s|\\-|\\.]?([0-9][\\s|\\-|\\.]?){9}$";
+
+        CharSequence inputStr = telefono;
+
+        Pattern pattern = Pattern.compile(regExpn,Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputStr);
+
+        if(matcher.matches())
+            return true;
+        else
+            return false;
+    }
 
     public static boolean esEmailValido(String email)
     {

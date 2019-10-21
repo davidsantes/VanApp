@@ -12,11 +12,27 @@ public class UtilidadesTest {
         String emailIncorrecto = "davidsantestebanyahooes";
 
         //Act
-        Utilidades.esEmailValido(emailValido);
 
         //Assert
         assertEquals(true, Utilidades.esEmailValido(emailValido));
         assertEquals(false, Utilidades.esEmailValido(emailIncorrecto));
+    }
+
+    @Test
+    public void utilidades_esTelefonoCorrecto() {
+        //Arrange
+        String telefonoValido1 = "666 521 178";
+        String telefonoValido2 = "666521178";
+        String telefonoIncorrecto1 = "66178";
+        String telefonoIncorrecto2 = "aaa";
+
+        //Act
+
+        //Assert
+        assertEquals(true, Utilidades.esTelefonoValido(telefonoValido1));
+        assertEquals(true, Utilidades.esTelefonoValido(telefonoValido2));
+        assertEquals(false, Utilidades.esEmailValido(telefonoIncorrecto1));
+        assertEquals(false, Utilidades.esEmailValido(telefonoIncorrecto2));
     }
 
     @Test

@@ -1,4 +1,22 @@
 <resources>
     <string name="app_name">VanApp</string>
     <string name="footer_version">David Santesteban | v1.0</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="titulo_usuarios">VanApp - Lista de usuarios</string>
+    <string name="titulo_usuario_detalle_consulta">VanApp - Detalle del usuario</string>
+    <string name="titulo_usuario_detalle_editar">VanApp - Añadir usuario</string>
+
+    <string name="hint_nombre">Nombre</string>
+    <string name="hint_apellido1">Primer apellido</string>
+    <string name="hint_apellido2">Segundo apellido</string>
+    <string name="hint_alias">Alias</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_fecha_alta">Fecha de alta</string>
+
+    <string name="txtLogOff">Salir</string>
+    <string name="txtNuevo">Nuevo</string>
+    <string name="txtPersonalizacion">Mis cosas</string>
+
+    <string name="msgErrorValorInvalido">El campo tiene un valor o longitud inválida</string>
 </resources>
