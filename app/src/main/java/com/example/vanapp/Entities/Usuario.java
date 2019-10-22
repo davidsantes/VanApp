@@ -1,5 +1,7 @@
 package com.example.vanapp.Entities;
 
+import com.example.vanapp.Common.Constantes;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,11 +18,13 @@ public class Usuario {
     private String alias;
     private boolean activo;
     private String email;
+    private String colorUsuario;
     private Date fechaAlta = new Date();
 
     public Usuario(){
         this.setIdUsuario(generarIdUnico());
         this.setActivo(true);
+        this.setColorUsuario(COLOR_POR_DEFECTO_USUARIO);
     }
 
     public Usuario(String nombre,
@@ -36,6 +40,7 @@ public class Usuario {
         this.setAlias(alias);
         this.setActivo(true);
         this.setEmail(email);
+        this.setColorUsuario(COLOR_POR_DEFECTO_USUARIO);
     }
 
     // Zona de getters
@@ -55,6 +60,9 @@ public class Usuario {
     }
     public String getEmail() {
         return email;
+    }
+    public String getColorUsuario() {
+        return colorUsuario;
     }
     public Date getFechaAlta() {
         return fechaAlta;
@@ -88,6 +96,9 @@ public class Usuario {
     public void setEmail(String email) {
         this.email = email;
     }
+    public void setColorUsuario(String colorUsuario) {
+        this.colorUsuario = colorUsuario;
+    }
     public void setFechaAlta(Date fechaAlta) {
         this.fechaAlta = fechaAlta;
     }
@@ -118,6 +129,7 @@ public class Usuario {
                 && apellido2 != null && !apellido2.isEmpty()
                 && alias != null && !alias.isEmpty()
                 && email != null && !email.isEmpty()
+                && colorUsuario != null && !colorUsuario.isEmpty()
                 && esEmailValido(email)
         ){
             esEstadoValido = true;
@@ -133,6 +145,7 @@ public class Usuario {
         sb.append("Alias: ").append(getAlias()).append(SALTO_LINEA);
         sb.append("Activo: ").append(getActivo()).append(SALTO_LINEA);
         sb.append("Email: ").append(getEmail()).append(SALTO_LINEA);
+        sb.append("Color de usuario: ").append(getColorUsuario()).append(SALTO_LINEA);
         sb.append("FechaAlta: ").append(getFechaToString()).append(SALTO_LINEA);
         sb.append("EsEstadoValido: ").append(esEstadoValido()).append(SALTO_LINEA);
         return sb.toString();

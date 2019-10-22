@@ -17,6 +17,7 @@ public class DatabaseSchemaContracts {
         String ALIAS = "Alias";
         String ACTIVO = "Activo";
         String EMAIL = "Email";
+        String COLOR_USUARIO = "ColorUsuario";
         String FECHA_ALTA = "FechaAlta";
     }
 

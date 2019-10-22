@@ -12,11 +12,12 @@ public class UsuariosMocks {
         for (int i = 0; i < numeroUsuariosParaObtener; i++){
             Usuario nuevoUsuario = new Usuario();
 
-            nuevoUsuario.setNombre(Utilidades.generarRandomString(5));
-            nuevoUsuario.setApellido1(Utilidades.generarRandomString(5));
-            nuevoUsuario.setApellido2(Utilidades.generarRandomString(5));
-            nuevoUsuario.setAlias(Utilidades.generarRandomString(10));
+            nuevoUsuario.setNombre(UtilidadesMock.generarRandomString(5));
+            nuevoUsuario.setApellido1(UtilidadesMock.generarRandomString(5));
+            nuevoUsuario.setApellido2(UtilidadesMock.generarRandomString(5));
+            nuevoUsuario.setAlias(UtilidadesMock.generarRandomString(10));
             nuevoUsuario.setEmail("aaa@gmail.com");
+            nuevoUsuario.setColorUsuario("E46AFF");
 
             listaUsuarios.add(nuevoUsuario);
         }

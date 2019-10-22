@@ -23,6 +23,26 @@ public class UsuarioInstrumentedTest {
     boolean esOperacionCorrecta;
 
     @Test
+    public void esInsercionDeUsuariosCorrecto() {
+        //Arrange
+        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        databaseManager = DatabaseManager.obtenerInstancia(appContext);
+        int numeroUsuariosParaInsertar = 10;
+
+        //Act
+        esOperacionCorrecta = databaseManager.eliminarUsuariosTodos();
+        listaUsuarios = UsuariosMocks.obtenerUsuariosRandom(numeroUsuariosParaInsertar);
+        for (Usuario nuevoUsuario: listaUsuarios) {
+            esOperacionCorrecta = databaseManager.insertarUsuario(nuevoUsuario);
+        }
+
+        listaUsuarios = databaseManager.obtenerUsuarios();
+
+        //Assert
+        assertEquals(numeroUsuariosParaInsertar, listaUsuarios.size());
+    }
+
+    @Test
     public void esBorradoTodosUsuariosFisicoCorrecto() {
         //Arrange
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();

@@ -55,6 +55,7 @@ public class DatabaseSchema extends SQLiteOpenHelper {
                         + ",%s TEXT NOT NULL"   //Usuarios.ALIAS
                         + ",%s TEXT NOT NULL"   //Usuarios.ACTIVO
                         + ",%s TEXT NOT NULL"   //Usuarios.EMAIL
+                        + ",%s TEXT NOT NULL"   //Usuarios.COLOR_USUARIO
                         + ",%s LONG NOT NULL"   //Usuarios.FECHA_ALTA
                         + " )",
                         Tablas.USUARIOS
@@ -65,6 +66,7 @@ public class DatabaseSchema extends SQLiteOpenHelper {
                         , Usuarios.ALIAS
                         , Usuarios.ACTIVO
                         , Usuarios.EMAIL
+                        , Usuarios.COLOR_USUARIO
                         , Usuarios.FECHA_ALTA
 
         );

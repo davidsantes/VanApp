@@ -28,14 +28,11 @@ public class UsuariosAdapter extends ArrayAdapter<Usuario> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_usuario, parent, false);
         }
 
-        ImageView iv_avatar = (ImageView)convertView.findViewById(R.id.iv_avatar);
-
-        //TODO: cambiar por el color del usuario
-        iv_avatar.setColorFilter(Color.RED);
-
         // Lookup para alimentar de datos
         TextView tvName = (TextView) convertView.findViewById(R.id.textViewNombreCompleto);
         TextView tvHome = (TextView) convertView.findViewById(R.id.textViewAlias);
+        ImageView iv_avatar = (ImageView)convertView.findViewById(R.id.iv_avatar);
+        iv_avatar.setColorFilter(Color.parseColor("#" + usuarioActual.getColorUsuario()));
 
         tvName.setText(usuarioActual.getNombreCompleto());
         tvHome.setText(usuarioActual.getAlias());

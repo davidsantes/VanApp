@@ -1,19 +1,9 @@
 package com.example.vanapp.Common;
 
-import android.util.Patterns;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.security.SecureRandom;
 
 public class Utilidades {
-    private static final String CHAR_LOWER = "abcdefghijklmnopqrstuvwxyz";
-    private static final String CHAR_UPPER = CHAR_LOWER.toUpperCase();
-    private static final String NUMBER = "0123456789";
-
-    private static final String DATA_FOR_RANDOM_STRING = CHAR_LOWER + CHAR_UPPER + NUMBER;
-    private static SecureRandom random = new SecureRandom();
-
     public static boolean esTelefonoValido(String telefono) {
         String regExpn =
                 "^(\\+350|00350|350)?[\\s|\\-|\\.]?([0-9][\\s|\\-|\\.]?){9}$";
@@ -48,23 +38,5 @@ public class Utilidades {
             return true;
         else
             return false;
-    }
-
-    public static String generarRandomString(int length) {
-        if (length < 1) throw new IllegalArgumentException();
-
-        StringBuilder sb = new StringBuilder(length);
-        for (int i = 0; i < length; i++) {
-            // 0-62 (excluídos), el random retorna 0-61
-            int rndCharAt = random.nextInt(DATA_FOR_RANDOM_STRING.length());
-            char rndChar = DATA_FOR_RANDOM_STRING.charAt(rndCharAt);
-
-            // Para debug
-            //System.out.format("%d\t:\t%c%n", rndCharAt, rndChar);
-
-            sb.append(rndChar);
-        }
-
-        return sb.toString();
     }
 }

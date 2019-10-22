@@ -1,5 +1,6 @@
 package com.example.vanapp;
 import com.example.vanapp.Common.Utilidades;
+import com.example.vanapp.Mocks.UtilidadesMock;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -36,13 +37,13 @@ public class UtilidadesTest {
     }
 
     @Test
-    public void utilidades_esPalabraLongitudExperada() {
+    public void utilidadesMock_esPalabraLongitudExperada() {
         //Arrange
         int longitudPalabraEsperada = 10;
         String palabraDevuelta = "";
 
         //Act
-        palabraDevuelta = Utilidades.generarRandomString(longitudPalabraEsperada);
+        palabraDevuelta = UtilidadesMock.generarRandomString(longitudPalabraEsperada);
 
         //Assert
         assertEquals(longitudPalabraEsperada, palabraDevuelta.length());

@@ -35,6 +35,22 @@ public class DatabaseManager {
     }
 
     // [OPERACIONES_USUARIO]
+
+    /* Retorna un usuario mapeado a través de los datos proporcionados por el cursor  */
+    private Usuario mapearUsuario(Cursor cursor){
+        Usuario nuevoUsuario = new Usuario();
+        nuevoUsuario.setIdUsuario(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.ID_USUARIO)));
+        nuevoUsuario.setNombre(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.NOMBRE)));
+        nuevoUsuario.setApellido1(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.APELLIDO_1)));
+        nuevoUsuario.setApellido2(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.APELLIDO_2)));
+        nuevoUsuario.setAlias(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.ALIAS)));
+        nuevoUsuario.setActivo(cursor.getInt(cursor.getColumnIndex(ColumnasTablaUsuarios.ACTIVO)) == 1);
+        nuevoUsuario.setEmail(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.EMAIL)));
+        nuevoUsuario.setColorUsuario(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.COLOR_USUARIO)));
+        nuevoUsuario.setFechaAltaFromString(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.FECHA_ALTA)));
+        return nuevoUsuario;
+    }
+
     public ArrayList obtenerUsuarios() {
         ArrayList<Usuario> listaUsuarios = new ArrayList<>();
         SQLiteDatabase db = baseDatos.getReadableDatabase();
@@ -44,18 +60,7 @@ public class DatabaseManager {
         if (cursor.moveToFirst())
         {
             do{
-                Usuario nuevoUsuario = new Usuario();
-
-                nuevoUsuario.setIdUsuario(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.ID_USUARIO)));
-                nuevoUsuario.setNombre(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.NOMBRE)));
-                nuevoUsuario.setApellido1(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.APELLIDO_1)));
-                nuevoUsuario.setApellido2(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.APELLIDO_2)));
-                nuevoUsuario.setAlias(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.ALIAS)));
-                nuevoUsuario.setActivo(cursor.getInt(cursor.getColumnIndex(ColumnasTablaUsuarios.ACTIVO)) == 1);
-                nuevoUsuario.setEmail(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.EMAIL)));
-                nuevoUsuario.setFechaAltaFromString(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.FECHA_ALTA)));
-
-                listaUsuarios.add(nuevoUsuario);
+                listaUsuarios.add(mapearUsuario(cursor));
             }while (cursor.moveToNext());
         }
 
@@ -70,15 +75,7 @@ public class DatabaseManager {
         Cursor cursor = db.rawQuery(sqlQuery, null);
 
         if (cursor.moveToFirst()){
-            nuevoUsuario = new Usuario();
-            nuevoUsuario.setIdUsuario(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.ID_USUARIO)));
-            nuevoUsuario.setNombre(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.NOMBRE)));
-            nuevoUsuario.setApellido1(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.APELLIDO_1)));
-            nuevoUsuario.setApellido2(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.APELLIDO_2)));
-            nuevoUsuario.setAlias(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.ALIAS)));
-            nuevoUsuario.setActivo(cursor.getInt(cursor.getColumnIndex(ColumnasTablaUsuarios.ACTIVO)) == 1);
-            nuevoUsuario.setEmail(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.EMAIL)));
-            nuevoUsuario.setFechaAltaFromString(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.FECHA_ALTA)));
+            nuevoUsuario = mapearUsuario(cursor);
         }
 
         return nuevoUsuario;
@@ -95,6 +92,7 @@ public class DatabaseManager {
         valores.put(Usuarios.ALIAS, usuario.getAlias());
         valores.put(Usuarios.ACTIVO, usuario.getActivo());
         valores.put(Usuarios.EMAIL, usuario.getEmail());
+        valores.put(Usuarios.COLOR_USUARIO, usuario.getColorUsuario());
         valores.put(Usuarios.FECHA_ALTA, usuario.getFechaToString());
 
         //Retorna el id de la fila del nuevo registro insertado, o -1 si ha ocurrido un error
@@ -113,6 +111,7 @@ public class DatabaseManager {
         valores.put(Usuarios.ALIAS, usuario.getAlias());
         valores.put(Usuarios.ACTIVO, usuario.getActivo());
         valores.put(Usuarios.EMAIL, usuario.getEmail());
+        valores.put(Usuarios.COLOR_USUARIO, usuario.getColorUsuario());
         valores.put(Usuarios.FECHA_ALTA, usuario.getFechaToString());
 
         String whereClause = String.format("%s=?", Usuarios.ID_USUARIO);
