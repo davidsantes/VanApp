@@ -18,5 +18,10 @@
     <string name="txtNuevo">Nuevo</string>
     <string name="txtPersonalizacion">Mis cosas</string>
 
+    <string name="txtAceptar">Aceptar</string>
+    <string name="txtCancelar">Cancelar</string>
+
+    <string name="msgInfoColorSeleccionado">Color seleccionado</string>
+    <string name="msgInfoEligeColor">Elige color</string>
     <string name="msgErrorValorInvalido">El campo tiene un valor o longitud inválida</string>
 </resources>

@@ -29,6 +29,8 @@ dependencies {
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.18'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.github.QuadFlask:colorpicker:0.0.13'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'

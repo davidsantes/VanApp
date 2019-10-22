@@ -11,25 +11,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PresentationLayerUsuarios.UsuarioAltaActivity"
-            android:label="@string/titulo_usuario_detalle_consulta">
-        </activity>
-        <activity android:name=".PresentationLayerUsuarios.UsuarioExistenteActivity"
-            android:label="@string/titulo_usuario_detalle_editar">
-        </activity>
-        <activity
-            android:name=".PresentationLayerUsuarios.UsuariosActivity"
-            android:label="@string/titulo_usuarios">
+        <activity android:name=".ColorPickerTestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TestUsuariosActivity" />
-        <activity android:name=".DatabaseTestActivity" />
+        <activity
+            android:name=".PresentationLayerUsuarios.UsuarioAltaActivity"
+            android:label="@string/titulo_usuario_detalle_consulta">
+        </activity>
+        <activity
+            android:name=".PresentationLayerUsuarios.UsuarioExistenteActivity"
+            android:label="@string/titulo_usuario_detalle_editar">
+        </activity>
+        <activity
+            android:name=".PresentationLayerUsuarios.UsuariosActivity"
+            android:label="@string/titulo_usuarios">
+        </activity>
+        <activity android:name=".TestUsuariosActivity">
+        </activity>
+        <activity android:name=".DatabaseTestActivity">
+        </activity>
         <activity android:name=".MainActivity">
         </activity>
-        <activity android:name=".MainSplashActivity" />
+        <activity android:name=".MainSplashActivity">
+        </activity>
     </application>
 
 </manifest>
