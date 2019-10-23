@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/intro_car_gif"
-        android:background="@color/colorBlanco"
+        android:background="@android:color/white"
         />
 
     <TextView
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:text="@string/app_name"
-        android:textColor="@color/colorNaranja"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="@dimen/tamanioLetraXXl" />
 
     <TextView
@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/footer_version"
-        android:textColor="@color/colorGrisOscuro"
+        android:textColor="@color/colorAccent"
         android:textSize="@dimen/tamanioLetraNormal"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true" />

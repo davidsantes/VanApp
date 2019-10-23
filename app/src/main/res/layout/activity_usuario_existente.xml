@@ -1,254 +1,293 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="@dimen/padding_activities"
     tools:context=".PresentationLayerUsuarios.UsuarioExistenteActivity">
 
-    <!-- Campo Nombre -->
+    <include layout="@layout/menu_layout"/>
+
     <LinearLayout
-        android:id="@+id/area_nombre"
+        android:id="@+id/contenido"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_activities"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/img_nombre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            app:srcCompat="@drawable/ic_action_list"  />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_nombre"
+        <!-- Campo Nombre -->
+        <LinearLayout
+            android:id="@+id/area_nombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="32dp"
-            app:counterEnabled="true"
-            app:counterMaxLength="30"
-            app:errorEnabled="true">
+            android:layout_alignParentTop="true"
+            android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/txt_nombre"
+            <ImageView
+                android:id="@+id/img_nombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/ic_action_list"  />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_nombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLength="30"
-                android:ems="10"
-                android:hint="@string/hint_nombre"
-                android:inputType="text"
-                android:singleLine="true" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
+                android:layout_marginLeft="32dp"
+                app:counterEnabled="true"
+                app:counterMaxLength="30"
+                app:errorEnabled="true">
 
-    <!-- Campo Primer apellido -->
-    <LinearLayout
-        android:id="@+id/area_apellido1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/area_apellido1"
-        android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/txt_nombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="30"
+                    android:ems="10"
+                    android:hint="@string/hint_nombre"
+                    android:inputType="text"
+                    android:singleLine="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
-        <ImageView
-            android:id="@+id/img_apellido1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            app:srcCompat="@drawable/ic_action_list" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_apellido1"
+        <!-- Campo Primer apellido -->
+        <LinearLayout
+            android:id="@+id/area_apellido1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="32dp"
-            app:counterEnabled="true"
-            app:counterMaxLength="30"
-            app:errorEnabled="true">
+            android:layout_below="@+id/area_apellido1"
+            android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/txt_apellido1"
+            <ImageView
+                android:id="@+id/img_apellido1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/ic_action_list" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_apellido1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLength="30"
-                android:ems="10"
-                android:hint="@string/hint_apellido1"
-                android:inputType="text"
-                android:singleLine="true" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
+                android:layout_marginLeft="32dp"
+                app:counterEnabled="true"
+                app:counterMaxLength="30"
+                app:errorEnabled="true">
 
-    <!-- Campo Segundo apellido -->
-    <LinearLayout
-        android:id="@+id/area_apellido2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/area_apellido2"
-        android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/txt_apellido1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="30"
+                    android:ems="10"
+                    android:hint="@string/hint_apellido1"
+                    android:inputType="text"
+                    android:singleLine="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
-        <ImageView
-            android:id="@+id/img_apellido2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            app:srcCompat="@drawable/ic_action_list" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_apellido2"
+        <!-- Campo Segundo apellido -->
+        <LinearLayout
+            android:id="@+id/area_apellido2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="32dp"
-            app:counterEnabled="true"
-            app:counterMaxLength="30"
-            app:errorEnabled="true">
+            android:layout_below="@+id/area_apellido2"
+            android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/txt_apellido2"
+            <ImageView
+                android:id="@+id/img_apellido2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/ic_action_list" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_apellido2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLength="30"
-                android:ems="10"
-                android:hint="@string/hint_apellido1"
-                android:inputType="text"
-                android:singleLine="true" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
+                android:layout_marginLeft="32dp"
+                app:counterEnabled="true"
+                app:counterMaxLength="30"
+                app:errorEnabled="true">
 
-    <!-- Campo Alias -->
-    <LinearLayout
-        android:id="@+id/area_alias"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/area_alias"
-        android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/txt_apellido2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="30"
+                    android:ems="10"
+                    android:hint="@string/hint_apellido1"
+                    android:inputType="text"
+                    android:singleLine="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
-        <ImageView
-            android:id="@+id/img_alias"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            app:srcCompat="@drawable/ic_action_users" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_alias"
+        <!-- Campo Alias -->
+        <LinearLayout
+            android:id="@+id/area_alias"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="32dp"
-            app:counterEnabled="true"
-            app:counterMaxLength="30"
-            app:errorEnabled="true">
+            android:layout_below="@+id/area_alias"
+            android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/txt_alias"
+            <ImageView
+                android:id="@+id/img_alias"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/ic_action_users" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_alias"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLength="30"
-                android:ems="10"
-                android:hint="@string/hint_alias"
-                android:inputType="text"
-                android:singleLine="true" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
+                android:layout_marginLeft="32dp"
+                app:counterEnabled="true"
+                app:counterMaxLength="30"
+                app:errorEnabled="true">
 
-    <!-- Campo Email -->
-    <LinearLayout
-        android:id="@+id/area_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/area_email"
-        android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/txt_alias"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="30"
+                    android:ems="10"
+                    android:hint="@string/hint_alias"
+                    android:inputType="text"
+                    android:singleLine="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
-        <ImageView
-            android:id="@+id/img_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            app:srcCompat="@drawable/ic_email" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_email"
+        <!-- Campo Email -->
+        <LinearLayout
+            android:id="@+id/area_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="32dp"
-            app:counterEnabled="true"
-            app:counterMaxLength="30"
-            app:errorEnabled="true">
+            android:layout_below="@+id/area_email"
+            android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/txt_email"
+            <ImageView
+                android:id="@+id/img_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/ic_email" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLength="30"
-                android:ems="10"
-                android:hint="@string/hint_email"
-                android:inputType="textEmailAddress"
-                android:singleLine="true"
-                app:errorEnabled="true" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
+                android:layout_marginLeft="32dp"
+                app:counterEnabled="true"
+                app:counterMaxLength="30"
+                app:errorEnabled="true">
 
-    <!-- Campo Fecha de alta -->
-    <LinearLayout
-        android:id="@+id/area_fecha_alta"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/area_fecha_alta"
-        android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/txt_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="30"
+                    android:ems="10"
+                    android:hint="@string/hint_email"
+                    android:inputType="textEmailAddress"
+                    android:singleLine="true"
+                    app:errorEnabled="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
-        <ImageView
-            android:id="@+id/img_fecha_alta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            app:srcCompat="@drawable/ic_date_range" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_fecha_alta"
+        <!-- Campo Color de usuario -->
+        <LinearLayout
+            android:id="@+id/area_color_usuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="32dp"
-            app:counterEnabled="true"
-            app:counterMaxLength="30"
-            app:errorEnabled="true">
+            android:layout_below="@+id/area_color_usuario"
+            android:orientation="horizontal">
 
+            <ImageView
+                android:id="@+id/imgfecha_alta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/ic_action_emo_cool" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:onClick="pickColor"
+                android:text="Pick a color"
+                />
             <TextView
-                android:id="@+id/tv_fecha_alta"
+                android:id="@+id/txtcolor"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                />
+
+        </LinearLayout>
+
+        <!-- Campo Fecha de alta -->
+        <LinearLayout
+            android:id="@+id/area_fecha_alta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/area_fecha_alta"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/img_fecha_alta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/ic_date_range" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_fecha_alta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/hint_fecha_alta"
-                android:inputType="text"
-                android:singleLine="true" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginLeft="32dp"
+                app:counterEnabled="true"
+                app:counterMaxLength="30"
+                app:errorEnabled="true">
+
+                <TextView
+                    android:id="@+id/tv_fecha_alta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/hint_fecha_alta"
+                    android:inputType="text"
+                    android:singleLine="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <!-- Barra de botones -->
+        <LinearLayout
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:gravity="bottom"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/boton_cancelar"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/txtCancelar" />
+
+            <Button
+                android:id="@+id/boton_aceptar"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/txtAceptar" />
+        </LinearLayout>
+
     </LinearLayout>
-
-    <!-- Bottom Bar -->
-    <LinearLayout
-        android:id="@+id/bottom_bar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_alignParentBottom="true"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/boton_cancelar"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="xxx Cancelar" />
-
-        <Button
-            android:id="@+id/boton_aceptar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/colorAccent"
-            android:text="xxx Aceptar"
-            android:textColor="@android:color/white" />
-    </LinearLayout>
-
 </LinearLayout>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/opcionUsuarios"
+        android:title="@string/opcionUsuarios"
+        android:orderInCategory="10">
+    </item>
+    <item
+        android:id="@+id/opcionCoches"
+        android:title="@string/opcionCoches"
+        android:orderInCategory="20">
+    </item>
+    <item
+        android:id="@+id/opcionRondas"
+        android:title="@string/opcionRondas"
+        android:orderInCategory="30">
+    </item>
+    <item
+        android:id="@+id/opcionSalir"
+        android:title="@string/opcionSalir"
+        android:orderInCategory="40">
+    </item>
+</menu>

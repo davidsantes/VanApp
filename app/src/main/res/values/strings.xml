@@ -21,7 +21,14 @@
     <string name="txtAceptar">Aceptar</string>
     <string name="txtCancelar">Cancelar</string>
 
+    <string name="opcionUsuarios">Usuarios</string>
+    <string name="opcionCoches">Coches</string>
+    <string name="opcionRondas">Rondas</string>
+    <string name="opcionSalir">Salir</string>
+
     <string name="msgInfoColorSeleccionado">Color seleccionado</string>
     <string name="msgInfoEligeColor">Elige color</string>
     <string name="msgErrorValorInvalido">El campo tiene un valor o longitud inválida</string>
+    <string name="tituloConfirmaSalir">Confirmar salir</string>
+    <string name="msgConfirmarSalir">Qué pena, ¿de verdad te quieres marchar? :(</string>
 </resources>

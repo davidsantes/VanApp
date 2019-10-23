@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ColorPickerTestActivity">
+        <activity android:name=".ColorPickerTestActivity"
+            android:parentActivityName=".PresentationLayerUsuarios.UsuariosActivity"
+            android:label="VanApp - Test Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -19,14 +21,17 @@
         </activity>
         <activity
             android:name=".PresentationLayerUsuarios.UsuarioAltaActivity"
+            android:parentActivityName=".PresentationLayerUsuarios.UsuariosActivity"
             android:label="@string/titulo_usuario_detalle_consulta">
         </activity>
         <activity
             android:name=".PresentationLayerUsuarios.UsuarioExistenteActivity"
+            android:parentActivityName=".PresentationLayerUsuarios.UsuariosActivity"
             android:label="@string/titulo_usuario_detalle_editar">
         </activity>
         <activity
             android:name=".PresentationLayerUsuarios.UsuariosActivity"
+            android:parentActivityName=".ColorPickerTestActivity"
             android:label="@string/titulo_usuarios">
         </activity>
         <activity android:name=".TestUsuariosActivity">

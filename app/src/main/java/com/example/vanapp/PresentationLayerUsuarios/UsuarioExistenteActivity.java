@@ -1,7 +1,12 @@
 package com.example.vanapp.PresentationLayerUsuarios;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import com.example.vanapp.ColorPickerTestActivity;
+import com.example.vanapp.MasterActivity;
+
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,14 +14,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.vanapp.Common.Constantes;
 import com.example.vanapp.R;
+import com.flask.colorpicker.ColorPickerView;
+import com.flask.colorpicker.OnColorSelectedListener;
+import com.flask.colorpicker.builder.ColorPickerClickListener;
+import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.util.regex.Pattern;
+public class UsuarioExistenteActivity extends MasterActivity {
 
-public class UsuarioExistenteActivity extends AppCompatActivity {
+    //Componentes de la capa de presentación
+    private Toolbar menuMasterToolbar;
 
     private TextInputLayout til_nombre;
     private TextInputLayout til_apellido1;
@@ -29,6 +40,7 @@ public class UsuarioExistenteActivity extends AppCompatActivity {
     private EditText txt_apellido2;
     private EditText txt_alias;
     private EditText txt_email;
+    private TextView txtColor;
     private TextView tv_fecha_alta;
 
     private Button botonAceptar;
@@ -37,6 +49,12 @@ public class UsuarioExistenteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario_existente);
+
+        menuMasterToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(menuMasterToolbar);
+
+        //Necesario para mostrar el botón para regresar al padre
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Referencias TILs
         til_nombre = (TextInputLayout) findViewById(R.id.til_nombre);
@@ -52,6 +70,7 @@ public class UsuarioExistenteActivity extends AppCompatActivity {
         txt_alias = (EditText) findViewById(R.id.txt_alias);
         txt_email = (EditText) findViewById(R.id.txt_email);
 
+        txtColor = (TextView)findViewById(R.id.txtcolor);
         tv_fecha_alta = (TextView) findViewById(R.id.tv_fecha_alta);
 
         txt_nombre.addTextChangedListener(new TextWatcher() {
@@ -146,5 +165,34 @@ public class UsuarioExistenteActivity extends AppCompatActivity {
 
         campoParaAnalizar = til_email.getEditText().getText().toString();
         esValorValido(til_email);
+    }
+
+    public void pickColor(View view)
+    {
+        ColorPickerDialogBuilder
+                .with(this)
+                .setTitle(R.string.msgInfoEligeColor)
+                .initialColor(Color.BLUE)
+                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+                .density(12)
+                .setOnColorSelectedListener(new OnColorSelectedListener() {
+                    @Override
+                    public void onColorSelected(int selectedColor) {
+                    }
+                })
+                .setPositiveButton(R.string.txtAceptar, new ColorPickerClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
+                        Toast.makeText(UsuarioExistenteActivity.this, R.string.msgInfoColorSeleccionado + ": 0x" + Integer.toHexString(selectedColor), Toast.LENGTH_LONG).show();
+                        txtColor.setBackgroundColor(selectedColor);
+                    }
+                })
+                .setNegativeButton(R.string.txtCancelar, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .build()
+                .show();
     }
 }

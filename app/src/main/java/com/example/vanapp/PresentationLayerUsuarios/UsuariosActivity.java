@@ -1,7 +1,6 @@
 package com.example.vanapp.PresentationLayerUsuarios;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.view.View;
@@ -14,17 +13,14 @@ import android.widget.Toast;
 
 import com.example.vanapp.Dal.DatabaseManager;
 import com.example.vanapp.Entities.Usuario;
-import com.example.vanapp.MainActivity;
+import com.example.vanapp.MasterActivity;
 import com.example.vanapp.R;
-import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 
-public class UsuariosActivity extends AppCompatActivity {
+public class UsuariosActivity extends MasterActivity {
     //Componentes de la capa de presentación
+    private Toolbar menuMasterToolbar;
     Button btn_nuevo_usuario;
     Button btn_sign_out;
     ListView listViewUsuarios;
@@ -39,38 +35,24 @@ public class UsuariosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuarios);
 
+        menuMasterToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(menuMasterToolbar);
+
+        enlazarEventosConObjetos();
+        mostrarResultados();
+
+        //Necesario para mostrar el botón para regresar al padre
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void enlazarEventosConObjetos(){
         btn_nuevo_usuario = (Button)findViewById(R.id.btn_nuevo_usuario);
         btn_nuevo_usuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            mostrarActividadNuevoUsuario();
+                mostrarActividadNuevoUsuario();
             }
         });
-
-        btn_sign_out = (Button)findViewById(R.id.btn_sign_out);
-        btn_sign_out.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            //Logout
-            AuthUI.getInstance()
-                    .signOut(UsuariosActivity.this)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Intent intent = new Intent(UsuariosActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish(); //Para que se elimine la actividad de presentación
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(UsuariosActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-            }
-        });
-
-        mostrarResultados();
     }
 
     private void mostrarActividadNuevoUsuario() {
@@ -81,7 +63,7 @@ public class UsuariosActivity extends AppCompatActivity {
     /**
      * Muestra los datos que hay en la tabla de resultados
      */
-    public void mostrarResultados(){
+    private void mostrarResultados(){
         listaUsuarios = new ArrayList<Usuario>();
         listViewUsuarios = (ListView)findViewById(R.id.listViewUsuarios);
         databaseManager = DatabaseManager.obtenerInstancia(getApplicationContext());

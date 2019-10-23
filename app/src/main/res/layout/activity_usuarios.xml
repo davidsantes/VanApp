@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="@dimen/padding_activities"
     tools:context=".PresentationLayerUsuarios.UsuariosActivity">
+
+    <include layout="@layout/menu_layout"/>
 
     <ListView
         android:id="@+id/listViewUsuarios"
@@ -15,28 +16,26 @@
         android:layout_weight="1"/>
 
     <LinearLayout
+        style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="6"
-        android:gravity="bottom"
-        android:layout_gravity="top" >
+        android:orientation="horizontal" >
+
         <Button
             android:id="@+id/btn_nuevo_usuario"
-            android:layout_width="wrap_content"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/txtNuevo"/>
+            android:text="@string/txtNuevo" />
+
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:text="@string/txtPersonalizacion"/>
-        <Button
-            android:id="@+id/btn_sign_out"
-            android:layout_width="wrap_content"
+            android:id="@+id/btn_test"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/txtLogOff"/>
+            android:text="test" />
     </LinearLayout>
 
 </LinearLayout>
