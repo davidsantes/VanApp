@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="padding_activities">16dp</dimen>
+    <dimen name="padding_activities_double">32dp</dimen>
     <dimen name="paddingCeldasNormal">20dp</dimen>
 
     <dimen name="margin_usuario_columna_insertar_datos">32dp</dimen>

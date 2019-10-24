@@ -3,6 +3,8 @@
     <string name="footer_version">David Santesteban | v1.0</string>
     <string name="action_settings">Settings</string>
 
+    <string name="titulo_login">VanApp - login</string>
+    <string name="titulo_menu_principal">VanApp - ¿qué quieres hacer?</string>
     <string name="titulo_usuarios">VanApp - Lista de usuarios</string>
     <string name="titulo_usuario_detalle_consulta">VanApp - Detalle del usuario</string>
     <string name="titulo_usuario_detalle_editar">VanApp - Añadir usuario</string>

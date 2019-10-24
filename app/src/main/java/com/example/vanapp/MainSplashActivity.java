@@ -26,7 +26,7 @@ public class MainSplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(MainSplashActivity.this, UsuariosActivity.class);
+                Intent intent = new Intent(MainSplashActivity.this, MenuInicialActivity.class);
                 startActivity(intent);
                 finish(); //Para que se elimine la actividad de presentación
             }
