@@ -33,4 +33,6 @@
     <string name="msgErrorValorInvalido">El campo tiene un valor o longitud inválida</string>
     <string name="tituloConfirmaSalir">Confirmar salir</string>
     <string name="msgConfirmarSalir">Qué pena, ¿de verdad te quieres marchar? :(</string>
+    <string name="msgOperacionOk">Operación realizada correctamente</string>
+    <string name="msgOperacionKo">Ups, algo ha salido mal :(</string>
 </resources>

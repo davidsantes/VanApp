@@ -50,13 +50,13 @@ public class UsuariosActivity extends MasterActivity {
         btn_nuevo_usuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mostrarActividadNuevoUsuario();
+            mostrarActividadNuevoUsuario();
             }
         });
     }
 
     private void mostrarActividadNuevoUsuario() {
-        Intent intentActividadUsuarioDetalleNuevo = new Intent(this, UsuarioExistenteActivity.class);
+        Intent intentActividadUsuarioDetalleNuevo = new Intent(this, UsuarioDetalleActivity.class);
         startActivity(intentActividadUsuarioDetalleNuevo);
     }
 

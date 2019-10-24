@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".PresentationLayerUsuarios.UsuarioExistenteActivity">
+    tools:context=".PresentationLayerUsuarios.UsuarioDetalleActivity">
 
     <include layout="@layout/menu_layout"/>
 
@@ -213,10 +213,10 @@
                 app:srcCompat="@drawable/ic_face" />
 
             <Button
+                android:id="@+id/boton_eligeColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_usuario_columna_insertar_datos"
-                android:onClick="pickColor"
                 android:text="@string/msgInfoEligeColor"
                 />
             <TextView

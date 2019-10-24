@@ -73,21 +73,21 @@ public class MenuInicialActivity extends MasterActivity {
     //TODO: por implementar
     private void mostrarActividadCoches() {
         Toast.makeText(getApplicationContext(), "Por implementar", Toast.LENGTH_SHORT).show();
-        //Intent intentActividad = new Intent(this, UsuarioExistenteActivity.class);
+        //Intent intentActividad = new Intent(this, UsuarioDetalleActivity.class);
         //startActivity(intentActividad);
     }
 
     //TODO: por implementar
     private void mostrarActividadCalendario() {
         Toast.makeText(getApplicationContext(), "Por implementar", Toast.LENGTH_SHORT).show();
-        //Intent intentActividad = new Intent(this, UsuarioExistenteActivity.class);
+        //Intent intentActividad = new Intent(this, UsuarioDetalleActivity.class);
         //startActivity(intentActividad);
     }
 
     //TODO: por implementar
     private void mostrarActividadPagos() {
         Toast.makeText(getApplicationContext(), "Por implementar", Toast.LENGTH_SHORT).show();
-        //Intent intentActividad = new Intent(this, UsuarioExistenteActivity.class);
+        //Intent intentActividad = new Intent(this, UsuarioDetalleActivity.class);
         //startActivity(intentActividad);
     }
 }

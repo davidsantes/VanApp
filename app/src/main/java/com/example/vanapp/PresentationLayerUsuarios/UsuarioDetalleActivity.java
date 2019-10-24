@@ -2,10 +2,12 @@ package com.example.vanapp.PresentationLayerUsuarios;
 
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.vanapp.ColorPickerTestActivity;
+import com.example.vanapp.Dal.DatabaseManager;
 import com.example.vanapp.MasterActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vanapp.Common.Constantes;
+import com.example.vanapp.Mocks.UtilidadesMock;
 import com.example.vanapp.R;
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
@@ -24,7 +27,11 @@ import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
 
-public class UsuarioExistenteActivity extends MasterActivity {
+import com.example.vanapp.Entities.Usuario;
+
+public class UsuarioDetalleActivity extends MasterActivity {
+
+    DatabaseManager databaseManager;
 
     //Componentes de la capa de presentación
     private Toolbar menuMasterToolbar;
@@ -43,35 +50,74 @@ public class UsuarioExistenteActivity extends MasterActivity {
     private TextView txtColor;
     private TextView tv_fecha_alta;
 
+    private Button botonCancelar;
     private Button botonAceptar;
+    private Button botonEligeColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_usuario_existente);
+        setContentView(R.layout.activity_usuario_detalle);
 
         menuMasterToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(menuMasterToolbar);
 
+        databaseManager = DatabaseManager.obtenerInstancia(getApplicationContext());
+
+        enlazarEventosConObjetos();
+
         //Necesario para mostrar el botón para regresar al padre
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void enlazarEventosConObjetos(){
+        // Referencias TILs
+        til_nombre = findViewById(R.id.til_nombre);
+        til_apellido1 = findViewById(R.id.til_apellido1);
+        til_apellido2 = findViewById(R.id.til_apellido2);
+        til_alias = findViewById(R.id.til_alias);
+        til_email =  findViewById(R.id.til_email);
 
         // Referencias TILs
-        til_nombre = (TextInputLayout) findViewById(R.id.til_nombre);
-        til_apellido1 = (TextInputLayout) findViewById(R.id.til_apellido1);
-        til_apellido2 = (TextInputLayout) findViewById(R.id.til_apellido2);
-        til_alias = (TextInputLayout) findViewById(R.id.til_alias);
-        til_email = (TextInputLayout) findViewById(R.id.til_email);
+        txt_nombre = findViewById(R.id.txt_nombre);
+        txt_apellido1 = findViewById(R.id.txt_apellido1);
+        txt_apellido2 = findViewById(R.id.txt_apellido2);
+        txt_alias = findViewById(R.id.txt_alias);
+        txt_email = findViewById(R.id.txt_email);
 
-        // Referencias TILs
-        txt_nombre = (EditText) findViewById(R.id.txt_nombre);
-        txt_apellido1 = (EditText) findViewById(R.id.txt_apellido1);
-        txt_apellido2 = (EditText) findViewById(R.id.txt_apellido2);
-        txt_alias = (EditText) findViewById(R.id.txt_alias);
-        txt_email = (EditText) findViewById(R.id.txt_email);
+        txtColor = findViewById(R.id.txtcolor);
+        tv_fecha_alta = findViewById(R.id.tv_fecha_alta);
 
-        txtColor = (TextView)findViewById(R.id.txtcolor);
-        tv_fecha_alta = (TextView) findViewById(R.id.tv_fecha_alta);
+        // Referencias Botones
+        botonCancelar = findViewById(R.id.boton_cancelar);
+        botonAceptar = findViewById(R.id.boton_aceptar);
+        botonEligeColor = findViewById(R.id.boton_eligeColor);
+
+        botonEligeColor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                eligeColor(v);
+            }
+        });
+
+        botonCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mostrarActividadListadoUsuarios();
+            }
+        });
+
+        botonAceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (esEntradaDatosCorrecta() && insertarUsuario()){
+                    Toast.makeText(getApplicationContext(), R.string.msgOperacionOk, Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), R.string.msgOperacionKo, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         txt_nombre.addTextChangedListener(new TextWatcher() {
             @Override
@@ -127,15 +173,6 @@ public class UsuarioExistenteActivity extends MasterActivity {
             @Override
             public void afterTextChanged(Editable s) { }
         });
-
-        // Referencia Botón
-        botonAceptar = (Button) findViewById(R.id.boton_aceptar);
-        botonAceptar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                validarDatos();
-            }
-        });
     }
 
     private boolean esValorValido(TextInputLayout inputLayoutError) {
@@ -150,24 +187,35 @@ public class UsuarioExistenteActivity extends MasterActivity {
         return true;
     }
 
-    private void validarDatos() {
-        String campoParaAnalizar = til_nombre.getEditText().getText().toString();
-        esValorValido(til_nombre);
+    private boolean esEntradaDatosCorrecta() {
+        if (esValorValido(til_nombre) &&
+        esValorValido(til_apellido1) &&
+        esValorValido(til_apellido2) &&
+        esValorValido(til_alias) &&
+        esValorValido(til_email) &&
+        txtColor.getText().length() > 0){
+            return true;
+        }
 
-        campoParaAnalizar = til_apellido1.getEditText().getText().toString();
-        esValorValido(til_apellido1);
-
-        campoParaAnalizar = til_apellido2.getEditText().getText().toString();
-        esValorValido(til_apellido2);
-
-        campoParaAnalizar = til_alias.getEditText().getText().toString();
-        esValorValido(til_alias);
-
-        campoParaAnalizar = til_email.getEditText().getText().toString();
-        esValorValido(til_email);
+        return false;
     }
 
-    public void pickColor(View view)
+    private boolean insertarUsuario() {
+        boolean esOperacionCorrecta = false;
+
+        Usuario nuevoUsuario = new Usuario();
+        nuevoUsuario.setNombre(UtilidadesMock.generarRandomString(5));
+        nuevoUsuario.setApellido1(UtilidadesMock.generarRandomString(5));
+        nuevoUsuario.setApellido2(UtilidadesMock.generarRandomString(5));
+        nuevoUsuario.setAlias(UtilidadesMock.generarRandomString(10));
+        nuevoUsuario.setEmail("aaa@gmail.com");
+        nuevoUsuario.setColorUsuario("E46AFF");
+
+        esOperacionCorrecta = databaseManager.insertarUsuario(nuevoUsuario);
+        return esOperacionCorrecta;
+    }
+
+    private void eligeColor(View view)
     {
         ColorPickerDialogBuilder
                 .with(this)
@@ -194,5 +242,11 @@ public class UsuarioExistenteActivity extends MasterActivity {
                 })
                 .build()
                 .show();
+    }
+
+    private void mostrarActividadListadoUsuarios() {
+        Intent intent = new Intent(this, UsuariosActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

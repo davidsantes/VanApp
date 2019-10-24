@@ -29,7 +29,7 @@
             android:parentActivityName=".ColorPickerTestActivity">
         </activity>
         <activity
-            android:name=".PresentationLayerUsuarios.UsuarioExistenteActivity"
+            android:name=".PresentationLayerUsuarios.UsuarioDetalleActivity"
             android:label="@string/titulo_usuario_detalle_editar"
             android:parentActivityName=".PresentationLayerUsuarios.UsuariosActivity">
         </activity>
