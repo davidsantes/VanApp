@@ -183,8 +183,8 @@ public class UsuarioExistenteActivity extends MasterActivity {
                 .setPositiveButton(R.string.txtAceptar, new ColorPickerClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
-                        Toast.makeText(UsuarioExistenteActivity.this, R.string.msgInfoColorSeleccionado + ": 0x" + Integer.toHexString(selectedColor), Toast.LENGTH_LONG).show();
-                        txtColor.setBackgroundColor(selectedColor);
+                    txtColor.setText(Integer.toHexString(selectedColor));
+                    txtColor.setBackgroundColor(selectedColor);
                     }
                 })
                 .setNegativeButton(R.string.txtCancelar, new DialogInterface.OnClickListener() {

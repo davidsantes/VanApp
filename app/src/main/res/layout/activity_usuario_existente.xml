@@ -29,13 +29,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                app:srcCompat="@drawable/ic_action_list"  />
+                app:srcCompat="@drawable/ic_assignment"  />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_nombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
+                android:layout_marginLeft="@dimen/margin_usuario_columna_insertar_datos"
                 app:counterEnabled="true"
                 app:counterMaxLength="30"
                 app:errorEnabled="true">
@@ -65,13 +65,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                app:srcCompat="@drawable/ic_action_list" />
+                app:srcCompat="@drawable/ic_assignment" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_apellido1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
+                android:layout_marginLeft="@dimen/margin_usuario_columna_insertar_datos"
                 app:counterEnabled="true"
                 app:counterMaxLength="30"
                 app:errorEnabled="true">
@@ -101,13 +101,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                app:srcCompat="@drawable/ic_action_list" />
+                app:srcCompat="@drawable/ic_assignment" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_apellido2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
+                android:layout_marginLeft="@dimen/margin_usuario_columna_insertar_datos"
                 app:counterEnabled="true"
                 app:counterMaxLength="30"
                 app:errorEnabled="true">
@@ -137,13 +137,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                app:srcCompat="@drawable/ic_action_users" />
+                app:srcCompat="@drawable/ic_pets" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_alias"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
+                android:layout_marginLeft="@dimen/margin_usuario_columna_insertar_datos"
                 app:counterEnabled="true"
                 app:counterMaxLength="30"
                 app:errorEnabled="true">
@@ -173,13 +173,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                app:srcCompat="@drawable/ic_email" />
+                app:srcCompat="@drawable/ic_contact_mail" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
+                android:layout_marginLeft="@dimen/margin_usuario_columna_insertar_datos"
                 app:counterEnabled="true"
                 app:counterMaxLength="30"
                 app:errorEnabled="true">
@@ -210,14 +210,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                app:srcCompat="@drawable/ic_action_emo_cool" />
+                app:srcCompat="@drawable/ic_face" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="@dimen/margin_usuario_columna_insertar_datos"
                 android:onClick="pickColor"
-                android:text="Pick a color"
+                android:text="@string/msgInfoEligeColor"
                 />
             <TextView
                 android:id="@+id/txtcolor"
@@ -234,6 +234,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/area_fecha_alta"
+            android:layout_marginTop="12dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -243,24 +244,15 @@
                 android:layout_gravity="center_vertical"
                 app:srcCompat="@drawable/ic_date_range" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_fecha_alta"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
-                app:counterEnabled="true"
-                app:counterMaxLength="30"
-                app:errorEnabled="true">
-
                 <TextView
                     android:id="@+id/tv_fecha_alta"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_usuario_columna_insertar_datos"
                     android:ems="10"
                     android:hint="@string/hint_fecha_alta"
                     android:inputType="text"
                     android:singleLine="true" />
-            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
         <!-- Barra de botones -->
