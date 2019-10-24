@@ -5,7 +5,6 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.vanapp.Dal.DatabaseManager;
 import com.example.vanapp.MasterActivity;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -19,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vanapp.Common.Constantes;
-import com.example.vanapp.Mocks.UtilidadesMock;
 import com.example.vanapp.R;
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
@@ -32,6 +30,7 @@ import com.example.vanapp.Entities.Usuario;
 public class UsuarioDetalleActivity extends MasterActivity {
 
     DatabaseManager databaseManager;
+    Usuario usuarioActual;
 
     //Componentes de la capa de presentación
     private Toolbar menuMasterToolbar;
@@ -47,7 +46,7 @@ public class UsuarioDetalleActivity extends MasterActivity {
     private EditText txt_apellido2;
     private EditText txt_alias;
     private EditText txt_email;
-    private TextView txtColor;
+    private TextView tv_Color;
     private TextView tv_fecha_alta;
 
     private Button botonCancelar;
@@ -85,7 +84,7 @@ public class UsuarioDetalleActivity extends MasterActivity {
         txt_alias = findViewById(R.id.txt_alias);
         txt_email = findViewById(R.id.txt_email);
 
-        txtColor = findViewById(R.id.txtcolor);
+        tv_Color = findViewById(R.id.txtcolor);
         tv_fecha_alta = findViewById(R.id.tv_fecha_alta);
 
         // Referencias Botones
@@ -110,8 +109,9 @@ public class UsuarioDetalleActivity extends MasterActivity {
         botonAceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (esEntradaDatosCorrecta() && insertarUsuario()){
+                if (esEntradaDatosCorrecta() && insertarNuevoUsuario()){
                     Toast.makeText(getApplicationContext(), R.string.msgOperacionOk, Toast.LENGTH_SHORT).show();
+                    mostrarActividadListadoUsuarios();
                 }
                 else {
                     Toast.makeText(getApplicationContext(), R.string.msgOperacionKo, Toast.LENGTH_SHORT).show();
@@ -193,25 +193,27 @@ public class UsuarioDetalleActivity extends MasterActivity {
         esValorValido(til_apellido2) &&
         esValorValido(til_alias) &&
         esValorValido(til_email) &&
-        txtColor.getText().length() > 0){
+        tv_Color.getText().length() > 0){
             return true;
         }
 
         return false;
     }
 
-    private boolean insertarUsuario() {
+    private boolean insertarNuevoUsuario() {
         boolean esOperacionCorrecta = false;
 
-        Usuario nuevoUsuario = new Usuario();
-        nuevoUsuario.setNombre(UtilidadesMock.generarRandomString(5));
-        nuevoUsuario.setApellido1(UtilidadesMock.generarRandomString(5));
-        nuevoUsuario.setApellido2(UtilidadesMock.generarRandomString(5));
-        nuevoUsuario.setAlias(UtilidadesMock.generarRandomString(10));
-        nuevoUsuario.setEmail("aaa@gmail.com");
-        nuevoUsuario.setColorUsuario("E46AFF");
+        usuarioActual = new Usuario();
+        usuarioActual.setNombre(txt_nombre.getText().toString());
+        usuarioActual.setApellido1(txt_apellido1.getText().toString());
+        usuarioActual.setApellido2(txt_apellido2.getText().toString());
+        usuarioActual.setAlias(txt_alias.getText().toString());
+        usuarioActual.setEmail(txt_email.getText().toString());
+        usuarioActual.setColorUsuario(tv_Color.getText().toString());
+        if (usuarioActual.esEstadoValido()){
+            esOperacionCorrecta = databaseManager.insertarUsuario(usuarioActual);
+        }
 
-        esOperacionCorrecta = databaseManager.insertarUsuario(nuevoUsuario);
         return esOperacionCorrecta;
     }
 
@@ -231,8 +233,8 @@ public class UsuarioDetalleActivity extends MasterActivity {
                 .setPositiveButton(R.string.txtAceptar, new ColorPickerClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
-                    txtColor.setText(Integer.toHexString(selectedColor));
-                    txtColor.setBackgroundColor(selectedColor);
+                    tv_Color.setText(Integer.toHexString(selectedColor));
+                    tv_Color.setBackgroundColor(selectedColor);
                     }
                 })
                 .setNegativeButton(R.string.txtCancelar, new DialogInterface.OnClickListener() {

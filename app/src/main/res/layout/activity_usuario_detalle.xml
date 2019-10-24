@@ -192,8 +192,7 @@
                     android:ems="10"
                     android:hint="@string/hint_email"
                     android:inputType="textEmailAddress"
-                    android:singleLine="true"
-                    app:errorEnabled="true" />
+                    android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
