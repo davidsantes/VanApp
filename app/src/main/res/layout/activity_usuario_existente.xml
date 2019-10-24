@@ -118,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:maxLength="30"
                     android:ems="10"
-                    android:hint="@string/hint_apellido1"
+                    android:hint="@string/hint_apellido2"
                     android:inputType="text"
                     android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
