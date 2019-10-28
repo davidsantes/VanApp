@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
 
 import com.example.vanapp.Dal.DatabaseSchemaContracts.Usuarios;
+import com.example.vanapp.Dal.DatabaseSchemaContracts.Coches;
 
 public class DatabaseSchema extends SQLiteOpenHelper {
 
@@ -21,11 +22,14 @@ public class DatabaseSchema extends SQLiteOpenHelper {
 
     interface Tablas {
         String USUARIOS = "Usuarios";
+        String COCHES = "Coches";
     }
 
     interface Referencias {
         String ID_USUARIO = String.format("REFERENCES %s(%s)",
                 Tablas.USUARIOS, Usuarios.ID_USUARIO);
+        String ID_COCHE = String.format("REFERENCES %s(%s)",
+                Tablas.COCHES, Coches.ID_COCHE);
     }
 
     @Override
@@ -47,31 +51,8 @@ public class DatabaseSchema extends SQLiteOpenHelper {
      * */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String queryCreateTablaUsuarios = String.format("CREATE TABLE %s ( "
-                        + "%s TEXT PRIMARY KEY" //Usuarios.ID_USUARIO
-                        + ",%s TEXT NOT NULL"   //Usuarios.NOMBRE
-                        + ",%s TEXT NOT NULL"   //Usuarios.APELLIDO_1
-                        + ",%s TEXT NOT NULL"   //Usuarios.APELLIDO_2
-                        + ",%s TEXT NOT NULL"   //Usuarios.ALIAS
-                        + ",%s TEXT NOT NULL"   //Usuarios.ACTIVO
-                        + ",%s TEXT NOT NULL"   //Usuarios.EMAIL
-                        + ",%s TEXT NOT NULL"   //Usuarios.COLOR_USUARIO
-                        + ",%s LONG NOT NULL"   //Usuarios.FECHA_ALTA
-                        + " )",
-                        Tablas.USUARIOS
-                        , Usuarios.ID_USUARIO
-                        , Usuarios.NOMBRE
-                        , Usuarios.APELLIDO_1
-                        , Usuarios.APELLIDO_2
-                        , Usuarios.ALIAS
-                        , Usuarios.ACTIVO
-                        , Usuarios.EMAIL
-                        , Usuarios.COLOR_USUARIO
-                        , Usuarios.FECHA_ALTA
-
-        );
-
-        db.execSQL(queryCreateTablaUsuarios);
+        CrearTablaUsuarios(db);
+        //CrearTablaCoches(db);
     }
 
     /* Sólo se llama cuando el fichero de BDD existe pero el número de versión es inferior al solicitado en el constructor
@@ -82,5 +63,54 @@ public class DatabaseSchema extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + Tablas.USUARIOS);
 
         onCreate(db);
+    }
+
+    private void CrearTablaUsuarios(SQLiteDatabase db){
+        String queryCreateTablaUsuarios = String.format("CREATE TABLE %s ( "
+                        + "%s TEXT PRIMARY KEY" //Usuarios.ID_USUARIO
+                        + ",%s TEXT NOT NULL"   //Usuarios.NOMBRE
+                        + ",%s TEXT NOT NULL"   //Usuarios.APELLIDO_1
+                        + ",%s TEXT NOT NULL"   //Usuarios.APELLIDO_2
+                        + ",%s TEXT NOT NULL"   //Usuarios.ALIAS
+                        + ",%s INTEGER NOT NULL"   //Usuarios.ACTIVO
+                        + ",%s TEXT NOT NULL"   //Usuarios.EMAIL
+                        + ",%s TEXT NOT NULL"   //Usuarios.COLOR_USUARIO
+                        + ",%s DATE NOT NULL"   //Usuarios.FECHA_ALTA
+                        + " )",
+                Tablas.USUARIOS
+                , Usuarios.ID_USUARIO
+                , Usuarios.NOMBRE
+                , Usuarios.APELLIDO_1
+                , Usuarios.APELLIDO_2
+                , Usuarios.ALIAS
+                , Usuarios.ACTIVO
+                , Usuarios.EMAIL
+                , Usuarios.COLOR_USUARIO
+                , Usuarios.FECHA_ALTA
+
+        );
+
+        db.execSQL(queryCreateTablaUsuarios);
+    }
+
+    private void CrearTablaCoches(SQLiteDatabase db){
+        String queryCreateTablaCoches = String.format("CREATE TABLE %s ( "
+                        + "%s TEXT PRIMARY KEY" //Coches.ID_COCHE
+                        + ",%s TEXT NOT NULL"   //Coches.NOMBRE
+                        + ",%s TEXT NOT NULL"   //Coches.MATRICULA
+                        + ",%s TEXT NOT NULL"   //Coches.NUMERO_PLAZAS
+                        + ",%s INTEGER NOT NULL"   //Coches.ACTIVO
+                        + ",%s LONG NOT NULL"   //Coches.FECHA_ALTA
+                        + " )",
+                Tablas.COCHES
+                , Coches.ID_COCHE
+                , Coches.NOMBRE
+                , Coches.MATRICULA
+                , Coches.NUMERO_PLAZAS
+                , Coches.ACTIVO
+                , Coches.FECHA_ALTA
+        );
+
+        db.execSQL(queryCreateTablaCoches);
     }
 }
