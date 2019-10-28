@@ -8,6 +8,8 @@
     <string name="titulo_usuarios">VanApp - Lista de usuarios</string>
     <string name="titulo_usuario_detalle_consulta">VanApp - Detalle del usuario</string>
     <string name="titulo_usuario_detalle_editar">VanApp - Añadir usuario</string>
+    <string name="tituloConfirmaSalir">Confirmar salir</string>
+    <string name="tituloConfirmaEliminar">Confirmar eliminar</string>
 
     <string name="hint_nombre">Nombre</string>
     <string name="hint_apellido1">Primer apellido</string>
@@ -18,8 +20,10 @@
 
     <string name="txtLogOff">Salir</string>
     <string name="txtNuevo">Nuevo</string>
+    <string name="txtEliminarTodosLosUsuarios">Eliminar usuarios</string>
     <string name="txtPersonalizacion">Mis cosas</string>
 
+    <string name="txtEliminar">Eliminar</string>
     <string name="txtAceptar">Aceptar</string>
     <string name="txtCancelar">Cancelar</string>
 
@@ -31,8 +35,11 @@
     <string name="msgInfoColorSeleccionado">Color seleccionado</string>
     <string name="msgInfoEligeColor">Elige color</string>
     <string name="msgErrorValorInvalido">El campo tiene un valor o longitud inválida</string>
-    <string name="tituloConfirmaSalir">Confirmar salir</string>
+
     <string name="msgConfirmarSalir">Qué pena, ¿de verdad te quieres marchar? :(</string>
+    <string name="msgConfirmarEliminarTodosUsuarios">Wow, esta acción eliminará todos los usuarios y los datos relacionados ¿deseas continuar?</string>
+    <string name="msgConfirmarEliminarUsuario">Wow, esta acción eliminará el usuario y los datos relacionados ¿deseas continuar?</string>
     <string name="msgOperacionOk">Operación realizada correctamente</string>
     <string name="msgOperacionKo">Ups, algo ha salido mal :(</string>
+    <string name="msgDatosIncorrectos">Me parece que los datos son incorrectos</string>
 </resources>

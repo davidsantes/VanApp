@@ -112,7 +112,7 @@ public class DatabaseManager {
         valores.put(Usuarios.ACTIVO, usuario.getActivo());
         valores.put(Usuarios.EMAIL, usuario.getEmail());
         valores.put(Usuarios.COLOR_USUARIO, usuario.getColorUsuario());
-        valores.put(Usuarios.FECHA_ALTA, usuario.getFechaToString());
+        //valores.put(Usuarios.FECHA_ALTA, usuario.getFechaToString());
 
         String whereClause = String.format("%s=?", Usuarios.ID_USUARIO);
         final String[] whereArgs = {usuario.getIdUsuario()};

@@ -1,12 +1,13 @@
 package com.example.vanapp.PresentationLayerUsuarios;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -22,12 +23,11 @@ public class UsuariosActivity extends MasterActivity {
     //Componentes de la capa de presentación
     private Toolbar menuMasterToolbar;
     Button btn_nuevo_usuario;
-    Button btn_sign_out;
+    Button btn_eliminar_todos;
     ListView listViewUsuarios;
 
     //Variables
     ArrayList<Usuario> listaUsuarios;
-    ArrayAdapter adaptador;
     DatabaseManager databaseManager;
 
     @Override
@@ -46,18 +46,21 @@ public class UsuariosActivity extends MasterActivity {
     }
 
     private void enlazarEventosConObjetos(){
-        btn_nuevo_usuario = (Button)findViewById(R.id.btn_nuevo_usuario);
+        btn_nuevo_usuario = findViewById(R.id.btn_nuevo_usuario);
         btn_nuevo_usuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            mostrarActividadNuevoUsuario();
+                mostrarActividadUsuarioDetalle("");
             }
         });
-    }
 
-    private void mostrarActividadNuevoUsuario() {
-        Intent intentActividadUsuarioDetalleNuevo = new Intent(this, UsuarioDetalleActivity.class);
-        startActivity(intentActividadUsuarioDetalleNuevo);
+        btn_eliminar_todos = findViewById(R.id.btn_eliminar_todos);
+        btn_eliminar_todos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                confirmarEliminarTodos();
+            }
+        });
     }
 
     /**
@@ -65,7 +68,7 @@ public class UsuariosActivity extends MasterActivity {
      */
     private void mostrarResultados(){
         listaUsuarios = new ArrayList<Usuario>();
-        listViewUsuarios = (ListView)findViewById(R.id.listViewUsuarios);
+        listViewUsuarios = findViewById(R.id.listViewUsuarios);
         databaseManager = DatabaseManager.obtenerInstancia(getApplicationContext());
         
         listaUsuarios = databaseManager.obtenerUsuarios();
@@ -74,16 +77,57 @@ public class UsuariosActivity extends MasterActivity {
         UsuariosAdapter adapter = new UsuariosAdapter(this, listaUsuarios);
 
         // Attach the adapter to a ListView
-        listViewUsuarios = (ListView) findViewById(R.id.listViewUsuarios);
+        listViewUsuarios = findViewById(R.id.listViewUsuarios);
         listViewUsuarios.setAdapter(adapter);
 
         listViewUsuarios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Usuario usuarioItem = (Usuario)listViewUsuarios.getItemAtPosition(position);
-
-                Toast.makeText(getApplicationContext(), usuarioItem.getAlias(), Toast.LENGTH_SHORT).show();
+            Usuario usuarioItem = (Usuario)listViewUsuarios.getItemAtPosition(position);
+            mostrarActividadUsuarioDetalle(usuarioItem.getIdUsuario());
             }
         });
+    }
+
+    private void confirmarEliminarTodos(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.tituloConfirmaEliminar);
+        builder.setMessage(R.string.msgConfirmarEliminarTodosUsuarios);
+        builder.setCancelable(false);
+        builder.setPositiveButton(R.string.txtAceptar, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                eliminarTodos();
+            }
+        });
+
+        builder.setNegativeButton(R.string.txtCancelar, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+
+        builder.show();
+    }
+
+    private void eliminarTodos(){
+        boolean esOperacionCorrecta = false;
+        esOperacionCorrecta = databaseManager.eliminarUsuariosTodos();
+
+        if (esOperacionCorrecta){
+            Toast.makeText(getApplicationContext(), R.string.msgOperacionOk, Toast.LENGTH_SHORT).show();
+            //Se carga a sí misma
+            Intent intentActividad = new Intent(this, UsuariosActivity.class);
+            startActivity(intentActividad);
+        }
+        else {
+            Toast.makeText(getApplicationContext(), R.string.msgOperacionKo, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void mostrarActividadUsuarioDetalle(String idUsuario) {
+        Intent intentActividad = new Intent(this, UsuarioDetalleActivity.class);
+        intentActividad.putExtra("ID_USUARIO", idUsuario);
+        startActivity(intentActividad);
     }
 }

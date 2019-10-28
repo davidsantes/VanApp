@@ -14,19 +14,20 @@
 
         <activity android:name=".MainActivity"
             android:label="@string/titulo_login">
+
+        </activity>
+        <activity android:name=".MainSplashActivity"></activity>
+        <activity android:name=".MenuInicialActivity"
+            android:label="@string/titulo_menu_principal">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainSplashActivity"></activity>
-        <activity android:name=".MenuInicialActivity"
-            android:label="@string/titulo_menu_principal">
-        </activity>
         <activity
             android:name=".PresentationLayerUsuarios.UsuariosActivity"
             android:label="@string/titulo_usuarios"
-            android:parentActivityName=".ColorPickerTestActivity">
+            android:parentActivityName=".MenuInicialActivity">
         </activity>
         <activity
             android:name=".PresentationLayerUsuarios.UsuarioDetalleActivity"
@@ -38,10 +39,6 @@
             android:label="VanApp - Test Activity"
             android:parentActivityName=".PresentationLayerUsuarios.UsuariosActivity">
         </activity>
-        <activity
-            android:name=".PresentationLayerUsuarios.UsuarioAltaActivity"
-            android:label="@string/titulo_usuario_detalle_consulta"
-            android:parentActivityName=".PresentationLayerUsuarios.UsuariosActivity"></activity>
         <activity android:name=".TestUsuariosActivity"></activity>
         <activity android:name=".DatabaseTestActivity"></activity>
     </application>

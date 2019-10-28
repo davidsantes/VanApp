@@ -31,12 +31,12 @@
             android:text="@string/txtNuevo" />
 
         <Button
-            android:id="@+id/btn_test"
+            android:id="@+id/btn_eliminar_todos"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="test" />
+            android:text="@string/txtEliminarTodosLosUsuarios" />
     </LinearLayout>
 
 </LinearLayout>
