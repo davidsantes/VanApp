@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.vanapp.Entities.Coche;
 import com.example.vanapp.Entities.Usuario;
 import com.example.vanapp.Dal.DatabaseSchemaContracts.*;
 import com.example.vanapp.Dal.DatabaseSchema.*;
@@ -34,7 +35,7 @@ public class DatabaseManager {
         return baseDatos.getWritableDatabase();
     }
 
-    // [OPERACIONES_USUARIO]
+    // INICIO [OPERACIONES_USUARIO]
 
     /* Retorna un usuario mapeado a través de los datos proporcionados por el cursor  */
     private Usuario mapearUsuario(Cursor cursor){
@@ -112,7 +113,6 @@ public class DatabaseManager {
         valores.put(Usuarios.ACTIVO, usuario.getActivo());
         valores.put(Usuarios.EMAIL, usuario.getEmail());
         valores.put(Usuarios.COLOR_USUARIO, usuario.getColorUsuario());
-        //valores.put(Usuarios.FECHA_ALTA, usuario.getFechaToString());
 
         String whereClause = String.format("%s=?", Usuarios.ID_USUARIO);
         final String[] whereArgs = {usuario.getIdUsuario()};
@@ -160,5 +160,126 @@ public class DatabaseManager {
 
         return resultado > 0;
     }
+
+    // FIN [OPERACIONES_USUARIO]
+
+    // INICIO [OPERACIONES_COCHE]
+
+    /* Retorna un usuario mapeado a través de los datos proporcionados por el cursor  */
+    private Coche mapearCoche(Cursor cursor){
+        Coche nuevoCoche = new Coche();
+        nuevoCoche.setIdCoche(cursor.getString(cursor.getColumnIndex(ColumnasTablaCoches.ID_COCHE)));
+        nuevoCoche.setNombre(cursor.getString(cursor.getColumnIndex(ColumnasTablaCoches.NOMBRE)));
+        nuevoCoche.setMatricula(cursor.getString(cursor.getColumnIndex(ColumnasTablaCoches.MATRICULA)));
+        nuevoCoche.setNumPlazas(cursor.getInt(cursor.getColumnIndex(ColumnasTablaCoches.NUMERO_PLAZAS)));
+        nuevoCoche.setActivo(cursor.getInt(cursor.getColumnIndex(ColumnasTablaCoches.ACTIVO)) == 1);
+        nuevoCoche.setFechaAltaFromString(cursor.getString(cursor.getColumnIndex(ColumnasTablaCoches.FECHA_ALTA)));
+        return nuevoCoche;
+    }
+
+    public ArrayList obtenerCoches() {
+        ArrayList<Coche> listaCoches = new ArrayList<>();
+        SQLiteDatabase db = baseDatos.getReadableDatabase();
+        String sql = String.format("SELECT * FROM %s", Tablas.COCHES);
+        Cursor cursor = db.rawQuery(sql, null);
+
+        if (cursor.moveToFirst())
+        {
+            do{
+                listaCoches.add(mapearCoche(cursor));
+            }while (cursor.moveToNext());
+        }
+
+        return listaCoches;
+    }
+
+    public Coche obtenerCoche(String idCoche){
+        Coche nuevoCoche = null;
+
+        SQLiteDatabase db = baseDatos.getReadableDatabase();
+        String sqlQuery = "SELECT * FROM " + Tablas.COCHES + " WHERE Id = '" + idCoche + "'";
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+
+        if (cursor.moveToFirst()){
+            nuevoCoche = mapearCoche(cursor);
+        }
+
+        return nuevoCoche;
+    }
+
+    public boolean insertarCoche(Coche coche) {
+        SQLiteDatabase db = baseDatos.getWritableDatabase();
+
+        ContentValues valores = new ContentValues();
+        valores.put(Coches.ID_COCHE, coche.getIdCoche());
+        valores.put(Coches.NOMBRE, coche.getNombre());
+        valores.put(Coches.MATRICULA, coche.getMatricula());
+        valores.put(Coches.NUMERO_PLAZAS, coche.getNumPlazas());
+        valores.put(Coches.ACTIVO, coche.getActivo());
+        valores.put(Coches.FECHA_ALTA, coche.getFechaToString());
+
+        //Retorna el id de la fila del nuevo registro insertado, o -1 si ha ocurrido un error
+        long rowId = db.insertOrThrow(Tablas.COCHES, null, valores);
+
+        return rowId > 0 ? true : false;
+    }
+
+    public boolean actualizarCoche(Coche coche) {
+        SQLiteDatabase db = baseDatos.getWritableDatabase();
+
+        ContentValues valores = new ContentValues();
+        valores.put(Coches.NOMBRE, coche.getNombre());
+        valores.put(Coches.MATRICULA, coche.getMatricula());
+        valores.put(Coches.NUMERO_PLAZAS, coche.getNumPlazas());
+        valores.put(Coches.ACTIVO, coche.getActivo());
+
+        String whereClause = String.format("%s=?", Coches.ID_COCHE);
+        final String[] whereArgs = {coche.getIdCoche()};
+
+        int resultado = db.update(Tablas.COCHES, valores, whereClause, whereArgs);
+
+        return resultado > 0;
+    }
+
+    /**
+     * Elimina todos los usuarios o uno en concreto.
+     */
+    public boolean eliminarCochesTodos() {
+        int resultado = 0;
+        SQLiteDatabase db = baseDatos.getWritableDatabase();
+
+        final String[] whereArgs = {};
+        resultado = db.delete(Tablas.COCHES, "", whereArgs);
+
+        return resultado > 0;
+    }
+
+    /**
+     * Elimina un usuario concreto.
+     * @param idCoche Si no se pasa nada, eliminará toda la tabla.
+     * @param esBorradoLogico indica si el borrado es lógico (se actualiza el campo activo) o físico (se elimina definitivamente de la Bdd)
+     */
+    public boolean eliminarCoche(String idCoche, boolean esBorradoLogico) {
+        int resultado = 0;
+        SQLiteDatabase db = baseDatos.getWritableDatabase();
+
+        if (esBorradoLogico) {
+            ContentValues valores = new ContentValues();
+            valores.put(Coches.ACTIVO, false);
+
+            String whereClause = String.format("%s=?", Coches.ID_COCHE);
+            final String[] whereArgs = {idCoche};
+
+            resultado = db.update(Tablas.COCHES, valores, whereClause, whereArgs);
+        }else{
+            String whereClause = String.format("%s=?", Coches.ID_COCHE);
+            final String[] whereArgs = {idCoche};
+            resultado = db.delete(Tablas.COCHES, whereClause, whereArgs);
+        }
+
+        return resultado > 0;
+    }
+
+    // FIN [OPERACIONES_COCHE]
 }
 

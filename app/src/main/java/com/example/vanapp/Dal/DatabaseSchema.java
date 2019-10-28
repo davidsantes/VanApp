@@ -52,16 +52,17 @@ public class DatabaseSchema extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         CrearTablaUsuarios(db);
-        //CrearTablaCoches(db);
+        CrearTablaCoches(db);
     }
 
     /* Sólo se llama cuando el fichero de BDD existe pero el número de versión es inferior al solicitado en el constructor
      * */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
         db.execSQL("DROP TABLE IF EXISTS " + Tablas.USUARIOS);
+        onCreate(db);
 
+        db.execSQL("DROP TABLE IF EXISTS " + Tablas.COCHES);
         onCreate(db);
     }
 
