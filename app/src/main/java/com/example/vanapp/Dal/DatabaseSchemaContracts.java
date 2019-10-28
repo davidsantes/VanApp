@@ -9,6 +9,7 @@ public class DatabaseSchemaContracts {
     private DatabaseSchemaContracts() {
     }
 
+    //USUARIOS
     interface ColumnasTablaUsuarios {
         String ID_USUARIO = "Id";
         String NOMBRE = "Nombre";
@@ -22,6 +23,20 @@ public class DatabaseSchemaContracts {
     }
 
     public static class Usuarios implements DatabaseSchemaContracts.ColumnasTablaUsuarios {
+
+    }
+
+    //COCHES
+    interface ColumnasTablaCoches {
+        String ID_COCHE = "Id";
+        String NOMBRE = "Nombre";
+        String MATRICULA = "Matricula";
+        String NUMERO_PLAZAS = "NumeroPlazas";
+        String ACTIVO = "Activo";
+        String FECHA_ALTA = "FechaAlta";
+    }
+
+    public static class Coches implements DatabaseSchemaContracts.ColumnasTablaCoches {
 
     }
 }
