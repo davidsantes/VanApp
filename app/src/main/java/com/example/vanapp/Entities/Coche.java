@@ -12,11 +12,13 @@ public class Coche {
     private String nombre;
     private String matricula;
     private int numPlazas = 0;
+    private String colorCoche;
     private boolean activo = true;
     private Date fechaAlta = new Date();
 
     public Coche(){
         this.setIdCoche(generarIdUnico());
+        this.setColorCoche(COLOR_POR_DEFECTO_COCHE);
         this.setActivo(true);
     }
 
@@ -28,6 +30,7 @@ public class Coche {
         this.setNombre(nombre);
         this.setMatricula(matricula);
         this.setNumPlazas(numPlazas);
+        this.setColorCoche(COLOR_POR_DEFECTO_COCHE);
         this.setActivo(activo);
     }
 
@@ -36,6 +39,9 @@ public class Coche {
     public String getNombre() { return nombre; }
     public String getMatricula() { return matricula; }
     public int getNumPlazas() { return numPlazas; }
+    public String getColorCoche() {
+        return colorCoche;
+    }
     public boolean getActivo() { return activo; }
     public Date getFechaAlta() { return fechaAlta; }
     public String getNombreCompleto() {
@@ -59,6 +65,9 @@ public class Coche {
     }
     public void setNumPlazas(int numPlazas) {
         this.numPlazas = numPlazas;
+    }
+    public void setColorCoche(String colorCoche) {
+        this.colorCoche = colorCoche;
     }
     public void setActivo(boolean activo) {
         this.activo = activo;
@@ -90,6 +99,7 @@ public class Coche {
         if(nombre != null && !nombre.isEmpty()
                 && nombre != null && !nombre.isEmpty()
                 && matricula != null && !matricula.isEmpty()
+                && colorCoche != null && !colorCoche.isEmpty()
         ){
             esEstadoValido = true;
         }
@@ -102,6 +112,7 @@ public class Coche {
         sb.append("ID: ").append(getIdCoche()).append(SALTO_LINEA);
         sb.append("Nombre: ").append(getNombreCompleto()).append(SALTO_LINEA);
         sb.append("Número plazas: ").append(getNumPlazas()).append(SALTO_LINEA);
+        sb.append("Color de coche: ").append(getColorCoche()).append(SALTO_LINEA);
         sb.append("Activo: ").append(getActivo()).append(SALTO_LINEA);
         sb.append("FechaAlta: ").append(getFechaToString()).append(SALTO_LINEA);
         sb.append("EsEstadoValido: ").append(esEstadoValido()).append(SALTO_LINEA);

@@ -53,9 +53,7 @@ public class Usuario {
     public String getAlias() {
         return alias;
     }
-    public boolean getActivo() {
-        return activo;
-    }
+    public boolean getActivo() { return activo; }
     public String getEmail() {
         return email;
     }

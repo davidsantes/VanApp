@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.vanapp.PresentationLayerCoches.CochesActivity;
 import com.example.vanapp.PresentationLayerUsuarios.UsuariosActivity;
 
 public class MenuInicialActivity extends MasterActivity {
@@ -70,11 +71,9 @@ public class MenuInicialActivity extends MasterActivity {
         startActivity(intentActividad);
     }
 
-    //TODO: por implementar
     private void mostrarActividadCoches() {
-        Toast.makeText(getApplicationContext(), "Por implementar", Toast.LENGTH_SHORT).show();
-        //Intent intentActividad = new Intent(this, UsuarioDetalleActivity.class);
-        //startActivity(intentActividad);
+        Intent intentActividad = new Intent(this, CochesActivity.class);
+        startActivity(intentActividad);
     }
 
     //TODO: por implementar

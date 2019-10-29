@@ -11,36 +11,41 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".MainActivity"
-            android:label="@string/titulo_login">
-
-        </activity>
-        <activity android:name=".MainSplashActivity"></activity>
-        <activity android:name=".MenuInicialActivity"
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/titulo_login" />
+        <activity android:name=".MainSplashActivity" />
+        <activity
+            android:name=".MenuInicialActivity"
             android:label="@string/titulo_menu_principal">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".PresentationLayerUsuarios.UsuariosActivity"
             android:label="@string/titulo_usuarios"
-            android:parentActivityName=".MenuInicialActivity">
-        </activity>
+            android:parentActivityName=".MenuInicialActivity"></activity>
         <activity
             android:name=".PresentationLayerUsuarios.UsuarioDetalleActivity"
-            android:label="@string/titulo_usuario_detalle_editar"
-            android:parentActivityName=".PresentationLayerUsuarios.UsuariosActivity">
+            android:label="@string/titulo_usuario_detalle"
+            android:parentActivityName=".PresentationLayerUsuarios.UsuariosActivity"></activity>
+        <activity
+            android:name=".PresentationLayerCoches.CochesActivity"
+            android:label="@string/titulo_coches"
+            android:parentActivityName=".MenuInicialActivity"></activity>
+        <activity android:name=".PresentationLayerCoches.CocheDetalleActivity"
+            android:label="@string/titulo_coche_detalle"
+            android:parentActivityName=".PresentationLayerCoches.CochesActivity">
         </activity>
         <activity
             android:name=".ColorPickerTestActivity"
             android:label="VanApp - Test Activity"
-            android:parentActivityName=".PresentationLayerUsuarios.UsuariosActivity">
-        </activity>
-        <activity android:name=".TestUsuariosActivity"></activity>
-        <activity android:name=".DatabaseTestActivity"></activity>
+            android:parentActivityName=".PresentationLayerUsuarios.UsuariosActivity" />
+        <activity android:name=".TestUsuariosActivity" />
+        <activity android:name=".DatabaseTestActivity" />
     </application>
 
 </manifest>

@@ -16,10 +16,10 @@ public class DatabaseSchemaContracts {
         String APELLIDO_1 = "Apellido1";
         String APELLIDO_2 = "Apellido2";
         String ALIAS = "Alias";
-        String ACTIVO = "Activo";
         String EMAIL = "Email";
         String COLOR_USUARIO = "ColorUsuario";
         String FECHA_ALTA = "FechaAlta";
+        String ACTIVO = "Activo";
     }
 
     public static class Usuarios implements DatabaseSchemaContracts.ColumnasTablaUsuarios {
@@ -32,8 +32,9 @@ public class DatabaseSchemaContracts {
         String NOMBRE = "Nombre";
         String MATRICULA = "Matricula";
         String NUMERO_PLAZAS = "NumeroPlazas";
-        String ACTIVO = "Activo";
+        String COLOR_COCHE = "ColorCoche";
         String FECHA_ALTA = "FechaAlta";
+        String ACTIVO = "Activo";
     }
 
     public static class Coches implements DatabaseSchemaContracts.ColumnasTablaCoches {

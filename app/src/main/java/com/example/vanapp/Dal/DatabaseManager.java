@@ -45,10 +45,10 @@ public class DatabaseManager {
         nuevoUsuario.setApellido1(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.APELLIDO_1)));
         nuevoUsuario.setApellido2(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.APELLIDO_2)));
         nuevoUsuario.setAlias(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.ALIAS)));
-        nuevoUsuario.setActivo(cursor.getInt(cursor.getColumnIndex(ColumnasTablaUsuarios.ACTIVO)) == 1);
         nuevoUsuario.setEmail(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.EMAIL)));
         nuevoUsuario.setColorUsuario(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.COLOR_USUARIO)));
         nuevoUsuario.setFechaAltaFromString(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.FECHA_ALTA)));
+        nuevoUsuario.setActivo(cursor.getInt(cursor.getColumnIndex(ColumnasTablaUsuarios.ACTIVO)) == 1);
         return nuevoUsuario;
     }
 
@@ -91,9 +91,9 @@ public class DatabaseManager {
         valores.put(Usuarios.APELLIDO_1, usuario.getApellido1());
         valores.put(Usuarios.APELLIDO_2, usuario.getApellido2());
         valores.put(Usuarios.ALIAS, usuario.getAlias());
-        valores.put(Usuarios.ACTIVO, usuario.getActivo());
         valores.put(Usuarios.EMAIL, usuario.getEmail());
         valores.put(Usuarios.COLOR_USUARIO, usuario.getColorUsuario());
+        valores.put(Usuarios.ACTIVO, usuario.getActivo());
         valores.put(Usuarios.FECHA_ALTA, usuario.getFechaToString());
 
         //Retorna el id de la fila del nuevo registro insertado, o -1 si ha ocurrido un error
@@ -110,9 +110,9 @@ public class DatabaseManager {
         valores.put(Usuarios.APELLIDO_1, usuario.getApellido1());
         valores.put(Usuarios.APELLIDO_2, usuario.getApellido2());
         valores.put(Usuarios.ALIAS, usuario.getAlias());
-        valores.put(Usuarios.ACTIVO, usuario.getActivo());
         valores.put(Usuarios.EMAIL, usuario.getEmail());
         valores.put(Usuarios.COLOR_USUARIO, usuario.getColorUsuario());
+        valores.put(Usuarios.ACTIVO, usuario.getActivo());
 
         String whereClause = String.format("%s=?", Usuarios.ID_USUARIO);
         final String[] whereArgs = {usuario.getIdUsuario()};
@@ -172,6 +172,7 @@ public class DatabaseManager {
         nuevoCoche.setNombre(cursor.getString(cursor.getColumnIndex(ColumnasTablaCoches.NOMBRE)));
         nuevoCoche.setMatricula(cursor.getString(cursor.getColumnIndex(ColumnasTablaCoches.MATRICULA)));
         nuevoCoche.setNumPlazas(cursor.getInt(cursor.getColumnIndex(ColumnasTablaCoches.NUMERO_PLAZAS)));
+        nuevoCoche.setColorCoche(cursor.getString(cursor.getColumnIndex(ColumnasTablaCoches.COLOR_COCHE)));
         nuevoCoche.setActivo(cursor.getInt(cursor.getColumnIndex(ColumnasTablaCoches.ACTIVO)) == 1);
         nuevoCoche.setFechaAltaFromString(cursor.getString(cursor.getColumnIndex(ColumnasTablaCoches.FECHA_ALTA)));
         return nuevoCoche;
@@ -215,8 +216,9 @@ public class DatabaseManager {
         valores.put(Coches.NOMBRE, coche.getNombre());
         valores.put(Coches.MATRICULA, coche.getMatricula());
         valores.put(Coches.NUMERO_PLAZAS, coche.getNumPlazas());
-        valores.put(Coches.ACTIVO, coche.getActivo());
+        valores.put(Coches.COLOR_COCHE, coche.getColorCoche());
         valores.put(Coches.FECHA_ALTA, coche.getFechaToString());
+        valores.put(Coches.ACTIVO, coche.getActivo());
 
         //Retorna el id de la fila del nuevo registro insertado, o -1 si ha ocurrido un error
         long rowId = db.insertOrThrow(Tablas.COCHES, null, valores);
@@ -231,6 +233,7 @@ public class DatabaseManager {
         valores.put(Coches.NOMBRE, coche.getNombre());
         valores.put(Coches.MATRICULA, coche.getMatricula());
         valores.put(Coches.NUMERO_PLAZAS, coche.getNumPlazas());
+        valores.put(Coches.COLOR_COCHE, coche.getColorCoche());
         valores.put(Coches.ACTIVO, coche.getActivo());
 
         String whereClause = String.format("%s=?", Coches.ID_COCHE);

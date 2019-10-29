@@ -1,4 +1,4 @@
-package com.example.vanapp.PresentationLayerUsuarios;
+package com.example.vanapp.PresentationLayerCoches;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
@@ -13,27 +13,27 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.vanapp.Dal.DatabaseManager;
-import com.example.vanapp.Entities.Usuario;
+import com.example.vanapp.Entities.Coche;
 import com.example.vanapp.MasterActivity;
 import com.example.vanapp.R;
 
 import java.util.ArrayList;
 
-public class UsuariosActivity extends MasterActivity {
+public class CochesActivity extends MasterActivity {
     //Componentes de la capa de presentación
     private Toolbar menuMasterToolbar;
-    Button btn_nuevo_usuario;
+    Button btn_nuevo_coche;
     Button btn_eliminar_todos;
-    ListView listViewUsuarios;
+    ListView listViewCoches;
 
     //Variables
-    ArrayList<Usuario> listaUsuarios;
+    ArrayList<Coche> listaCoches;
     DatabaseManager databaseManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_usuarios);
+        setContentView(R.layout.activity_coches);
 
         menuMasterToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(menuMasterToolbar);
@@ -46,11 +46,11 @@ public class UsuariosActivity extends MasterActivity {
     }
 
     private void enlazarEventosConObjetos(){
-        btn_nuevo_usuario = findViewById(R.id.btn_nuevo_usuario);
-        btn_nuevo_usuario.setOnClickListener(new View.OnClickListener() {
+        btn_nuevo_coche = findViewById(R.id.btn_nuevo_coche);
+        btn_nuevo_coche.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mostrarActividadUsuarioDetalle("");
+                mostrarActividadCocheDetalle("");
             }
         });
 
@@ -67,20 +67,20 @@ public class UsuariosActivity extends MasterActivity {
      * Muestra los datos que hay en la tabla de resultados
      */
     private void mostrarResultados(){
-        listaUsuarios = new ArrayList<Usuario>();
-        listViewUsuarios = findViewById(R.id.listViewUsuarios);
+        listaCoches = new ArrayList<Coche>();
+        listViewCoches = findViewById(R.id.listViewCoches);
         databaseManager = DatabaseManager.obtenerInstancia(getApplicationContext());
 
         //Se inserta la lista rellenada dentro del adapter
-        listaUsuarios = databaseManager.obtenerUsuarios();
-        UsuariosAdapter adapter = new UsuariosAdapter(this, listaUsuarios);
-        listViewUsuarios.setAdapter(adapter);
+        listaCoches = databaseManager.obtenerCoches();
+        CochesAdapter adapter = new CochesAdapter(this, listaCoches);
+        listViewCoches.setAdapter(adapter);
 
-        listViewUsuarios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listViewCoches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Usuario usuarioItem = (Usuario)listViewUsuarios.getItemAtPosition(position);
-            mostrarActividadUsuarioDetalle(usuarioItem.getIdUsuario());
+                Coche cocheItem = (Coche) listViewCoches.getItemAtPosition(position);
+                mostrarActividadCocheDetalle(cocheItem.getIdCoche());
             }
         });
     }
@@ -88,7 +88,7 @@ public class UsuariosActivity extends MasterActivity {
     private void confirmarEliminarTodos(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.tituloConfirmaEliminar);
-        builder.setMessage(R.string.msgConfirmarEliminarTodosUsuarios);
+        builder.setMessage(R.string.msgConfirmarEliminarTodosCoches);
         builder.setCancelable(false);
         builder.setPositiveButton(R.string.txtAceptar, new DialogInterface.OnClickListener() {
             @Override
@@ -108,12 +108,12 @@ public class UsuariosActivity extends MasterActivity {
 
     private void eliminarTodos(){
         boolean esOperacionCorrecta = false;
-        esOperacionCorrecta = databaseManager.eliminarUsuariosTodos();
+        esOperacionCorrecta = databaseManager.eliminarCochesTodos();
 
         if (esOperacionCorrecta){
             Toast.makeText(getApplicationContext(), R.string.msgOperacionOk, Toast.LENGTH_SHORT).show();
             //Se carga a sí misma
-            Intent intentActividad = new Intent(this, UsuariosActivity.class);
+            Intent intentActividad = new Intent(this, CochesActivity.class);
             startActivity(intentActividad);
         }
         else {
@@ -121,9 +121,9 @@ public class UsuariosActivity extends MasterActivity {
         }
     }
 
-    private void mostrarActividadUsuarioDetalle(String idUsuario) {
-        Intent intentActividad = new Intent(this, UsuarioDetalleActivity.class);
-        intentActividad.putExtra("ID_USUARIO", idUsuario);
+    private void mostrarActividadCocheDetalle(String idCoche) {
+        Intent intentActividad = new Intent(this, CocheDetalleActivity.class);
+        intentActividad.putExtra("ID_COCHE", idCoche);
         startActivity(intentActividad);
     }
 }

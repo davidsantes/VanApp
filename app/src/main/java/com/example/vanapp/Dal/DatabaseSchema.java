@@ -73,10 +73,10 @@ public class DatabaseSchema extends SQLiteOpenHelper {
                         + ",%s TEXT NOT NULL"   //Usuarios.APELLIDO_1
                         + ",%s TEXT NOT NULL"   //Usuarios.APELLIDO_2
                         + ",%s TEXT NOT NULL"   //Usuarios.ALIAS
-                        + ",%s INTEGER NOT NULL"   //Usuarios.ACTIVO
                         + ",%s TEXT NOT NULL"   //Usuarios.EMAIL
                         + ",%s TEXT NOT NULL"   //Usuarios.COLOR_USUARIO
                         + ",%s DATE NOT NULL"   //Usuarios.FECHA_ALTA
+                        + ",%s INTEGER NOT NULL"   //Usuarios.ACTIVO
                         + " )",
                 Tablas.USUARIOS
                 , Usuarios.ID_USUARIO
@@ -84,11 +84,10 @@ public class DatabaseSchema extends SQLiteOpenHelper {
                 , Usuarios.APELLIDO_1
                 , Usuarios.APELLIDO_2
                 , Usuarios.ALIAS
-                , Usuarios.ACTIVO
                 , Usuarios.EMAIL
                 , Usuarios.COLOR_USUARIO
                 , Usuarios.FECHA_ALTA
-
+                , Usuarios.ACTIVO
         );
 
         db.execSQL(queryCreateTablaUsuarios);
@@ -100,16 +99,18 @@ public class DatabaseSchema extends SQLiteOpenHelper {
                         + ",%s TEXT NOT NULL"   //Coches.NOMBRE
                         + ",%s TEXT NOT NULL"   //Coches.MATRICULA
                         + ",%s TEXT NOT NULL"   //Coches.NUMERO_PLAZAS
-                        + ",%s INTEGER NOT NULL"   //Coches.ACTIVO
+                        + ",%s TEXT NOT NULL"   //Coches.COLOR_COCHE
                         + ",%s LONG NOT NULL"   //Coches.FECHA_ALTA
+                        + ",%s INTEGER NOT NULL"   //Coches.ACTIVO
                         + " )",
                 Tablas.COCHES
                 , Coches.ID_COCHE
                 , Coches.NOMBRE
                 , Coches.MATRICULA
                 , Coches.NUMERO_PLAZAS
-                , Coches.ACTIVO
+                , Coches.COLOR_COCHE
                 , Coches.FECHA_ALTA
+                , Coches.ACTIVO
         );
 
         db.execSQL(queryCreateTablaCoches);

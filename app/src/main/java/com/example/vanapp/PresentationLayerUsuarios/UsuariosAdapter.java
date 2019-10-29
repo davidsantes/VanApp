@@ -29,13 +29,13 @@ public class UsuariosAdapter extends ArrayAdapter<Usuario> {
         }
 
         // Lookup para alimentar de datos
-        TextView tvName = (TextView) convertView.findViewById(R.id.textViewNombreCompleto);
-        TextView tvHome = (TextView) convertView.findViewById(R.id.textViewAlias);
+        TextView textViewNombreCompleto = (TextView) convertView.findViewById(R.id.textViewNombreCompleto);
+        TextView textViewAlias = (TextView) convertView.findViewById(R.id.textViewAlias);
         ImageView iv_avatar = (ImageView)convertView.findViewById(R.id.iv_avatar);
         iv_avatar.setColorFilter(Color.parseColor("#" + usuarioActual.getColorUsuario()));
 
-        tvName.setText(usuarioActual.getNombreCompleto());
-        tvHome.setText(usuarioActual.getAlias());
+        textViewNombreCompleto.setText(usuarioActual.getNombreCompleto());
+        textViewAlias.setText(usuarioActual.getAlias());
 
         // Se retorna la vista completa para renderizarla en pantalla
         return convertView;
