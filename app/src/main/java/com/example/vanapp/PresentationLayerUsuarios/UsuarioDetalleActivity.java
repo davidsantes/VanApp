@@ -379,10 +379,4 @@ public class UsuarioDetalleActivity extends MasterActivity {
         startActivity(intent);
         finish();
     }
-
-    private void mostrarActividadUsuarioDetalle(String idUsuario) {
-        Intent intentActividad = new Intent(this, UsuarioDetalleActivity.class);
-        intentActividad.putExtra("ID_USUARIO", idUsuario);
-        startActivity(intentActividad);
-    }
 }

@@ -18,6 +18,8 @@
     <string name="hint_alias">Alias</string>
     <string name="hint_email">Email</string>
     <string name="hint_fecha_alta">Fecha de alta</string>
+    <string name="hint_num_plazas">Número de plazas</string>
+    <string name="hint_matricula">Matrícula</string>
 
     <string name="txtLogOff">Salir</string>
     <string name="txtNuevo">Nuevo</string>
@@ -42,6 +44,7 @@
     <string name="msgConfirmarEliminarTodosUsuarios">Wow, esta acción eliminará todos los usuarios y los datos relacionados ¿deseas continuar?</string>
     <string name="msgConfirmarEliminarUsuario">Wow, esta acción eliminará el usuario y los datos relacionados ¿deseas continuar?</string>
     <string name="msgConfirmarEliminarTodosCoches">Wow, esta acción eliminará todos los coches y los datos relacionados ¿deseas continuar?</string>
+    <string name="msgConfirmarEliminarCoche">Wow, esta acción eliminará el coche y los datos relacionados ¿deseas continuar?</string>
     <string name="msgOperacionOk">Operación realizada correctamente</string>
     <string name="msgOperacionKo">Ups, algo ha salido mal :(</string>
     <string name="msgDatosIncorrectos">Me parece que los datos son incorrectos</string>

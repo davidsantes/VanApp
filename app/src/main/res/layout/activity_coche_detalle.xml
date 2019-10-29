@@ -1,9 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".PresentationLayerCoches.CocheDetalleActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <include layout="@layout/menu_layout"/>
+
+    <LinearLayout
+        android:id="@+id/contenido"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_activities"
+        android:orientation="vertical">
+
+        <!-- Campo Nombre -->
+        <LinearLayout
+            android:id="@+id/area_nombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/img_nombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/ic_assignment"  />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_nombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_coche_columna_insertar_datos"
+                app:counterEnabled="true"
+                app:counterMaxLength="30"
+                app:errorEnabled="true">
+
+                <EditText
+                    android:id="@+id/txt_nombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="30"
+                    android:ems="10"
+                    android:hint="@string/hint_nombre"
+                    android:inputType="text"
+                    android:singleLine="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <!-- Campo Matricula -->
+        <LinearLayout
+            android:id="@+id/area_matricula"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/area_matricula"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/img_matricula"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/ic_assignment" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_matricula"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_coche_columna_insertar_datos"
+                app:counterEnabled="true"
+                app:counterMaxLength="30"
+                app:errorEnabled="true">
+
+                <EditText
+                    android:id="@+id/txt_matricula"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="30"
+                    android:ems="10"
+                    android:hint="@string/hint_matricula"
+                    android:inputType="text"
+                    android:singleLine="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <!-- Campo Num plazas -->
+        <LinearLayout
+            android:id="@+id/area_num_plazas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/area_num_plazas"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/img_num_plazas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/ic_assignment" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_num_plazas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_coche_columna_insertar_datos"
+                app:counterEnabled="true"
+                app:counterMaxLength="30"
+                app:errorEnabled="true">
+
+                <EditText
+                    android:id="@+id/txt_num_plazas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="30"
+                    android:ems="10"
+                    android:hint="@string/hint_num_plazas"
+                    android:inputType="numberSigned"
+                    android:singleLine="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <!-- Campo Color de coche -->
+        <LinearLayout
+            android:id="@+id/area_color_coche"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/area_color_coche"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_avatar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                app:srcCompat="@drawable/ic_directions_bus" />
+
+            <Button
+                android:id="@+id/boton_eligeColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_coche_columna_insertar_datos"
+                android:text="@string/msgInfoEligeColor"
+                />
+            <TextView
+                android:id="@+id/tv_color"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                />
+
+        </LinearLayout>
+
+        <!-- Campo Fecha de alta -->
+        <LinearLayout
+            android:id="@+id/area_fecha_alta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/area_fecha_alta"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/img_fecha_alta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/ic_date_range" />
+
+            <TextView
+                android:id="@+id/tv_fecha_alta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_coche_columna_insertar_datos"
+                android:ems="10"
+                android:hint="@string/hint_fecha_alta"
+                android:inputType="text"
+                android:singleLine="true" />
+        </LinearLayout>
+
+        <!-- Barra de botones -->
+        <LinearLayout
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:gravity="bottom"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/boton_eliminar"
+                style="?android:attr/buttonBarButtonStyle"
+                android:textColor="@android:color/holo_red_dark"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/txtEliminar" />
+
+            <Button
+                android:id="@+id/boton_cancelar"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/txtCancelar" />
+
+            <Button
+                android:id="@+id/boton_aceptar"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/txtAceptar" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

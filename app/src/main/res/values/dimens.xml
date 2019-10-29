@@ -5,6 +5,7 @@
     <dimen name="paddingCeldasNormal">20dp</dimen>
 
     <dimen name="margin_usuario_columna_insertar_datos">32dp</dimen>
+    <dimen name="margin_coche_columna_insertar_datos">32dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="tamanioLetraNormal">12sp</dimen>
