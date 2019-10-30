@@ -40,4 +40,44 @@ public class DatabaseSchemaContracts {
     public static class Coches implements DatabaseSchemaContracts.ColumnasTablaCoches {
 
     }
+
+    //RONDAS
+    interface ColumnasTablaRondas {
+        String ID_RONDA = "Id";
+        String ID_COCHE = "IdCoche";
+        String ALIAS = "Alias";
+        String FECHA_INICIO = "FechaInicio";
+        String FECHA_FIN = "FechaFin";
+        String ES_RONDA_FINALIZADA = "EsRondaFinalizada";
+        String ACTIVO = "Activo";
+    }
+
+    public static class Rondas implements DatabaseSchemaContracts.ColumnasTablaRondas {
+
+    }
+
+    //USUARIOS - RONDAS
+    interface ColumnasTablaUsuariosRondas {
+        String ID_USUARIO = "IdUsuario";
+        String ID_RONDA = "IdRonda";
+        String FECHA_DE_CONDUCCION = "FechaDeConduccion";
+        String ACTIVO = "Activo";
+    }
+
+    public static class UsuariosRondas implements DatabaseSchemaContracts.ColumnasTablaUsuariosRondas {
+
+    }
+
+    //USUARIOS - COCHES
+    interface ColumnasTablaUsuariosCoches {
+        String ID_USUARIO = "IdUsuario";
+        String ID_COCHE = "IdCoche";
+        String ES_CONDUCTOR_HABITUAL = "EsConductorHabitual";
+        String ACTIVO = "Activo";
+    }
+
+    public static class UsuariosCoches implements DatabaseSchemaContracts.ColumnasTablaUsuariosCoches {
+
+    }
+
 }
