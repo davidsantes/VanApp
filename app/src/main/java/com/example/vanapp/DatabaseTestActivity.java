@@ -9,11 +9,11 @@ import android.database.DatabaseUtils;
 
 import com.example.vanapp.Dal.DatabaseManager;
 import com.example.vanapp.Dal.DatabaseManagerTemp;
-import com.example.vanapp.Entities.CabeceraPedido;
-import com.example.vanapp.Entities.Cliente;
-import com.example.vanapp.Entities.DetallePedido;
-import com.example.vanapp.Entities.FormaPago;
-import com.example.vanapp.Entities.Producto;
+import com.example.vanapp.EntitiesTemp.CabeceraPedido;
+import com.example.vanapp.EntitiesTemp.Cliente;
+import com.example.vanapp.EntitiesTemp.DetallePedido;
+import com.example.vanapp.EntitiesTemp.FormaPago;
+import com.example.vanapp.EntitiesTemp.Producto;
 
 import java.util.Calendar;
 
@@ -91,7 +91,7 @@ public class DatabaseTestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_database_test);
+        //setContentView(R.layout.activity_database_test);
 
         getApplicationContext().deleteDatabase("pedidos.db;");
         getApplicationContext().deleteDatabase("vanapp.db");

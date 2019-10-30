@@ -6,11 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 
-import com.example.vanapp.Entities.CabeceraPedido;
-import com.example.vanapp.Entities.Cliente;
-import com.example.vanapp.Entities.DetallePedido;
-import com.example.vanapp.Entities.FormaPago;
-import com.example.vanapp.Entities.Producto;
+import com.example.vanapp.EntitiesTemp.CabeceraPedido;
+import com.example.vanapp.EntitiesTemp.Cliente;
+import com.example.vanapp.EntitiesTemp.DetallePedido;
+import com.example.vanapp.EntitiesTemp.FormaPago;
+import com.example.vanapp.EntitiesTemp.Producto;
 import com.example.vanapp.Dal.DatabaseVanAppTemp.Tablas;
 
 import com.example.vanapp.Dal.DatabaseContractsTemp.CabecerasPedido;

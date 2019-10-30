@@ -1,4 +1,4 @@
-package com.example.vanapp.Entities;
+package com.example.vanapp.EntitiesTemp;
 
 public class Persona {
 
