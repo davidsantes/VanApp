@@ -1,8 +1,6 @@
 package com.example.vanapp.Entities;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import com.example.vanapp.Common.Utilidades;
 import java.util.Date;
 import java.util.UUID;
 import static com.example.vanapp.Common.Constantes.*;
@@ -53,23 +51,16 @@ public class Usuario {
     public String getAlias() {
         return alias;
     }
-    public boolean getActivo() { return activo; }
+    public boolean esActivo() { return activo; }
     public String getEmail() {
         return email;
     }
     public String getColorUsuario() {
         return colorUsuario;
     }
-    public Date getFechaAlta() {
-        return fechaAlta;
-    }
+    public Date getFechaAlta() { return fechaAlta; }
     public String getNombreCompleto() {
         return nombre + " " + apellido1 + " " + apellido2;
-    }
-    /*Sqlite no tiene formato DateTime, con lo que se debe guardar como String*/
-    public String getFechaToString(){
-        DateFormat dateFormat = new SimpleDateFormat(FORMATO_FECHA);
-        return dateFormat.format(getFechaAlta());
     }
 
     // Zona de setters
@@ -97,13 +88,6 @@ public class Usuario {
     }
     public void setFechaAlta(Date fechaAlta) {
         this.fechaAlta = fechaAlta;
-    }
-    public void setFechaAltaFromString(String fechaAlta) {
-        try {
-            setFechaAlta(new SimpleDateFormat(FORMATO_FECHA).parse(fechaAlta));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
     }
 
     /*
@@ -139,10 +123,10 @@ public class Usuario {
         sb.append("ID: ").append(getIdUsuario()).append(SALTO_LINEA);
         sb.append("Nombre completo: ").append(getNombreCompleto()).append(SALTO_LINEA);
         sb.append("Alias: ").append(getAlias()).append(SALTO_LINEA);
-        sb.append("Activo: ").append(getActivo()).append(SALTO_LINEA);
+        sb.append("Activo: ").append(esActivo()).append(SALTO_LINEA);
         sb.append("Email: ").append(getEmail()).append(SALTO_LINEA);
         sb.append("Color de usuario: ").append(getColorUsuario()).append(SALTO_LINEA);
-        sb.append("FechaAlta: ").append(getFechaToString()).append(SALTO_LINEA);
+        sb.append("FechaAlta: ").append(Utilidades.getFechaToString(getFechaAlta())).append(SALTO_LINEA);
         sb.append("EsEstadoValido: ").append(esEstadoValido()).append(SALTO_LINEA);
         return sb.toString();
     }

@@ -1,8 +1,6 @@
 package com.example.vanapp.Entities;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import com.example.vanapp.Common.Utilidades;
 import java.util.Date;
 import java.util.UUID;
 import static com.example.vanapp.Common.Constantes.*;
@@ -15,6 +13,9 @@ public class Coche {
     private String colorCoche;
     private boolean activo = true;
     private Date fechaAlta = new Date();
+
+    //private ArrayList<Usuario> listaUsuarios;
+    //private ArrayList<Usuario> listaUsuarios;
 
     public Coche(){
         this.setIdCoche(generarIdUnico());
@@ -42,15 +43,10 @@ public class Coche {
     public String getColorCoche() {
         return colorCoche;
     }
-    public boolean getActivo() { return activo; }
+    public boolean esActivo() { return activo; }
     public Date getFechaAlta() { return fechaAlta; }
     public String getNombreCompleto() {
         return nombre + " - " + matricula;
-    }
-    /*Sqlite no tiene formato DateTime, con lo que se debe guardar como String*/
-    public String getFechaToString(){
-        DateFormat dateFormat = new SimpleDateFormat(FORMATO_FECHA);
-        return dateFormat.format(getFechaAlta());
     }
 
     // Zona de setters
@@ -74,13 +70,6 @@ public class Coche {
     }
     public void setFechaAlta(Date fechaAlta) {
         this.fechaAlta = fechaAlta;
-    }
-    public void setFechaAltaFromString(String fechaAlta) {
-        try {
-            setFechaAlta(new SimpleDateFormat(FORMATO_FECHA).parse(fechaAlta));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
     }
 
     /*
@@ -113,8 +102,8 @@ public class Coche {
         sb.append("Nombre: ").append(getNombreCompleto()).append(SALTO_LINEA);
         sb.append("Número plazas: ").append(getNumPlazas()).append(SALTO_LINEA);
         sb.append("Color de coche: ").append(getColorCoche()).append(SALTO_LINEA);
-        sb.append("Activo: ").append(getActivo()).append(SALTO_LINEA);
-        sb.append("FechaAlta: ").append(getFechaToString()).append(SALTO_LINEA);
+        sb.append("Activo: ").append(esActivo()).append(SALTO_LINEA);
+        sb.append("FechaAlta: ").append(Utilidades.getFechaToString(getFechaAlta())).append(SALTO_LINEA);
         sb.append("EsEstadoValido: ").append(esEstadoValido()).append(SALTO_LINEA);
         return sb.toString();
     }

@@ -80,7 +80,7 @@ public class UsuarioInstrumentedTest {
         usuarioInvestigar = databaseManager.obtenerUsuario(idUsuario);
 
         //Assert
-        assertEquals(false, usuarioInvestigar.getActivo());
+        assertEquals(false, usuarioInvestigar.esActivo());
     }
 
     @Test

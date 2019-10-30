@@ -5,12 +5,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.vanapp.Common.Utilidades;
 import com.example.vanapp.Entities.Coche;
 import com.example.vanapp.Entities.Usuario;
 import com.example.vanapp.Dal.DatabaseSchemaContracts.*;
 import com.example.vanapp.Dal.DatabaseSchema.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Clase auxiliar que implementa a {@link DatabaseSchema} para llevar a cabo el CRUD
@@ -47,7 +49,8 @@ public class DatabaseManager {
         nuevoUsuario.setAlias(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.ALIAS)));
         nuevoUsuario.setEmail(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.EMAIL)));
         nuevoUsuario.setColorUsuario(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.COLOR_USUARIO)));
-        nuevoUsuario.setFechaAltaFromString(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.FECHA_ALTA)));
+        Date fechaAltaParseada = Utilidades.getFechaFromString(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.FECHA_ALTA)));
+        nuevoUsuario.setFechaAlta(fechaAltaParseada);
         nuevoUsuario.setActivo(cursor.getInt(cursor.getColumnIndex(ColumnasTablaUsuarios.ACTIVO)) == 1);
         return nuevoUsuario;
     }
@@ -93,8 +96,8 @@ public class DatabaseManager {
         valores.put(Usuarios.ALIAS, usuario.getAlias());
         valores.put(Usuarios.EMAIL, usuario.getEmail());
         valores.put(Usuarios.COLOR_USUARIO, usuario.getColorUsuario());
-        valores.put(Usuarios.ACTIVO, usuario.getActivo());
-        valores.put(Usuarios.FECHA_ALTA, usuario.getFechaToString());
+        valores.put(Usuarios.ACTIVO, usuario.esActivo());
+        valores.put(Usuarios.FECHA_ALTA, Utilidades.getFechaToString(usuario.getFechaAlta()));
 
         //Retorna el id de la fila del nuevo registro insertado, o -1 si ha ocurrido un error
         long rowId = db.insertOrThrow(Tablas.USUARIOS, null, valores);
@@ -112,7 +115,7 @@ public class DatabaseManager {
         valores.put(Usuarios.ALIAS, usuario.getAlias());
         valores.put(Usuarios.EMAIL, usuario.getEmail());
         valores.put(Usuarios.COLOR_USUARIO, usuario.getColorUsuario());
-        valores.put(Usuarios.ACTIVO, usuario.getActivo());
+        valores.put(Usuarios.ACTIVO, usuario.esActivo());
 
         String whereClause = String.format("%s=?", Usuarios.ID_USUARIO);
         final String[] whereArgs = {usuario.getIdUsuario()};
@@ -174,7 +177,8 @@ public class DatabaseManager {
         nuevoCoche.setNumPlazas(cursor.getInt(cursor.getColumnIndex(ColumnasTablaCoches.NUMERO_PLAZAS)));
         nuevoCoche.setColorCoche(cursor.getString(cursor.getColumnIndex(ColumnasTablaCoches.COLOR_COCHE)));
         nuevoCoche.setActivo(cursor.getInt(cursor.getColumnIndex(ColumnasTablaCoches.ACTIVO)) == 1);
-        nuevoCoche.setFechaAltaFromString(cursor.getString(cursor.getColumnIndex(ColumnasTablaCoches.FECHA_ALTA)));
+        Date fechaAltaParseada = Utilidades.getFechaFromString(cursor.getString(cursor.getColumnIndex(ColumnasTablaCoches.FECHA_ALTA)));
+        nuevoCoche.setFechaAlta(fechaAltaParseada);
         return nuevoCoche;
     }
 
@@ -217,8 +221,8 @@ public class DatabaseManager {
         valores.put(Coches.MATRICULA, coche.getMatricula());
         valores.put(Coches.NUMERO_PLAZAS, coche.getNumPlazas());
         valores.put(Coches.COLOR_COCHE, coche.getColorCoche());
-        valores.put(Coches.FECHA_ALTA, coche.getFechaToString());
-        valores.put(Coches.ACTIVO, coche.getActivo());
+        valores.put(Coches.FECHA_ALTA, Utilidades.getFechaToString(coche.getFechaAlta()));
+        valores.put(Coches.ACTIVO, coche.esActivo());
 
         //Retorna el id de la fila del nuevo registro insertado, o -1 si ha ocurrido un error
         long rowId = db.insertOrThrow(Tablas.COCHES, null, valores);
@@ -234,7 +238,7 @@ public class DatabaseManager {
         valores.put(Coches.MATRICULA, coche.getMatricula());
         valores.put(Coches.NUMERO_PLAZAS, coche.getNumPlazas());
         valores.put(Coches.COLOR_COCHE, coche.getColorCoche());
-        valores.put(Coches.ACTIVO, coche.getActivo());
+        valores.put(Coches.ACTIVO, coche.esActivo());
 
         String whereClause = String.format("%s=?", Coches.ID_COCHE);
         final String[] whereArgs = {coche.getIdCoche()};

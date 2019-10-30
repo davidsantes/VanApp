@@ -81,7 +81,7 @@ public class CocheInstrumentedTest {
         cocheInvestigar = databaseManager.obtenerCoche(idCoche);
 
         //Assert
-        assertEquals(false, cocheInvestigar.getActivo());
+        assertEquals(false, cocheInvestigar.esActivo());
     }
 
     @Test

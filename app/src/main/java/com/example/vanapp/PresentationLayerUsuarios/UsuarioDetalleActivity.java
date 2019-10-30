@@ -3,6 +3,7 @@ package com.example.vanapp.PresentationLayerUsuarios;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.vanapp.Common.Utilidades;
 import com.example.vanapp.Dal.DatabaseManager;
 import com.example.vanapp.MasterActivity;
 
@@ -363,7 +364,8 @@ public class UsuarioDetalleActivity extends MasterActivity {
         txt_apellido2.setText(usuarioActual.getApellido2());
         txt_alias.setText(usuarioActual.getAlias());
         txt_email.setText(usuarioActual.getEmail());
-        tv_fecha_alta.setText(usuarioActual.getFechaToString());
+        String fechaParseada = Utilidades.getFechaToString(usuarioActual.getFechaAlta());
+        tv_fecha_alta.setText(fechaParseada);
         tv_color.setText(usuarioActual.getColorUsuario());
 
         int colorParseado = Color.parseColor("#" + (usuarioActual.getColorUsuario()));

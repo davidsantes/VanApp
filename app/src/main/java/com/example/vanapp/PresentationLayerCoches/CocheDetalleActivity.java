@@ -3,6 +3,7 @@ package com.example.vanapp.PresentationLayerCoches;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.vanapp.Common.Utilidades;
 import com.example.vanapp.Dal.DatabaseManager;
 import com.example.vanapp.MasterActivity;
 
@@ -328,7 +329,9 @@ public class CocheDetalleActivity extends MasterActivity {
         txt_nombre.setText(cocheActual.getNombre());
         txt_matricula.setText(cocheActual.getMatricula());
         txt_num_plazas.setText(Integer.toString(cocheActual.getNumPlazas()));
-        tv_fecha_alta.setText(cocheActual.getFechaToString());
+
+        String fechaParseada = Utilidades.getFechaToString(cocheActual.getFechaAlta());
+        tv_fecha_alta.setText(fechaParseada);
         tv_color.setText(cocheActual.getColorCoche());
 
         int colorParseado = Color.parseColor("#" + (cocheActual.getColorCoche()));
