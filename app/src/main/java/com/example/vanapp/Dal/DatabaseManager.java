@@ -7,13 +7,14 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.vanapp.Common.Utilidades;
 import com.example.vanapp.Entities.Coche;
+import com.example.vanapp.Entities.Ronda;
 import com.example.vanapp.Entities.Usuario;
 import com.example.vanapp.Dal.DatabaseSchemaContracts.*;
 import com.example.vanapp.Dal.DatabaseSchema.*;
 import com.example.vanapp.Entities.UsuarioCoche;
+import com.example.vanapp.Entities.UsuarioRonda;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Clase auxiliar que implementa a {@link DatabaseSchema} para llevar a cabo el CRUD
@@ -115,7 +116,8 @@ public class DatabaseManager {
      */
     public boolean eliminarUsuariosTodos() {
 
-        this.eliminarUsuarioCochesTodos();
+        this.eliminarRelacionDeUsuariosConCochesTodos();
+        this.eliminarRondasTodas();
 
         int resultado = 0;
         SQLiteDatabase db = baseDatos.getWritableDatabase();
@@ -222,12 +224,14 @@ public class DatabaseManager {
     }
 
     /**
-     * Elimina todos los usuarios o uno en concreto.
+     * Elimina todos los coches.
      */
     public boolean eliminarCochesTodos() {
-        int resultado = 0;
-        this.eliminarUsuarioCochesTodos();
 
+        this.eliminarRelacionDeUsuariosConCochesTodos();
+        this.eliminarRondasTodas();
+
+        int resultado = 0;
         SQLiteDatabase db = baseDatos.getWritableDatabase();
 
         final String[] whereArgs = {};
@@ -302,7 +306,7 @@ public class DatabaseManager {
         ContentValues valores = new ContentValues();
         valores.put(UsuariosCoches.ID_USUARIO, usuarioCoche.getUsuarioDetalle().getIdUsuario());
         valores.put(UsuariosCoches.ID_COCHE, usuarioCoche.getIdCoche());
-        valores.put(UsuariosCoches.ES_CONDUCTOR, usuarioCoche.esCondutor());
+        valores.put(UsuariosCoches.ES_CONDUCTOR, usuarioCoche.esConductor());
         valores.put(UsuariosCoches.ACTIVO, usuarioCoche.esActivo());
 
         //Retorna el id de la fila del nuevo registro insertado, o -1 si ha ocurrido un error
@@ -315,7 +319,7 @@ public class DatabaseManager {
         SQLiteDatabase db = baseDatos.getWritableDatabase();
 
         ContentValues valores = new ContentValues();
-        valores.put(UsuariosCoches.ES_CONDUCTOR, usuarioCoche.esCondutor());
+        valores.put(UsuariosCoches.ES_CONDUCTOR, usuarioCoche.esConductor());
         valores.put(Coches.ACTIVO, usuarioCoche.esActivo());
 
         String whereClause = String.format("%s=? AND %s=?", UsuariosCoches.ID_USUARIO, UsuariosCoches.ID_COCHE);
@@ -328,9 +332,9 @@ public class DatabaseManager {
     }
 
     /**
-     * Elimina todos los usuarios o uno en concreto.
+     * Elimina todas las relaciones entre usuarios y coches.
      */
-    private boolean eliminarUsuarioCochesTodos() {
+    private boolean eliminarRelacionDeUsuariosConCochesTodos() {
         int resultado = 0;
         SQLiteDatabase db = baseDatos.getWritableDatabase();
 
@@ -341,11 +345,11 @@ public class DatabaseManager {
     }
 
     /**
-     * Elimina un usuario concreto.
-     * @param idCoche Si no se pasa nada, eliminará toda la tabla.
+     * Elimina una relación concreta.
+     * @param idCoche a eliminar.
      * @param esBorradoLogico indica si el borrado es lógico (se actualiza el campo activo) o físico (se elimina definitivamente de la Bdd)
      */
-    public boolean eliminarUsuarioCoche(String idUsuario, String idCoche, boolean esBorradoLogico) {
+    public boolean eliminarRelacionDeUsuarioConCoche(String idUsuario, String idCoche, boolean esBorradoLogico) {
         int resultado = 0;
         SQLiteDatabase db = baseDatos.getWritableDatabase();
 
@@ -365,7 +369,7 @@ public class DatabaseManager {
     }
 
     /**
-     * Elimina un usuario concreto.
+     * Elimina todas las relaciones de un usuario concreto con todos los coches.
      * @param idUsuario .
      * @param esBorradoLogico indica si el borrado es lógico (se actualiza el campo activo) o físico (se elimina definitivamente de la Bdd)
      */
@@ -388,9 +392,8 @@ public class DatabaseManager {
         return resultado > 0;
     }
 
-
     /**
-     * Elimina un usuario concreto.
+     * Elimina todas las relaciones de un coche concreto con todos los usuarios.
      * @param idCoche .
      * @param esBorradoLogico indica si el borrado es lógico (se actualiza el campo activo) o físico (se elimina definitivamente de la Bdd)
      */
@@ -414,5 +417,286 @@ public class DatabaseManager {
     }
 
     // FIN [OPERACIONES_USUARIOS_COCHE]
-}
 
+    // INICIO [RONDAS]
+    public ArrayList obtenerRondasDelCoche(String idCoche) {
+        ArrayList<Ronda> listaRondasDelCoche = new ArrayList<>();
+        SQLiteDatabase db = baseDatos.getReadableDatabase();
+
+        String sqlTotal = "";
+        String sqlSelect = "";
+        String sqlFrom = "";
+        String sqlWhere = "";
+
+        sqlSelect = " SELECT Coches.Id, Coches.Nombre, Coches.Activo,";
+        sqlSelect += " Rondas.Id, Rondas.IdCoche, Rondas.Alias, Rondas.FechaInicio, Rondas.FechaFin, Rondas.EsRondaFinalizada, Rondas.Activo";
+        sqlFrom += " FROM Coches INNER JOIN Rondas ON Coches.Id = Rondas.IdCoche";
+        sqlWhere += " WHERE Coches.Id='" + idCoche + "'";
+        sqlWhere += " AND Coches.Activo=1 AND Rondas.Activo=1";
+
+        sqlTotal = sqlSelect + sqlFrom + sqlWhere;
+        Cursor cursor = db.rawQuery(sqlTotal, null);
+
+        if (cursor.moveToFirst())
+        {
+            do{
+                listaRondasDelCoche.add(DatabaseMapping.obtenerInstancia().mapearRonda(cursor));
+            }while (cursor.moveToNext());
+        }
+
+        return listaRondasDelCoche;
+    }
+
+    public boolean insertarRondaDelCoche(Ronda ronda) {
+        SQLiteDatabase db = baseDatos.getWritableDatabase();
+
+        ContentValues valores = new ContentValues();
+        valores.put(Rondas.ID_RONDA, ronda.getIdRonda());
+        valores.put(Rondas.ID_COCHE, ronda.getIdCoche());
+        valores.put(Rondas.ALIAS, ronda.getAlias());
+        valores.put(Rondas.FECHA_INICIO, Utilidades.getFechaToString(ronda.getFechaInicio()));
+        valores.put(Rondas.FECHA_FIN, Utilidades.getFechaToString(ronda.getFechaFin()));
+        valores.put(Rondas.ES_RONDA_FINALIZADA, ronda.EsRondaFinalizada());
+        valores.put(Rondas.ACTIVO, ronda.EsActivo());
+
+        //Retorna el id de la fila del nuevo registro insertado, o -1 si ha ocurrido un error
+        long rowId = db.insertOrThrow(Tablas.RONDAS, null, valores);
+
+        return rowId > 0 ? true : false;
+    }
+
+    public boolean actualizarRondaDelCoche(Ronda ronda) {
+        SQLiteDatabase db = baseDatos.getWritableDatabase();
+
+        ContentValues valores = new ContentValues();
+        valores.put(Rondas.ALIAS, ronda.getAlias());
+        valores.put(Rondas.FECHA_INICIO, Utilidades.getFechaToString(ronda.getFechaInicio()));
+        valores.put(Rondas.FECHA_FIN, Utilidades.getFechaToString(ronda.getFechaFin()));
+        valores.put(Rondas.ES_RONDA_FINALIZADA, ronda.EsRondaFinalizada());
+        valores.put(Rondas.ACTIVO, ronda.EsActivo());
+
+        String whereClause = String.format("%s=?", Rondas.ID_RONDA);
+
+        final String[] whereArgs = {ronda.getIdRonda()};
+
+        int resultado = db.update(Tablas.RONDAS, valores, whereClause, whereArgs);
+
+        return resultado > 0;
+    }
+
+    /**
+     * Elimina todas las rondas.
+     */
+    private boolean eliminarRondasTodas() {
+        eliminarRelacionDeUsuariosConRondasTodos();
+
+        int resultado = 0;
+        SQLiteDatabase db = baseDatos.getWritableDatabase();
+
+        final String[] whereArgs = {};
+        resultado = db.delete(Tablas.RONDAS, "", whereArgs);
+
+        return resultado > 0;
+    }
+
+    /**
+     * Elimina una relación concreta.
+     * @param idRonda a eliminar.
+     * @param esBorradoLogico indica si el borrado es lógico (se actualiza el campo activo) o físico (se elimina definitivamente de la Bdd)
+     */
+    public boolean eliminarRonda(String idRonda, boolean esBorradoLogico) {
+        this.eliminarRelacionDeRondaConTodosLosUsuarios(idRonda, esBorradoLogico);
+
+        int resultado = 0;
+        SQLiteDatabase db = baseDatos.getWritableDatabase();
+
+        String whereClause = String.format("%s=?", Rondas.ID_RONDA);
+        final String[] whereArgs = {idRonda};
+
+        if (esBorradoLogico) {
+            ContentValues valores = new ContentValues();
+            valores.put(Rondas.ACTIVO, false);
+
+            resultado = db.update(Tablas.RONDAS, valores, whereClause, whereArgs);
+        }else{
+            resultado = db.delete(Tablas.RONDAS, whereClause, whereArgs);
+        }
+
+        return resultado > 0;
+    }
+
+    /**
+     * Elimina todas las relaciones de un coche concreto con todas las rondas.
+     * @param idCoche .
+     * @param esBorradoLogico indica si el borrado es lógico (se actualiza el campo activo) o físico (se elimina definitivamente de la Bdd)
+     */
+    public boolean eliminarRondasDeUnCoche(String idCoche, boolean esBorradoLogico) {
+        this.eliminarRelacionDeCocheConTodosLosUsuarios(idCoche, esBorradoLogico);
+
+        int resultado = 0;
+        SQLiteDatabase db = baseDatos.getWritableDatabase();
+
+        String whereClause = String.format("%s=?", Rondas.ID_RONDA);
+        final String[] whereArgs = {idCoche};
+
+        if (esBorradoLogico) {
+            ContentValues valores = new ContentValues();
+            valores.put(Rondas.ACTIVO, false);
+
+            resultado = db.update(Tablas.RONDAS, valores, whereClause, whereArgs);
+        }else{
+            resultado = db.delete(Tablas.RONDAS, whereClause, whereArgs);
+        }
+
+        return resultado > 0;
+    }
+    // FIN [RONDAS]
+
+    // INICIO [OPERACIONES_USUARIOS_COCHE]
+    public ArrayList obtenerUsuariosDeLaRonda(String idRonda) {
+        ArrayList<UsuarioRonda> listaUsuariosDeLaRonda = new ArrayList<>();
+        SQLiteDatabase db = baseDatos.getReadableDatabase();
+
+        String sqlTotal = "";
+        String sqlSelect = "";
+        String sqlFrom = "";
+        String sqlWhere = "";
+
+        sqlSelect = " SELECT Usuarios_Rondas.IdUsuario, Usuarios_Rondas.IdRonda, Usuarios_Rondas.FechaDeConduccion, Usuarios_Rondas.Activo";
+        sqlFrom += " FROM USUARIOS_RONDAS";
+        sqlWhere += " WHERE Usuarios_Rondas.IdRonda='" + idRonda + "'";
+        sqlWhere += " AND Usuarios_Rondas.Activo=1";
+
+        sqlTotal = sqlSelect + sqlFrom + sqlWhere;
+        Cursor cursor = db.rawQuery(sqlTotal, null);
+
+        if (cursor.moveToFirst())
+        {
+            do{
+                listaUsuariosDeLaRonda.add(DatabaseMapping.obtenerInstancia().mapearUsuarioRonda(cursor));
+            }while (cursor.moveToNext());
+        }
+
+        return listaUsuariosDeLaRonda;
+    }
+
+    public boolean insertarUsuarioRonda(UsuarioRonda usuarioRonda) {
+        SQLiteDatabase db = baseDatos.getWritableDatabase();
+
+        ContentValues valores = new ContentValues();
+        valores.put(UsuariosRondas.ID_USUARIO, usuarioRonda.getIdUsuario());
+        valores.put(UsuariosRondas.ID_RONDA, usuarioRonda.getIdRonda());
+        valores.put(UsuariosRondas.FECHA_DE_CONDUCCION, Utilidades.getFechaToString(usuarioRonda.getFechaDeConduccion()));
+        valores.put(UsuariosRondas.ACTIVO, usuarioRonda.esActivo());
+
+        //Retorna el id de la fila del nuevo registro insertado, o -1 si ha ocurrido un error
+        long rowId = db.insertOrThrow(Tablas.USUARIOS_RONDAS, null, valores);
+
+        return rowId > 0 ? true : false;
+    }
+
+    public boolean actualizarUsuarioRonda(UsuarioRonda usuarioRonda) {
+        SQLiteDatabase db = baseDatos.getWritableDatabase();
+
+        ContentValues valores = new ContentValues();
+        valores.put(UsuariosRondas.ID_USUARIO, usuarioRonda.getIdUsuario());
+        valores.put(UsuariosRondas.ID_RONDA, usuarioRonda.getIdRonda());
+        valores.put(UsuariosRondas.FECHA_DE_CONDUCCION, Utilidades.getFechaToString(usuarioRonda.getFechaDeConduccion()));
+        valores.put(UsuariosRondas.ACTIVO, usuarioRonda.esActivo());
+
+        String whereClause = String.format("%s=? AND %s=?", UsuariosRondas.ID_USUARIO, UsuariosRondas.ID_RONDA);
+
+        final String[] whereArgs = {usuarioRonda.getIdUsuario(), usuarioRonda.getIdRonda()};
+
+        int resultado = db.update(Tablas.USUARIOS_RONDAS, valores, whereClause, whereArgs);
+
+        return resultado > 0;
+    }
+
+    /**
+     * Elimina todas las relaciones entre usuarios y rondas.
+     */
+    private boolean eliminarRelacionDeUsuariosConRondasTodos() {
+        int resultado = 0;
+        SQLiteDatabase db = baseDatos.getWritableDatabase();
+
+        final String[] whereArgs = {};
+        resultado = db.delete(Tablas.USUARIOS_RONDAS, "", whereArgs);
+
+        return resultado > 0;
+    }
+
+    /**
+     * Elimina una relación concreta.
+     * @param idRonda a eliminar.
+     * @param esBorradoLogico indica si el borrado es lógico (se actualiza el campo activo) o físico (se elimina definitivamente de la Bdd)
+     */
+    public boolean eliminarRelacionDeUsuarioConRonda(String idUsuario, String idRonda, boolean esBorradoLogico) {
+        int resultado = 0;
+        SQLiteDatabase db = baseDatos.getWritableDatabase();
+
+        String whereClause = String.format("%s=? AND %s=?", UsuariosRondas.ID_USUARIO, UsuariosRondas.ID_RONDA);
+        final String[] whereArgs = {idUsuario, idRonda};
+
+        if (esBorradoLogico) {
+            ContentValues valores = new ContentValues();
+            valores.put(UsuariosCoches.ACTIVO, false);
+
+            resultado = db.update(Tablas.USUARIOS_RONDAS, valores, whereClause, whereArgs);
+        }else{
+            resultado = db.delete(Tablas.USUARIOS_RONDAS, whereClause, whereArgs);
+        }
+
+        return resultado > 0;
+    }
+
+    /**
+     * Elimina todas las relaciones de un usuario concreto con todas las rondas.
+     * @param idUsuario .
+     * @param esBorradoLogico indica si el borrado es lógico (se actualiza el campo activo) o físico (se elimina definitivamente de la Bdd)
+     */
+    public boolean eliminarRelacionDeUsuarioConTodasLasRondas(String idUsuario, boolean esBorradoLogico) {
+        int resultado = 0;
+        SQLiteDatabase db = baseDatos.getWritableDatabase();
+
+        String whereClause = String.format("%s=?", UsuariosRondas.ID_USUARIO);
+        final String[] whereArgs = {idUsuario};
+
+        if (esBorradoLogico) {
+            ContentValues valores = new ContentValues();
+            valores.put(UsuariosRondas.ACTIVO, false);
+
+            resultado = db.update(Tablas.USUARIOS_RONDAS, valores, whereClause, whereArgs);
+        }else{
+            resultado = db.delete(Tablas.USUARIOS_RONDAS, whereClause, whereArgs);
+        }
+
+        return resultado > 0;
+    }
+
+    /**
+     * Elimina todas las relaciones de una ronda en concreto con todos los usuarios.
+     * @param idRonda .
+     * @param esBorradoLogico indica si el borrado es lógico (se actualiza el campo activo) o físico (se elimina definitivamente de la Bdd)
+     */
+    public boolean eliminarRelacionDeRondaConTodosLosUsuarios(String idRonda, boolean esBorradoLogico) {
+        int resultado = 0;
+        SQLiteDatabase db = baseDatos.getWritableDatabase();
+
+        String whereClause = String.format("%s=?", UsuariosRondas.ID_RONDA);
+        final String[] whereArgs = {idRonda};
+
+        if (esBorradoLogico) {
+            ContentValues valores = new ContentValues();
+            valores.put(UsuariosRondas.ACTIVO, false);
+
+            resultado = db.update(Tablas.USUARIOS_RONDAS, valores, whereClause, whereArgs);
+        }else{
+            resultado = db.delete(Tablas.USUARIOS_RONDAS, whereClause, whereArgs);
+        }
+
+        return resultado > 0;
+    }
+
+    // FIN [OPERACIONES_USUARIOS_COCHE]
+}

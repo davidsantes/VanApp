@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(AndroidJUnit4.class)
-public class CochesConUsuariosInstrumentedTest {
+public class CochesConUsuariosTest {
     ArrayList<Coche> listaCoches;
     ArrayList<Usuario> listaUsuarios;
     ArrayList<UsuarioCoche> listaUsuariosCoches;
@@ -87,14 +87,14 @@ public class CochesConUsuariosInstrumentedTest {
 
         //Act
         idCoche = usuarioCocheInvestigar.getIdCoche();
-        usuarioCocheInvestigar.setEsCondutor(true);
+        usuarioCocheInvestigar.setEsConductor(true);
         esOperacionCorrecta = databaseManager.actualizarUsuarioCoche(usuarioCocheInvestigar);
         listaUsuariosCoches = databaseManager.obtenerUsuariosDelCoche(idCoche);
 
         usuarioCocheInvestigar = Utilidades.encuentraUsuarioCocheEnLista(listaUsuariosCoches, idUsuario, idCoche);
 
         //Assert
-        assertEquals(esElUsuarioConductor, usuarioCocheInvestigar.esCondutor());
+        assertEquals(esElUsuarioConductor, usuarioCocheInvestigar.esConductor());
         assertEquals(true, usuarioCocheInvestigar.esEstadoValido());
     }
 
@@ -120,7 +120,7 @@ public class CochesConUsuariosInstrumentedTest {
 
         //Act
         idUsuario = usuarioCocheInvestigar.getUsuarioDetalle().getIdUsuario();
-        esOperacionCorrecta = databaseManager.eliminarUsuarioCoche(idUsuario, idCoche, false);
+        esOperacionCorrecta = databaseManager.eliminarRelacionDeUsuarioConCoche(idUsuario, idCoche, false);
 
         listaUsuariosCoches = databaseManager.obtenerUsuariosDelCoche(idCoche);
         usuarioCocheInvestigar = Utilidades.encuentraUsuarioCocheEnLista(listaUsuariosCoches, idUsuario, idCoche);

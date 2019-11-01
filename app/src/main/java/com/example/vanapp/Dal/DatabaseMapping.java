@@ -3,8 +3,10 @@ package com.example.vanapp.Dal;
 import android.database.Cursor;
 import com.example.vanapp.Common.Utilidades;
 import com.example.vanapp.Entities.Coche;
+import com.example.vanapp.Entities.Ronda;
 import com.example.vanapp.Entities.Usuario;
 import com.example.vanapp.Entities.UsuarioCoche;
+import com.example.vanapp.Entities.UsuarioRonda;
 
 import java.util.Date;
 
@@ -54,11 +56,39 @@ public class DatabaseMapping {
         String idCoche = cursor.getString(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaUsuariosCoches.ID_COCHE));
 
         UsuarioCoche nuevoUsuarioCoche = new UsuarioCoche(idUsuario, idCoche);
-        nuevoUsuarioCoche.setEsCondutor(cursor.getInt(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaUsuariosCoches.ES_CONDUCTOR)) == 1);
+        nuevoUsuarioCoche.setEsConductor(cursor.getInt(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaUsuariosCoches.ES_CONDUCTOR)) == 1);
         nuevoUsuarioCoche.setActivo(cursor.getInt(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaUsuariosCoches.ACTIVO)) == 1);
 
         nuevoUsuarioCoche.setUsuarioDetalle(mapearUsuario(cursor));
 
         return nuevoUsuarioCoche;
+    }
+
+    /* Retorna una ronda mapeada a través de los datos proporcionados por el cursor  */
+    public Ronda mapearRonda(Cursor cursor){
+        Ronda nuevaRonda = new Ronda();
+        nuevaRonda.setIdRonda(cursor.getString(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaRondas.ID_RONDA)));
+        nuevaRonda.setIdCoche(cursor.getString(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaRondas.ID_COCHE)));
+        nuevaRonda.setAlias(cursor.getString(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaRondas.ALIAS)));
+        Date fechaInicioParseada = Utilidades.getFechaFromString(cursor.getString(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaRondas.FECHA_INICIO)));
+        nuevaRonda.setFechaInicio(fechaInicioParseada);
+        Date fechaFinParseada = Utilidades.getFechaFromString(cursor.getString(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaRondas.FECHA_FIN)));
+        nuevaRonda.setFechaInicio(fechaFinParseada);
+        nuevaRonda.setEsRondaFinalizada(cursor.getInt(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaRondas.ES_RONDA_FINALIZADA)) == 1);
+        nuevaRonda.setActivo(cursor.getInt(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaRondas.ACTIVO)) == 1);
+
+        return nuevaRonda;
+    }
+
+    /* Retorna un usuario - ronda mapeado a través de los datos proporcionados por el cursor  */
+    public UsuarioRonda mapearUsuarioRonda(Cursor cursor){
+        UsuarioRonda nuevaUsuarioRonda = new UsuarioRonda();
+        nuevaUsuarioRonda.setIdUsuario(cursor.getString(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaUsuariosRondas.ID_USUARIO)));
+        nuevaUsuarioRonda.setIdRonda(cursor.getString(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaUsuariosRondas.ID_RONDA)));
+        Date fechaDeConduccionParseada = Utilidades.getFechaFromString(cursor.getString(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaUsuariosRondas.FECHA_DE_CONDUCCION)));
+        nuevaUsuarioRonda.setFechaDeConduccion(fechaDeConduccionParseada);
+        nuevaUsuarioRonda.setActivo(cursor.getInt(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaUsuariosRondas.ACTIVO)) == 1);
+
+        return nuevaUsuarioRonda;
     }
 }
