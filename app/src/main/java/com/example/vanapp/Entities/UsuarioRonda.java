@@ -8,6 +8,10 @@ public class UsuarioRonda {
     private Date fechaDeConduccion;
     private boolean activo;
 
+    public UsuarioRonda(){
+        setActivo(true);
+    }
+
     public String getIdUsuario() { return idUsuario; }
     public String getIdRonda() { return idRonda; }
     public Date getFechaDeConduccion() { return fechaDeConduccion; }
