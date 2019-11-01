@@ -10,6 +10,7 @@ import com.example.vanapp.Entities.Coche;
 import com.example.vanapp.Entities.Usuario;
 import com.example.vanapp.Dal.DatabaseSchemaContracts.*;
 import com.example.vanapp.Dal.DatabaseSchema.*;
+import com.example.vanapp.Entities.UsuarioCoche;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,22 +40,6 @@ public class DatabaseManager {
 
     // INICIO [OPERACIONES_USUARIO]
 
-    /* Retorna un usuario mapeado a través de los datos proporcionados por el cursor  */
-    private Usuario mapearUsuario(Cursor cursor){
-        Usuario nuevoUsuario = new Usuario();
-        nuevoUsuario.setIdUsuario(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.ID_USUARIO)));
-        nuevoUsuario.setNombre(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.NOMBRE)));
-        nuevoUsuario.setApellido1(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.APELLIDO_1)));
-        nuevoUsuario.setApellido2(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.APELLIDO_2)));
-        nuevoUsuario.setAlias(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.ALIAS)));
-        nuevoUsuario.setEmail(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.EMAIL)));
-        nuevoUsuario.setColorUsuario(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.COLOR_USUARIO)));
-        Date fechaAltaParseada = Utilidades.getFechaFromString(cursor.getString(cursor.getColumnIndex(ColumnasTablaUsuarios.FECHA_ALTA)));
-        nuevoUsuario.setFechaAlta(fechaAltaParseada);
-        nuevoUsuario.setActivo(cursor.getInt(cursor.getColumnIndex(ColumnasTablaUsuarios.ACTIVO)) == 1);
-        return nuevoUsuario;
-    }
-
     public ArrayList obtenerUsuarios() {
         ArrayList<Usuario> listaUsuarios = new ArrayList<>();
         SQLiteDatabase db = baseDatos.getReadableDatabase();
@@ -64,7 +49,7 @@ public class DatabaseManager {
         if (cursor.moveToFirst())
         {
             do{
-                listaUsuarios.add(mapearUsuario(cursor));
+                listaUsuarios.add(DatabaseMapping.obtenerInstancia().mapearUsuario(cursor));
             }while (cursor.moveToNext());
         }
 
@@ -79,7 +64,7 @@ public class DatabaseManager {
         Cursor cursor = db.rawQuery(sqlQuery, null);
 
         if (cursor.moveToFirst()){
-            nuevoUsuario = mapearUsuario(cursor);
+            nuevoUsuario = DatabaseMapping.obtenerInstancia().mapearUsuario(cursor);
         }
 
         return nuevoUsuario;
@@ -129,6 +114,9 @@ public class DatabaseManager {
      * Elimina todos los usuarios o uno en concreto.
      */
     public boolean eliminarUsuariosTodos() {
+
+        this.eliminarUsuarioCochesTodos();
+
         int resultado = 0;
         SQLiteDatabase db = baseDatos.getWritableDatabase();
 
@@ -140,24 +128,23 @@ public class DatabaseManager {
 
     /**
      * Elimina un usuario concreto.
-     * @param idUsuario Si no se pasa nada, eliminará toda la tabla.
+     * @param idUsuario usuario a eliminar
      * @param esBorradoLogico indica si el borrado es lógico (se actualiza el campo activo) o físico (se elimina definitivamente de la Bdd)
      */
     public boolean eliminarUsuario(String idUsuario, boolean esBorradoLogico) {
+
+        this.eliminarRelacionDeUsuarioConTodosLosCoches(idUsuario, esBorradoLogico);
+
         int resultado = 0;
         SQLiteDatabase db = baseDatos.getWritableDatabase();
+        String whereClause = String.format("%s=?", Usuarios.ID_USUARIO);
+        final String[] whereArgs = {idUsuario};
 
         if (esBorradoLogico) {
             ContentValues valores = new ContentValues();
             valores.put(Usuarios.ACTIVO, false);
-
-            String whereClause = String.format("%s=?", Usuarios.ID_USUARIO);
-            final String[] whereArgs = {idUsuario};
-
             resultado = db.update(Tablas.USUARIOS, valores, whereClause, whereArgs);
         }else{
-            String whereClause = String.format("%s=?", Usuarios.ID_USUARIO);
-            final String[] whereArgs = {idUsuario};
             resultado = db.delete(Tablas.USUARIOS, whereClause, whereArgs);
         }
 
@@ -168,20 +155,6 @@ public class DatabaseManager {
 
     // INICIO [OPERACIONES_COCHE]
 
-    /* Retorna un usuario mapeado a través de los datos proporcionados por el cursor  */
-    private Coche mapearCoche(Cursor cursor){
-        Coche nuevoCoche = new Coche();
-        nuevoCoche.setIdCoche(cursor.getString(cursor.getColumnIndex(ColumnasTablaCoches.ID_COCHE)));
-        nuevoCoche.setNombre(cursor.getString(cursor.getColumnIndex(ColumnasTablaCoches.NOMBRE)));
-        nuevoCoche.setMatricula(cursor.getString(cursor.getColumnIndex(ColumnasTablaCoches.MATRICULA)));
-        nuevoCoche.setNumPlazas(cursor.getInt(cursor.getColumnIndex(ColumnasTablaCoches.NUMERO_PLAZAS)));
-        nuevoCoche.setColorCoche(cursor.getString(cursor.getColumnIndex(ColumnasTablaCoches.COLOR_COCHE)));
-        nuevoCoche.setActivo(cursor.getInt(cursor.getColumnIndex(ColumnasTablaCoches.ACTIVO)) == 1);
-        Date fechaAltaParseada = Utilidades.getFechaFromString(cursor.getString(cursor.getColumnIndex(ColumnasTablaCoches.FECHA_ALTA)));
-        nuevoCoche.setFechaAlta(fechaAltaParseada);
-        return nuevoCoche;
-    }
-
     public ArrayList obtenerCoches() {
         ArrayList<Coche> listaCoches = new ArrayList<>();
         SQLiteDatabase db = baseDatos.getReadableDatabase();
@@ -191,7 +164,7 @@ public class DatabaseManager {
         if (cursor.moveToFirst())
         {
             do{
-                listaCoches.add(mapearCoche(cursor));
+                listaCoches.add(DatabaseMapping.obtenerInstancia().mapearCoche(cursor));
             }while (cursor.moveToNext());
         }
 
@@ -206,7 +179,7 @@ public class DatabaseManager {
         Cursor cursor = db.rawQuery(sqlQuery, null);
 
         if (cursor.moveToFirst()){
-            nuevoCoche = mapearCoche(cursor);
+            nuevoCoche = DatabaseMapping.obtenerInstancia().mapearCoche(cursor);
         }
 
         return nuevoCoche;
@@ -253,6 +226,8 @@ public class DatabaseManager {
      */
     public boolean eliminarCochesTodos() {
         int resultado = 0;
+        this.eliminarUsuarioCochesTodos();
+
         SQLiteDatabase db = baseDatos.getWritableDatabase();
 
         final String[] whereArgs = {};
@@ -262,25 +237,25 @@ public class DatabaseManager {
     }
 
     /**
-     * Elimina un usuario concreto.
-     * @param idCoche Si no se pasa nada, eliminará toda la tabla.
+     * Elimina un coche concreto.
+     * @param idCoche coche concreto a eliminar
      * @param esBorradoLogico indica si el borrado es lógico (se actualiza el campo activo) o físico (se elimina definitivamente de la Bdd)
      */
     public boolean eliminarCoche(String idCoche, boolean esBorradoLogico) {
+
+        this.eliminarRelacionDeCocheConTodosLosUsuarios(idCoche, esBorradoLogico);
+
         int resultado = 0;
         SQLiteDatabase db = baseDatos.getWritableDatabase();
+
+        String whereClause = String.format("%s=?", Coches.ID_COCHE);
+        final String[] whereArgs = {idCoche};
 
         if (esBorradoLogico) {
             ContentValues valores = new ContentValues();
             valores.put(Coches.ACTIVO, false);
-
-            String whereClause = String.format("%s=?", Coches.ID_COCHE);
-            final String[] whereArgs = {idCoche};
-
             resultado = db.update(Tablas.COCHES, valores, whereClause, whereArgs);
         }else{
-            String whereClause = String.format("%s=?", Coches.ID_COCHE);
-            final String[] whereArgs = {idCoche};
             resultado = db.delete(Tablas.COCHES, whereClause, whereArgs);
         }
 
@@ -288,5 +263,156 @@ public class DatabaseManager {
     }
 
     // FIN [OPERACIONES_COCHE]
+
+    // INICIO [OPERACIONES_USUARIOS_COCHE]
+    public ArrayList obtenerUsuariosDelCoche(String idCoche) {
+        ArrayList<UsuarioCoche> listaUsuariosDelCoche = new ArrayList<>();
+        SQLiteDatabase db = baseDatos.getReadableDatabase();
+
+        String sqlTotal = "";
+        String sqlSelect = "";
+        String sqlFrom = "";
+        String sqlWhere = "";
+
+        sqlSelect = " SELECT Coches.Id, Coches.Nombre, Coches.Activo,";
+        sqlSelect += " Usuarios_Coches.IdUsuario, Usuarios_Coches.IdCoche, Usuarios_Coches.EsConductor, Usuarios_Coches.Activo,";
+        sqlSelect += " Usuarios.Id, Usuarios.Nombre, Usuarios.Apellido1, Usuarios.Apellido2,";
+        sqlSelect += " Usuarios.Alias, Usuarios.Email, Usuarios.ColorUsuario, Usuarios.FechaAlta, Usuarios.Activo";
+        sqlFrom += " FROM Coches INNER JOIN Usuarios_Coches ON Coches.Id = Usuarios_Coches.IdCoche";
+        sqlFrom += " INNER JOIN Usuarios ON Usuarios.Id = Usuarios_Coches.IdUsuario";
+        sqlWhere += " WHERE Coches.Id='" + idCoche + "'";
+        sqlWhere += " AND Coches.Activo=1 AND Usuarios.Activo=1 AND Usuarios_Coches.Activo=1";
+
+        sqlTotal = sqlSelect + sqlFrom + sqlWhere;
+        Cursor cursor = db.rawQuery(sqlTotal, null);
+
+        if (cursor.moveToFirst())
+        {
+            do{
+                listaUsuariosDelCoche.add(DatabaseMapping.obtenerInstancia().mapearUsuarioCoche(cursor));
+            }while (cursor.moveToNext());
+        }
+
+        return listaUsuariosDelCoche;
+    }
+
+    public boolean insertarUsuarioCoche(UsuarioCoche usuarioCoche) {
+        SQLiteDatabase db = baseDatos.getWritableDatabase();
+
+        ContentValues valores = new ContentValues();
+        valores.put(UsuariosCoches.ID_USUARIO, usuarioCoche.getUsuarioDetalle().getIdUsuario());
+        valores.put(UsuariosCoches.ID_COCHE, usuarioCoche.getIdCoche());
+        valores.put(UsuariosCoches.ES_CONDUCTOR, usuarioCoche.esCondutor());
+        valores.put(UsuariosCoches.ACTIVO, usuarioCoche.esActivo());
+
+        //Retorna el id de la fila del nuevo registro insertado, o -1 si ha ocurrido un error
+        long rowId = db.insertOrThrow(Tablas.USUARIOS_COCHES, null, valores);
+
+        return rowId > 0 ? true : false;
+    }
+
+    public boolean actualizarUsuarioCoche(UsuarioCoche usuarioCoche) {
+        SQLiteDatabase db = baseDatos.getWritableDatabase();
+
+        ContentValues valores = new ContentValues();
+        valores.put(UsuariosCoches.ES_CONDUCTOR, usuarioCoche.esCondutor());
+        valores.put(Coches.ACTIVO, usuarioCoche.esActivo());
+
+        String whereClause = String.format("%s=? AND %s=?", UsuariosCoches.ID_USUARIO, UsuariosCoches.ID_COCHE);
+
+        final String[] whereArgs = {usuarioCoche.getUsuarioDetalle().getIdUsuario(), usuarioCoche.getIdCoche()};
+
+        int resultado = db.update(Tablas.USUARIOS_COCHES, valores, whereClause, whereArgs);
+
+        return resultado > 0;
+    }
+
+    /**
+     * Elimina todos los usuarios o uno en concreto.
+     */
+    private boolean eliminarUsuarioCochesTodos() {
+        int resultado = 0;
+        SQLiteDatabase db = baseDatos.getWritableDatabase();
+
+        final String[] whereArgs = {};
+        resultado = db.delete(Tablas.USUARIOS_COCHES, "", whereArgs);
+
+        return resultado > 0;
+    }
+
+    /**
+     * Elimina un usuario concreto.
+     * @param idCoche Si no se pasa nada, eliminará toda la tabla.
+     * @param esBorradoLogico indica si el borrado es lógico (se actualiza el campo activo) o físico (se elimina definitivamente de la Bdd)
+     */
+    public boolean eliminarUsuarioCoche(String idUsuario, String idCoche, boolean esBorradoLogico) {
+        int resultado = 0;
+        SQLiteDatabase db = baseDatos.getWritableDatabase();
+
+        String whereClause = String.format("%s=? AND %s=?", UsuariosCoches.ID_USUARIO, UsuariosCoches.ID_COCHE);
+        final String[] whereArgs = {idUsuario, idCoche};
+
+        if (esBorradoLogico) {
+            ContentValues valores = new ContentValues();
+            valores.put(UsuariosCoches.ACTIVO, false);
+
+            resultado = db.update(Tablas.USUARIOS_COCHES, valores, whereClause, whereArgs);
+        }else{
+            resultado = db.delete(Tablas.USUARIOS_COCHES, whereClause, whereArgs);
+        }
+
+        return resultado > 0;
+    }
+
+    /**
+     * Elimina un usuario concreto.
+     * @param idUsuario .
+     * @param esBorradoLogico indica si el borrado es lógico (se actualiza el campo activo) o físico (se elimina definitivamente de la Bdd)
+     */
+    public boolean eliminarRelacionDeUsuarioConTodosLosCoches(String idUsuario, boolean esBorradoLogico) {
+        int resultado = 0;
+        SQLiteDatabase db = baseDatos.getWritableDatabase();
+
+        String whereClause = String.format("%s=?", UsuariosCoches.ID_USUARIO);
+        final String[] whereArgs = {idUsuario};
+
+        if (esBorradoLogico) {
+            ContentValues valores = new ContentValues();
+            valores.put(UsuariosCoches.ACTIVO, false);
+
+            resultado = db.update(Tablas.USUARIOS_COCHES, valores, whereClause, whereArgs);
+        }else{
+            resultado = db.delete(Tablas.USUARIOS_COCHES, whereClause, whereArgs);
+        }
+
+        return resultado > 0;
+    }
+
+
+    /**
+     * Elimina un usuario concreto.
+     * @param idCoche .
+     * @param esBorradoLogico indica si el borrado es lógico (se actualiza el campo activo) o físico (se elimina definitivamente de la Bdd)
+     */
+    public boolean eliminarRelacionDeCocheConTodosLosUsuarios(String idCoche, boolean esBorradoLogico) {
+        int resultado = 0;
+        SQLiteDatabase db = baseDatos.getWritableDatabase();
+
+        String whereClause = String.format("%s=?", UsuariosCoches.ID_COCHE);
+        final String[] whereArgs = {idCoche};
+
+        if (esBorradoLogico) {
+            ContentValues valores = new ContentValues();
+            valores.put(UsuariosCoches.ACTIVO, false);
+
+            resultado = db.update(Tablas.USUARIOS_COCHES, valores, whereClause, whereArgs);
+        }else{
+            resultado = db.delete(Tablas.USUARIOS_COCHES, whereClause, whereArgs);
+        }
+
+        return resultado > 0;
+    }
+
+    // FIN [OPERACIONES_USUARIOS_COCHE]
 }
 

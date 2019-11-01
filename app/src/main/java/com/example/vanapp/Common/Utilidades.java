@@ -1,9 +1,13 @@
 package com.example.vanapp.Common;
 
+import com.example.vanapp.Entities.UsuarioCoche;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -62,5 +66,18 @@ public class Utilidades {
         }
 
         return fechaDate;
+    }
+
+    public static UsuarioCoche encuentraUsuarioCocheEnLista(ArrayList<UsuarioCoche> listaUsuariosCoches
+            , String idUsuario, String idCoche)
+    {
+        Iterator<UsuarioCoche> iterator = listaUsuariosCoches.iterator();
+        while (iterator.hasNext()) {
+            UsuarioCoche usuarioCoche = iterator.next();
+            if (usuarioCoche.getIdCoche().equals(idCoche) && usuarioCoche.getUsuarioDetalle().getIdUsuario().equals(idUsuario)) {
+                return usuarioCoche;
+            }
+        }
+        return null;
     }
 }

@@ -72,7 +72,7 @@ public class DatabaseSchemaContracts {
     interface ColumnasTablaUsuariosCoches {
         String ID_USUARIO = "IdUsuario";
         String ID_COCHE = "IdCoche";
-        String ES_CONDUCTOR_HABITUAL = "EsConductorHabitual";
+        String ES_CONDUCTOR = "EsConductor";
         String ACTIVO = "Activo";
     }
 

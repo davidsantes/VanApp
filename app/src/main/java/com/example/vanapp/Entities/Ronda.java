@@ -1,5 +1,6 @@
 package com.example.vanapp.Entities;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
@@ -11,6 +12,7 @@ public class Ronda {
     private Date fechaFin = new Date();
     private boolean esRondaFinalizada;
     private boolean activo;
+    private ArrayList<UsuarioRonda> listaTurnosDeConduccion;
 
     public Ronda(){
         this.setIdRonda(generarIdUnico());
@@ -26,6 +28,9 @@ public class Ronda {
     public Date getFechaFin() { return fechaFin; }
     public boolean EsRondaFinalizada() { return esRondaFinalizada; }
     public boolean EsActivo() { return activo; }
+    public ArrayList<UsuarioRonda> getListaTurnosDeConduccion() {
+        return listaTurnosDeConduccion;
+    }
 
     // Zona de setters
     public void setIdRonda(String idRonda) { this.idRonda = idRonda; }
@@ -35,6 +40,9 @@ public class Ronda {
     public void setFechaFin(Date fechaFin) { this.fechaFin = fechaFin; }
     public void setEsRondaFinalizada(boolean esRondaFinalizada) { this.esRondaFinalizada = esRondaFinalizada; }
     public void setActivo(boolean activo) { this.activo = activo; }
+    public void setListaTurnosDeConduccion(ArrayList<UsuarioRonda> listaTurnosDeConduccion) {
+        this.listaTurnosDeConduccion = listaTurnosDeConduccion;
+    }
 
     /*
      * Crear un Id único para la entidad
@@ -53,7 +61,7 @@ public class Ronda {
                 && alias != null && !alias.isEmpty()
                 && fechaInicio != null
                 && fechaFin != null
-                && fechaFin.compareTo(fechaInicio) > 0
+                && fechaFin.compareTo(fechaInicio) >= 0
         ){
             esEstadoValido = true;
         }

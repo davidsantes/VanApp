@@ -103,7 +103,7 @@ public class Usuario {
     public boolean esEstadoValido() {
         boolean esEstadoValido = false;
 
-        if(nombre != null && !nombre.isEmpty()
+        if(idUsuario != null && !idUsuario.isEmpty()
                 && nombre != null && !nombre.isEmpty()
                 && apellido1 != null && !apellido1.isEmpty()
                 && apellido2 != null && !apellido2.isEmpty()

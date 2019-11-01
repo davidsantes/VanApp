@@ -44,8 +44,6 @@
             android:name=".ColorPickerTestActivity"
             android:label="VanApp - Test Activity"
             android:parentActivityName=".PresentationLayerUsuarios.UsuariosActivity" />
-        <activity android:name=".TestUsuariosActivity" />
-        <activity android:name=".DatabaseTestActivity" />
     </application>
 
 </manifest>

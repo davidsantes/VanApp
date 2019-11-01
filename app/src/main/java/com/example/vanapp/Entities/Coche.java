@@ -1,6 +1,8 @@
 package com.example.vanapp.Entities;
 
 import com.example.vanapp.Common.Utilidades;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 import static com.example.vanapp.Common.Constantes.*;
@@ -13,9 +15,8 @@ public class Coche {
     private String colorCoche;
     private boolean activo = true;
     private Date fechaAlta = new Date();
-
-    //private ArrayList<Usuario> listaUsuarios;
-    //private ArrayList<Usuario> listaUsuarios;
+    private ArrayList<UsuarioCoche> listaUsuariosEnCoche;
+    private ArrayList<Ronda> listaRondasDelCoche;
 
     public Coche(){
         this.setIdCoche(generarIdUnico());
@@ -48,6 +49,8 @@ public class Coche {
     public String getNombreCompleto() {
         return nombre + " - " + matricula;
     }
+    public ArrayList<UsuarioCoche> getListaUsuariosEnCoche() { return listaUsuariosEnCoche; }
+    public ArrayList<Ronda> getListaRondasDelCoche() { return listaRondasDelCoche; }
 
     // Zona de setters
     public void setIdCoche(String idCoche) {
@@ -71,6 +74,8 @@ public class Coche {
     public void setFechaAlta(Date fechaAlta) {
         this.fechaAlta = fechaAlta;
     }
+    public void setListaUsuariosEnCoche(ArrayList<UsuarioCoche> listaUsuariosEnCoche) { this.listaUsuariosEnCoche = listaUsuariosEnCoche; }
+    public void setListaRondasDelCoche(ArrayList<Ronda> listaRondasDelCoche) { this.listaRondasDelCoche = listaRondasDelCoche; }
 
     /*
      * Crear un Id único para la entidad
@@ -85,10 +90,10 @@ public class Coche {
     public boolean esEstadoValido() {
         boolean esEstadoValido = false;
 
-        if(nombre != null && !nombre.isEmpty()
-                && nombre != null && !nombre.isEmpty()
-                && matricula != null && !matricula.isEmpty()
-                && colorCoche != null && !colorCoche.isEmpty()
+        if(idCoche != null && !idCoche.isEmpty()
+            && nombre != null && !nombre.isEmpty()
+            && matricula != null && !matricula.isEmpty()
+            && colorCoche != null && !colorCoche.isEmpty()
         ){
             esEstadoValido = true;
         }

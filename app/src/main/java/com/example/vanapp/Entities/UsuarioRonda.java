@@ -2,7 +2,7 @@ package com.example.vanapp.Entities;
 
 import java.util.Date;
 
-public class TurnoConduccion {
+public class UsuarioRonda {
     private String idUsuario;
     private String idRonda;
     private Date fechaDeConduccion;
@@ -17,4 +17,20 @@ public class TurnoConduccion {
     public void setIdRonda(String idRonda) { this.idRonda = idRonda; }
     public void setFechaDeConduccion(Date fechaDeConduccion) { this.fechaDeConduccion = fechaDeConduccion; }
     public void setActivo(boolean activo) { this.activo = activo; }
+
+    /*
+     * Verifica si la clase está en un estado válido para su tratamiento en operaciones de base de datos CRUD
+     * */
+    public boolean esEstadoValido() {
+        boolean esEstadoValido = false;
+
+        if(idUsuario != null && !idUsuario.isEmpty()
+                && idRonda != null && !idRonda.isEmpty()
+                && fechaDeConduccion != null
+        ){
+            esEstadoValido = true;
+        }
+
+        return esEstadoValido;
+    }
 }

@@ -192,19 +192,19 @@ public class DatabaseSchema extends SQLiteOpenHelper {
     }
 
     /*
-     * CREATE TABLE Usuarios_Coches ( IdUsuario TEXT NOT NULL REFERENCES Usuarios(Id),IdCoche TEXT NOT NULL REFERENCES Coches(Id),EsConductorHabitual INTEGER NOT NULL,Activo INTEGER NOT NULL )
+     * CREATE TABLE Usuarios_Coches ( IdUsuario TEXT NOT NULL REFERENCES Usuarios(Id),IdCoche TEXT NOT NULL REFERENCES Coches(Id),EsConductor INTEGER NOT NULL,Activo INTEGER NOT NULL )
      * */
     private void CrearTablaUsuariosCoches(SQLiteDatabase db){
         String queryCreateTablaCoches = String.format("CREATE TABLE %s ( "
                         + "%s TEXT NOT NULL %s"   //UsuariosCoches.ID_USUARIO, Referencias.ID_USUARIO
                         + ",%s TEXT NOT NULL %s"   //UsuariosCoches.ID_COCHE, Referencias.ID_COCHE
-                        + ",%s INTEGER NOT NULL"   //UsuariosCoches.ES_CONDUCTOR_HABITUAL
+                        + ",%s INTEGER NOT NULL"   //UsuariosCoches.ES_CONDUCTOR
                         + ",%s INTEGER NOT NULL"   //UsuariosCoches.ACTIVO
                         + " )",
                 Tablas.USUARIOS_COCHES
                 , UsuariosCoches.ID_USUARIO, Referencias.ID_USUARIO
                 , UsuariosCoches.ID_COCHE, Referencias.ID_COCHE
-                , UsuariosCoches.ES_CONDUCTOR_HABITUAL
+                , UsuariosCoches.ES_CONDUCTOR
                 , UsuariosCoches.ACTIVO
         );
 
