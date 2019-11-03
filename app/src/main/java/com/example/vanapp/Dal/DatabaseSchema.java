@@ -14,7 +14,7 @@ import com.example.vanapp.Dal.DatabaseSchemaContracts.UsuariosCoches;
 public class DatabaseSchema extends SQLiteOpenHelper {
 
     private final Context contexto;
-    private static final String NOMBRE_BASE_DATOS = "vanapp.db";
+    private static final String NOMBRE_BASE_DATOS = "vanappdatabase.db";
 
     private static final int VERSION_ACTUAL = 1;
 
