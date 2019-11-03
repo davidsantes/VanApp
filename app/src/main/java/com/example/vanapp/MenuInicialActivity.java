@@ -85,7 +85,7 @@ public class MenuInicialActivity extends MasterActivity {
 
     //TODO: por implementar
     private void mostrarActividadPagos() {
-        Toast.makeText(getApplicationContext(), "Por implementar", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "¡Tendrás que esperar a la siguiente versión! :)", Toast.LENGTH_SHORT).show();
         //Intent intentActividad = new Intent(this, UsuarioDetalleActivity.class);
         //startActivity(intentActividad);
     }

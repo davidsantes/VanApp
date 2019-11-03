@@ -7,6 +7,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.vanapp.PresentationLayerCoches.CochesActivity;
 import com.example.vanapp.PresentationLayerUsuarios.UsuariosActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,7 +39,7 @@ public abstract class MasterActivity extends AppCompatActivity {
                 startActivity(intentActivity);
                 break;
             case R.id.opcionCoches:
-                intentActivity = new Intent(this, UsuariosActivity.class);
+                intentActivity = new Intent(this, CochesActivity.class);
                 startActivity(intentActivity);
                 break;
             case R.id.opcionRondas:
