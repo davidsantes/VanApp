@@ -27,23 +27,23 @@
         <activity
             android:name=".PresentationLayerUsuarios.UsuariosActivity"
             android:label="@string/titulo_usuarios"
-            android:parentActivityName=".MenuInicialActivity"></activity>
+            android:parentActivityName=".MenuInicialActivity" />
         <activity
             android:name=".PresentationLayerUsuarios.UsuarioDetalleActivity"
             android:label="@string/titulo_usuario_detalle"
-            android:parentActivityName=".PresentationLayerUsuarios.UsuariosActivity"></activity>
+            android:parentActivityName=".PresentationLayerUsuarios.UsuariosActivity" />
         <activity
             android:name=".PresentationLayerCoches.CochesActivity"
             android:label="@string/titulo_coches"
-            android:parentActivityName=".MenuInicialActivity"></activity>
-        <activity android:name=".PresentationLayerCoches.CocheDetalleActivity"
-            android:label="@string/titulo_coche_detalle"
-            android:parentActivityName=".PresentationLayerCoches.CochesActivity">
-        </activity>
+            android:parentActivityName=".MenuInicialActivity" />
         <activity
-            android:name=".ColorPickerTestActivity"
-            android:label="VanApp - Test Activity"
-            android:parentActivityName=".PresentationLayerUsuarios.UsuariosActivity" />
+            android:name=".PresentationLayerCoches.CocheDetalleActivity"
+            android:label="@string/titulo_coche_detalle"
+            android:parentActivityName=".PresentationLayerCoches.CochesActivity" />
+        <activity
+            android:name=".PresentationLayerCommon.UsuariosCochesActivity"
+            android:label="@string/titulo_usuarios_coches"
+            android:parentActivityName=".PresentationLayerCoches.CochesActivity"></activity>
     </application>
 
 </manifest>

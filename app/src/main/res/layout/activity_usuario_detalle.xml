@@ -196,12 +196,44 @@
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
+        <!-- Campo Es Conductor -->
+        <LinearLayout
+            android:id="@+id/area_es_conductor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/area_es_conductor"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/img_es_conductor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/ic_directions_bus" />
+
+            <TextView
+                android:id="@+id/textViewConduce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_usuario_columna_insertar_datos"
+                android:layout_toLeftOf="@+id/switchConduce"
+                android:text="@string/txtConduce" />
+            <Switch
+                android:id="@+id/switchConduce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_usuario_columna_insertar_datos"
+                android:text=""
+                android:checked="true"/>
+        </LinearLayout>
+
         <!-- Campo Color de usuario -->
         <LinearLayout
             android:id="@+id/area_color_usuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/area_color_usuario"
+            android:paddingTop="@dimen/padding_activities"
             android:orientation="horizontal">
 
             <ImageView

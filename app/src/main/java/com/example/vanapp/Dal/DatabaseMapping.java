@@ -29,6 +29,7 @@ public class DatabaseMapping {
         nuevoUsuario.setApellido2(cursor.getString(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaUsuarios.APELLIDO_2)));
         nuevoUsuario.setAlias(cursor.getString(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaUsuarios.ALIAS)));
         nuevoUsuario.setEmail(cursor.getString(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaUsuarios.EMAIL)));
+        nuevoUsuario.setEsConductor(cursor.getInt(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaUsuarios.ES_CONDUCTOR)) == 1);
         nuevoUsuario.setColorUsuario(cursor.getString(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaUsuarios.COLOR_USUARIO)));
         Date fechaAltaParseada = Utilidades.getFechaFromString(cursor.getString(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaUsuarios.FECHA_ALTA)));
         nuevoUsuario.setFechaAlta(fechaAltaParseada);
@@ -56,7 +57,6 @@ public class DatabaseMapping {
         String idCoche = cursor.getString(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaUsuariosCoches.ID_COCHE));
 
         UsuarioCoche nuevoUsuarioCoche = new UsuarioCoche(idUsuario, idCoche);
-        nuevoUsuarioCoche.setEsConductor(cursor.getInt(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaUsuariosCoches.ES_CONDUCTOR)) == 1);
         nuevoUsuarioCoche.setActivo(cursor.getInt(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaUsuariosCoches.ACTIVO)) == 1);
 
         nuevoUsuarioCoche.setUsuarioDetalle(mapearUsuario(cursor));

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="?listPreferredItemHeight"
+    android:orientation="vertical"
+    android:paddingBottom="8dp"
+    android:paddingLeft="@dimen/padding_activities"
+    android:paddingRight="@dimen/padding_activities"
+    android:paddingTop="8dp">
+
+    <ImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_face" />
+    <TextView
+        android:id="@+id/textViewNombreCompleto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:paddingLeft="@dimen/paddingCeldasNormal"
+        android:layout_toRightOf="@+id/iv_avatar"
+        android:text="NombreCompleto" />
+    <TextView
+        android:id="@+id/textViewAlias"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/paddingCeldasNormal"
+        android:layout_toRightOf="@+id/iv_avatar"
+        android:layout_below="@+id/textViewNombreCompleto"
+        android:text="Alias" />
+
+    <TextView
+        android:id="@+id/textViewConduce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/paddingCeldasNormal"
+        android:layout_toLeftOf="@+id/switchConduce"
+        android:text="@string/txtConduce" />
+    <Switch
+        android:id="@+id/switchConduce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:clickable="false"
+        android:text="" />
+
+</RelativeLayout>

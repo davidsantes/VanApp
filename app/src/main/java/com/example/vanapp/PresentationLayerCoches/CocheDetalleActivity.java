@@ -2,6 +2,8 @@ package com.example.vanapp.PresentationLayerCoches;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.example.vanapp.Common.Utilidades;
 import com.example.vanapp.Dal.DatabaseManager;
@@ -10,9 +12,13 @@ import com.example.vanapp.MasterActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vanapp.Common.Constantes;
+import com.example.vanapp.PresentationLayerCommon.UsuariosCochesActivity;
 import com.example.vanapp.R;
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
@@ -38,24 +45,46 @@ public class CocheDetalleActivity extends MasterActivity {
 
     //Componentes de la capa de presentación
     private Toolbar menuMasterToolbar;
-
     private TextInputLayout til_nombre;
     private TextInputLayout til_matricula;
     private TextInputLayout til_num_plazas;
-
     private EditText txt_nombre;
     private EditText txt_matricula;
     private EditText txt_num_plazas;
-
     private TextView tv_color;
     private TextView tv_fecha_alta;
-
     private Button botonEliminar;
     private Button botonCancelar;
     private Button botonAceptar;
     private Button botonEligeColor;
-
     private ImageView iv_avatar;
+
+    /*Además del menú de MasterActivity, inyecta otro menú*/
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_extra_coche, menu);
+
+        //Establece el color del menú secundario
+        Drawable drawable = menu.findItem(R.id.opcionUsuariosDelCoche).getIcon();
+        drawable = DrawableCompat.wrap(drawable);
+        DrawableCompat.setTint(drawable, ContextCompat.getColor(this, R.color.colorWhite));
+        menu.findItem(R.id.opcionUsuariosDelCoche).setIcon(drawable);
+
+        return true;
+    }
+
+    @Override
+    //Para poder interactuar con el segundo menú propio de esta pantalla
+    public boolean onOptionsItemSelected (MenuItem item){
+        switch (item.getItemId()){
+            case R.id.opcionUsuariosDelCoche:
+                mostrarActividadUsuariosEnCoche();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -346,5 +375,11 @@ public class CocheDetalleActivity extends MasterActivity {
         Intent intent = new Intent(this, CochesActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void mostrarActividadUsuariosEnCoche() {
+        Intent intent = new Intent(this, UsuariosCochesActivity.class);
+        intent.putExtra("ID_COCHE", idCoche);
+        startActivity(intent);
     }
 }

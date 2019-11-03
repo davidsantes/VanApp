@@ -65,40 +65,6 @@ public class CochesConUsuariosTest {
     }
 
     /*
-    * Verifica que un usuario en un coche, pase de NO conductor a conductor.
-    * Es necesario arrancar el test unitario esInsercionDeCochesConUsuariosCorrecto, que inserta datos en la BDD
-    * */
-    @Test
-    public void esActualizadoDeUnUsuarioEnUnCocheCorrecto() {
-        //Arrange
-        String idUsuario = "";
-        String idCoche = "";
-        UsuarioCoche usuarioCocheInvestigar = null;
-        Boolean esElUsuarioConductor = true;
-
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        databaseManager = DatabaseManager.obtenerInstancia(appContext);
-
-        listaCoches = databaseManager.obtenerCoches();
-        idCoche = listaCoches.get(0).getIdCoche();
-        listaUsuariosCoches = databaseManager.obtenerUsuariosDelCoche(idCoche);
-        if (listaUsuariosCoches.size() > 0 )
-            usuarioCocheInvestigar = listaUsuariosCoches.get(0);
-
-        //Act
-        idCoche = usuarioCocheInvestigar.getIdCoche();
-        usuarioCocheInvestigar.setEsConductor(true);
-        esOperacionCorrecta = databaseManager.actualizarUsuarioCoche(usuarioCocheInvestigar);
-        listaUsuariosCoches = databaseManager.obtenerUsuariosDelCoche(idCoche);
-
-        usuarioCocheInvestigar = Utilidades.encuentraUsuarioCocheEnLista(listaUsuariosCoches, idUsuario, idCoche);
-
-        //Assert
-        assertEquals(esElUsuarioConductor, usuarioCocheInvestigar.esConductor());
-        assertEquals(true, usuarioCocheInvestigar.esEstadoValido());
-    }
-
-    /*
      * Verifica que un usuario en un coche, se elimina.
      * Es necesario arrancar el test unitario esInsercionDeCochesConUsuariosCorrecto, que inserta datos en la BDD
      * */

@@ -18,6 +18,7 @@ public class DatabaseSchemaContracts {
         String ALIAS = "Alias";
         String EMAIL = "Email";
         String COLOR_USUARIO = "ColorUsuario";
+        String ES_CONDUCTOR = "EsConductor";
         String FECHA_ALTA = "FechaAlta";
         String ACTIVO = "Activo";
     }
@@ -72,7 +73,6 @@ public class DatabaseSchemaContracts {
     interface ColumnasTablaUsuariosCoches {
         String ID_USUARIO = "IdUsuario";
         String ID_COCHE = "IdCoche";
-        String ES_CONDUCTOR = "EsConductor";
         String ACTIVO = "Activo";
     }
 

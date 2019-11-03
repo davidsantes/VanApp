@@ -17,6 +17,7 @@ public class UsuariosMocks {
             nuevoUsuario.setApellido2(UtilidadesMock.generarRandomString(5));
             nuevoUsuario.setAlias(UtilidadesMock.generarRandomString(10));
             nuevoUsuario.setEmail("aaa@gmail.com");
+            nuevoUsuario.setEsConductor(true);
             nuevoUsuario.setColorUsuario("E46AFF");
 
             listaUsuarios.add(nuevoUsuario);

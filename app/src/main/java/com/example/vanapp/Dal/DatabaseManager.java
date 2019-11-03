@@ -81,6 +81,7 @@ public class DatabaseManager {
         valores.put(Usuarios.APELLIDO_2, usuario.getApellido2());
         valores.put(Usuarios.ALIAS, usuario.getAlias());
         valores.put(Usuarios.EMAIL, usuario.getEmail());
+        valores.put(Usuarios.ES_CONDUCTOR, usuario.esConductor());
         valores.put(Usuarios.COLOR_USUARIO, usuario.getColorUsuario());
         valores.put(Usuarios.ACTIVO, usuario.esActivo());
         valores.put(Usuarios.FECHA_ALTA, Utilidades.getFechaToString(usuario.getFechaAlta()));
@@ -100,6 +101,7 @@ public class DatabaseManager {
         valores.put(Usuarios.APELLIDO_2, usuario.getApellido2());
         valores.put(Usuarios.ALIAS, usuario.getAlias());
         valores.put(Usuarios.EMAIL, usuario.getEmail());
+        valores.put(Usuarios.ES_CONDUCTOR, usuario.esConductor());
         valores.put(Usuarios.COLOR_USUARIO, usuario.getColorUsuario());
         valores.put(Usuarios.ACTIVO, usuario.esActivo());
 
@@ -183,6 +185,9 @@ public class DatabaseManager {
         if (cursor.moveToFirst()){
             nuevoCoche = DatabaseMapping.obtenerInstancia().mapearCoche(cursor);
         }
+
+        nuevoCoche.setListaUsuariosEnCoche(obtenerUsuariosDelCoche(idCoche));
+        nuevoCoche.setListaRondasDelCoche(obtenerRondasDelCoche(idCoche));
 
         return nuevoCoche;
     }
@@ -279,9 +284,9 @@ public class DatabaseManager {
         String sqlWhere = "";
 
         sqlSelect = " SELECT Coches.Id, Coches.Nombre, Coches.Activo,";
-        sqlSelect += " Usuarios_Coches.IdUsuario, Usuarios_Coches.IdCoche, Usuarios_Coches.EsConductor, Usuarios_Coches.Activo,";
+        sqlSelect += " Usuarios_Coches.IdUsuario, Usuarios_Coches.IdCoche, Usuarios_Coches.Activo,";
         sqlSelect += " Usuarios.Id, Usuarios.Nombre, Usuarios.Apellido1, Usuarios.Apellido2,";
-        sqlSelect += " Usuarios.Alias, Usuarios.Email, Usuarios.ColorUsuario, Usuarios.FechaAlta, Usuarios.Activo";
+        sqlSelect += " Usuarios.Alias, Usuarios.Email, Usuarios.EsConductor, Usuarios.ColorUsuario, Usuarios.FechaAlta, Usuarios.Activo";
         sqlFrom += " FROM Coches INNER JOIN Usuarios_Coches ON Coches.Id = Usuarios_Coches.IdCoche";
         sqlFrom += " INNER JOIN Usuarios ON Usuarios.Id = Usuarios_Coches.IdUsuario";
         sqlWhere += " WHERE Coches.Id='" + idCoche + "'";
@@ -300,13 +305,40 @@ public class DatabaseManager {
         return listaUsuariosDelCoche;
     }
 
+    public ArrayList obtenerUsuariosNoDelCoche(String idCoche) {
+        ArrayList<Usuario> listaUsuarios = new ArrayList<>();
+        SQLiteDatabase db = baseDatos.getReadableDatabase();
+
+        String sqlTotal = "";
+        String sqlSelect = "";
+        String sqlFrom = "";
+        String sqlWhere = "";
+
+        sqlSelect = " SELECT Usuarios.*";
+        sqlFrom += " FROM Usuarios";
+        sqlWhere += " WHERE Id NOT IN";
+        sqlWhere += " (SELECT IdUsuario FROM Usuarios_Coches WHERE IdCoche = '" + idCoche + "') ";
+        sqlWhere += " AND Usuarios.Activo=1";
+
+        sqlTotal = sqlSelect + sqlFrom + sqlWhere;
+        Cursor cursor = db.rawQuery(sqlTotal, null);
+
+        if (cursor.moveToFirst())
+        {
+            do{
+                listaUsuarios.add(DatabaseMapping.obtenerInstancia().mapearUsuario(cursor));
+            }while (cursor.moveToNext());
+        }
+
+        return listaUsuarios;
+    }
+
     public boolean insertarUsuarioCoche(UsuarioCoche usuarioCoche) {
         SQLiteDatabase db = baseDatos.getWritableDatabase();
 
         ContentValues valores = new ContentValues();
         valores.put(UsuariosCoches.ID_USUARIO, usuarioCoche.getUsuarioDetalle().getIdUsuario());
         valores.put(UsuariosCoches.ID_COCHE, usuarioCoche.getIdCoche());
-        valores.put(UsuariosCoches.ES_CONDUCTOR, usuarioCoche.esConductor());
         valores.put(UsuariosCoches.ACTIVO, usuarioCoche.esActivo());
 
         //Retorna el id de la fila del nuevo registro insertado, o -1 si ha ocurrido un error
@@ -319,7 +351,6 @@ public class DatabaseManager {
         SQLiteDatabase db = baseDatos.getWritableDatabase();
 
         ContentValues valores = new ContentValues();
-        valores.put(UsuariosCoches.ES_CONDUCTOR, usuarioCoche.esConductor());
         valores.put(Coches.ACTIVO, usuarioCoche.esActivo());
 
         String whereClause = String.format("%s=? AND %s=?", UsuariosCoches.ID_USUARIO, UsuariosCoches.ID_COCHE);

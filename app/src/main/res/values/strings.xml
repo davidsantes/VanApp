@@ -6,9 +6,11 @@
     <string name="titulo_login">VanApp - login</string>
     <string name="titulo_menu_principal">VanApp - ¿qué quieres hacer?</string>
     <string name="titulo_usuarios">VanApp - Lista de usuarios</string>
-    <string name="titulo_usuario_detalle">VanApp - Detalle del usuario</string>
+    <string name="titulo_usuario_detalle">VanApp - Detalle</string>
     <string name="titulo_coches">VanApp - Lista de coches</string>
-    <string name="titulo_coche_detalle">VanApp - Detalle del coche</string>
+    <string name="titulo_coche_detalle">VanApp - Detalle</string>
+    <string name="titulo_usuarios_coches">VanApp - Usuarios en coche</string>
+    <string name="titulo_usuario_selecciona">Selecciona un usuario</string>
     <string name="tituloConfirmaSalir">Confirmar salir</string>
     <string name="tituloConfirmaEliminar">Confirmar eliminar</string>
 
@@ -23,9 +25,13 @@
 
     <string name="txtLogOff">Salir</string>
     <string name="txtNuevo">Nuevo</string>
+    <string name="txtVincularUsuarioEnCoche">Vincular un usuario</string>
     <string name="txtEliminarTodosLosUsuarios">Eliminar usuarios</string>
     <string name="txtEliminarTodosLosCoches">Eliminar coches</string>
     <string name="txtPersonalizacion">Mis cosas</string>
+    <string name="txtUsuariosEnCoche">Usuarios en el coche</string>
+    <string name="txtCoche">Coche</string>
+    <string name="txtConduce">¿Conduce?</string>
 
     <string name="txtEliminar">Eliminar</string>
     <string name="txtAceptar">Aceptar</string>
@@ -43,6 +49,7 @@
     <string name="msgConfirmarSalir">Qué pena, ¿de verdad te quieres marchar? :(</string>
     <string name="msgConfirmarEliminarTodosUsuarios">Wow, esta acción eliminará todos los usuarios y los datos relacionados ¿deseas continuar?</string>
     <string name="msgConfirmarEliminarUsuario">Wow, esta acción eliminará el usuario y los datos relacionados ¿deseas continuar?</string>
+    <string name="msgConfirmarEliminarRelacionUsuarioCoche">Wow, esta acción eliminará el usuario con el coche ¿deseas continuar?</string>
     <string name="msgConfirmarEliminarTodosCoches">Wow, esta acción eliminará todos los coches y los datos relacionados ¿deseas continuar?</string>
     <string name="msgConfirmarEliminarCoche">Wow, esta acción eliminará el coche y los datos relacionados ¿deseas continuar?</string>
     <string name="msgOperacionOk">Operación realizada correctamente</string>

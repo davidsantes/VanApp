@@ -100,6 +100,7 @@ public class DatabaseSchema extends SQLiteOpenHelper {
                         + ",%s TEXT NOT NULL"   //Usuarios.APELLIDO_2
                         + ",%s TEXT NOT NULL"   //Usuarios.ALIAS
                         + ",%s TEXT NOT NULL"   //Usuarios.EMAIL
+                        + ",%s INTEGER NOT NULL"   //Usuarios.ES_CONDUCTOR
                         + ",%s TEXT NOT NULL"   //Usuarios.COLOR_USUARIO
                         + ",%s DATE NOT NULL"   //Usuarios.FECHA_ALTA
                         + ",%s INTEGER NOT NULL"   //Usuarios.ACTIVO
@@ -111,6 +112,7 @@ public class DatabaseSchema extends SQLiteOpenHelper {
                 , Usuarios.APELLIDO_2
                 , Usuarios.ALIAS
                 , Usuarios.EMAIL
+                , Usuarios.ES_CONDUCTOR
                 , Usuarios.COLOR_USUARIO
                 , Usuarios.FECHA_ALTA
                 , Usuarios.ACTIVO
@@ -198,13 +200,11 @@ public class DatabaseSchema extends SQLiteOpenHelper {
         String queryCreateTablaCoches = String.format("CREATE TABLE %s ( "
                         + "%s TEXT NOT NULL %s"   //UsuariosCoches.ID_USUARIO, Referencias.ID_USUARIO
                         + ",%s TEXT NOT NULL %s"   //UsuariosCoches.ID_COCHE, Referencias.ID_COCHE
-                        + ",%s INTEGER NOT NULL"   //UsuariosCoches.ES_CONDUCTOR
                         + ",%s INTEGER NOT NULL"   //UsuariosCoches.ACTIVO
                         + " )",
                 Tablas.USUARIOS_COCHES
                 , UsuariosCoches.ID_USUARIO, Referencias.ID_USUARIO
                 , UsuariosCoches.ID_COCHE, Referencias.ID_COCHE
-                , UsuariosCoches.ES_CONDUCTOR
                 , UsuariosCoches.ACTIVO
         );
 

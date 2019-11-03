@@ -1,5 +1,6 @@
 package com.example.vanapp.Common;
 
+import com.example.vanapp.Entities.Usuario;
 import com.example.vanapp.Entities.UsuarioCoche;
 
 import java.text.DateFormat;
@@ -76,6 +77,20 @@ public class Utilidades {
             UsuarioCoche usuarioCoche = iterator.next();
             if (usuarioCoche.getIdCoche().equals(idCoche) && usuarioCoche.getUsuarioDetalle().getIdUsuario().equals(idUsuario)) {
                 return usuarioCoche;
+            }
+        }
+        return null;
+    }
+
+    public static Usuario encuentraUsuarioEnLista(ArrayList<Usuario> listaUsuarios
+            , String idUsuario, String alias)
+    {
+        Iterator<Usuario> iterator = listaUsuarios.iterator();
+        while (iterator.hasNext()) {
+            Usuario usuario = iterator.next();
+            if (usuario.getIdUsuario().equals(idUsuario)
+                    || usuario.getAlias().equals(alias)) {
+                return usuario;
             }
         }
         return null;

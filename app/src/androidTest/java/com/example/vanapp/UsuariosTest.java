@@ -101,6 +101,7 @@ public class UsuariosTest {
         usuarioEsperado.setApellido1("Santesteban");
         usuarioEsperado.setApellido2("Herrero");
         usuarioEsperado.setEmail("davidsantesilerna@gmail.com");
+        usuarioEsperado.setEsConductor(false);
 
         //Act
         esOperacionCorrecta = databaseManager.actualizarUsuario(usuarioEsperado);
@@ -108,6 +109,7 @@ public class UsuariosTest {
 
         //Assert
         assertEquals(usuarioEsperado.getNombreCompleto(), usuarioInvestigar.getNombreCompleto());
+        assertEquals(usuarioEsperado.esConductor(), usuarioInvestigar.esConductor());
         assertEquals(true, usuarioInvestigar.esEstadoValido());
     }
 }

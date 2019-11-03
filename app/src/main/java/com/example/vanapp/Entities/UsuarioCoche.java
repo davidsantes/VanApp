@@ -2,14 +2,12 @@ package com.example.vanapp.Entities;
 
 public class UsuarioCoche {
     private String idCoche;
-    private boolean esConductor;
     private boolean activo;
     private Usuario usuarioDetalle;
 
     public UsuarioCoche(String idUsuario,
                         String idCoche){
         this.setIdCoche(idCoche);
-        this.setEsConductor(true);
         this.setActivo(true);
 
         setUsuarioDetalle(new Usuario());
@@ -18,13 +16,11 @@ public class UsuarioCoche {
 
     // Zona de getters
     public String getIdCoche() { return idCoche; }
-    public boolean esConductor() { return esConductor; }
     public boolean esActivo() { return activo; }
     public Usuario getUsuarioDetalle() { return usuarioDetalle; }
 
     // Zona de setters
     public void setIdCoche(String idCoche) { this.idCoche = idCoche; }
-    public void setEsConductor(boolean esConductor) { this.esConductor = esConductor; }
     public void setActivo(boolean activo) { this.activo = activo; }
     public void setUsuarioDetalle(Usuario usuarioDetalle) { this.usuarioDetalle = usuarioDetalle; }
 

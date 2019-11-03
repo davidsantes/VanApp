@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +51,7 @@ public class UsuarioDetalleActivity extends MasterActivity {
     private EditText txt_apellido2;
     private EditText txt_alias;
     private EditText txt_email;
+    private Switch switchConduce;
     private TextView tv_color;
     private TextView tv_fecha_alta;
 
@@ -117,7 +119,7 @@ public class UsuarioDetalleActivity extends MasterActivity {
         txt_apellido2 = findViewById(R.id.txt_apellido2);
         txt_alias = findViewById(R.id.txt_alias);
         txt_email = findViewById(R.id.txt_email);
-
+        switchConduce = findViewById(R.id.switchConduce);
         tv_color = findViewById(R.id.tv_color);
         tv_fecha_alta = findViewById(R.id.tv_fecha_alta);
 
@@ -270,6 +272,7 @@ public class UsuarioDetalleActivity extends MasterActivity {
         usuarioActual.setApellido2(txt_apellido2.getText().toString());
         usuarioActual.setAlias(txt_alias.getText().toString());
         usuarioActual.setEmail(txt_email.getText().toString());
+        usuarioActual.setEsConductor(switchConduce.isChecked());
         usuarioActual.setColorUsuario(tv_color.getText().toString());
 
         return usuarioActual;
@@ -364,13 +367,14 @@ public class UsuarioDetalleActivity extends MasterActivity {
         txt_apellido2.setText(usuarioActual.getApellido2());
         txt_alias.setText(usuarioActual.getAlias());
         txt_email.setText(usuarioActual.getEmail());
-        String fechaParseada = Utilidades.getFechaToString(usuarioActual.getFechaAlta());
-        tv_fecha_alta.setText(fechaParseada);
+        switchConduce.setChecked(usuarioActual.esConductor());
         tv_color.setText(usuarioActual.getColorUsuario());
-
         int colorParseado = Color.parseColor("#" + (usuarioActual.getColorUsuario()));
         tv_color.setBackgroundColor(colorParseado);
         iv_avatar.setColorFilter(colorParseado);
+
+        String fechaParseada = Utilidades.getFechaToString(usuarioActual.getFechaAlta());
+        tv_fecha_alta.setText(fechaParseada);
 
         //Sólo motrará el botón para eliminar si es un usuario existente
         botonEliminar.setVisibility(View.VISIBLE);

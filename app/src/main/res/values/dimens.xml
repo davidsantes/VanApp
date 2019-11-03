@@ -9,6 +9,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="tamanioLetraNormal">12sp</dimen>
+    <dimen name="tamanioLetraTitulo">18sp</dimen>
     <dimen name="tamanioLetraXXl">50sp</dimen>
     <dimen name="tamanioLetraXXXl">80sp</dimen>
 </resources>
