@@ -61,6 +61,15 @@ public class CochesActivity extends MasterActivity {
                 confirmarEliminarTodos();
             }
         });
+
+        listViewCoches = findViewById(R.id.listViewCoches);
+        listViewCoches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Coche cocheItem = (Coche) listViewCoches.getItemAtPosition(position);
+                mostrarActividadCocheDetalle(cocheItem.getIdCoche());
+            }
+        });
     }
 
     /**
@@ -73,16 +82,10 @@ public class CochesActivity extends MasterActivity {
 
         //Se inserta la lista rellenada dentro del adapter
         listaCoches = databaseManager.obtenerCoches();
-        CochesAdapter adapter = new CochesAdapter(this, listaCoches);
-        listViewCoches.setAdapter(adapter);
-
-        listViewCoches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Coche cocheItem = (Coche) listViewCoches.getItemAtPosition(position);
-                mostrarActividadCocheDetalle(cocheItem.getIdCoche());
-            }
-        });
+        if (listaCoches != null && listaCoches.size() > 0){
+            CochesAdapter adapter = new CochesAdapter(this, listaCoches);
+            listViewCoches.setAdapter(adapter);
+        }
     }
 
     private void confirmarEliminarTodos(){
