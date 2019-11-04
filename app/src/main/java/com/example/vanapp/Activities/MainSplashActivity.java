@@ -1,4 +1,4 @@
-package com.example.vanapp;
+package com.example.vanapp.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,7 +8,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
-import com.example.vanapp.PresentationLayerUsuarios.UsuariosActivity;
+import com.example.vanapp.R;
 
 public class MainSplashActivity extends AppCompatActivity {
     static final int TIEMPO_EN_PANTALLA = 5000; //5 SEGUNDOS

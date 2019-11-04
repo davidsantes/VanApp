@@ -1,4 +1,4 @@
-package com.example.vanapp.PresentationLayerCommon;
+package com.example.vanapp.Activities.Common;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
@@ -21,7 +21,7 @@ import com.example.vanapp.Dal.DatabaseManager;
 import com.example.vanapp.Entities.Coche;
 import com.example.vanapp.Entities.Usuario;
 import com.example.vanapp.Entities.UsuarioCoche;
-import com.example.vanapp.MasterActivity;
+import com.example.vanapp.Activities.MasterActivity;
 import com.example.vanapp.R;
 
 import java.util.ArrayList;

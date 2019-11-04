@@ -11,9 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PresentationLayerRondas.RondasCocheActivity"></activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:label="@string/titulo_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,30 +20,33 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainSplashActivity" />
+        <activity android:name=".Activities.MainSplashActivity" />
         <activity
-            android:name=".MenuInicialActivity"
+            android:name=".Activities.MenuInicialActivity"
             android:label="@string/titulo_menu_principal"></activity>
         <activity
-            android:name=".PresentationLayerUsuarios.UsuariosActivity"
+            android:name=".Activities.Usuarios.UsuariosActivity"
             android:label="@string/titulo_usuarios"
-            android:parentActivityName=".MenuInicialActivity" />
+            android:parentActivityName=".Activities.MenuInicialActivity" />
         <activity
-            android:name=".PresentationLayerUsuarios.UsuarioDetalleActivity"
+            android:name=".Activities.Usuarios.UsuarioDetalleActivity"
             android:label="@string/titulo_usuario_detalle"
-            android:parentActivityName=".PresentationLayerUsuarios.UsuariosActivity" />
+            android:parentActivityName=".Activities.Usuarios.UsuariosActivity" />
         <activity
-            android:name=".PresentationLayerCoches.CochesActivity"
+            android:name=".Activities.Coches.CochesActivity"
             android:label="@string/titulo_coches"
-            android:parentActivityName=".MenuInicialActivity" />
+            android:parentActivityName=".Activities.MenuInicialActivity" />
         <activity
-            android:name=".PresentationLayerCoches.CocheDetalleActivity"
+            android:name=".Activities.Coches.CocheDetalleActivity"
             android:label="@string/titulo_coche_detalle"
-            android:parentActivityName=".PresentationLayerCoches.CochesActivity" />
+            android:parentActivityName=".Activities.Coches.CochesActivity" />
         <activity
-            android:name=".PresentationLayerCommon.UsuariosCochesActivity"
+            android:name=".Activities.Common.UsuariosCochesActivity"
             android:label="@string/titulo_usuarios_coches"
-            android:parentActivityName=".PresentationLayerCoches.CochesActivity" />
+            android:parentActivityName=".Activities.Coches.CochesActivity" />
+        <activity android:name=".Activities.Rondas.RondasCocheActivity"
+            android:label="@string/titulo_rondas_coche"
+            android:parentActivityName=".Activities.Coches.CochesActivity" />
     </application>
 
 </manifest>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="@dimen/padding_activities"
     android:background="@drawable/intro_car"
-    tools:context=".MainActivity">
+    tools:context=".Activities.MainActivity">
 
     <pl.droidsonroids.gif.GifImageView
         android:layout_width="match_parent"

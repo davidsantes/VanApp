@@ -1,4 +1,4 @@
-package com.example.vanapp;
+package com.example.vanapp.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,8 +7,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.vanapp.PresentationLayerCoches.CochesActivity;
-import com.example.vanapp.PresentationLayerUsuarios.UsuariosActivity;
+import com.example.vanapp.Activities.Coches.CochesActivity;
+import com.example.vanapp.Activities.Usuarios.UsuariosActivity;
+import com.example.vanapp.R;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;

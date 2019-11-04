@@ -1,4 +1,4 @@
-package com.example.vanapp;
+package com.example.vanapp.Activities;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -8,8 +8,9 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.vanapp.PresentationLayerCoches.CochesActivity;
-import com.example.vanapp.PresentationLayerUsuarios.UsuariosActivity;
+import com.example.vanapp.Activities.Coches.CochesActivity;
+import com.example.vanapp.Activities.Usuarios.UsuariosActivity;
+import com.example.vanapp.R;
 
 public class MenuInicialActivity extends MasterActivity {
 
