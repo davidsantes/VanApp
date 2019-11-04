@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
     <item
+        android:id="@+id/opcionRondasDelCoche"
+        android:icon="@drawable/ic_restore"
+        android:title="@string/opcionRondas"
+        android:iconTint="@android:color/white"
+        app:showAsAction="always">
+    </item>
+    <item
         android:id="@+id/opcionUsuariosDelCoche"
         android:icon="@drawable/ic_face"
         android:title="@string/opcionUsuarios"

@@ -13,7 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,10 +34,8 @@ public class UsuariosCochesActivity extends MasterActivity {
 
     //Componentes de la capa de presentación
     private Toolbar menuMasterToolbar;
-    private ImageView ivAvatarCoche;
     private TextView textViewNombreCoche;
     private TextView textViewMatricula;
-    private Switch switchConduce;
     private Button btnVincularUsuario;
     ListView listViewUsuariosEnElCoche;
 
@@ -94,11 +91,12 @@ public class UsuariosCochesActivity extends MasterActivity {
         });
 
         listViewUsuariosEnElCoche = findViewById(R.id.listViewUsuariosEnElCoche);
-        listViewUsuariosEnElCoche.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listViewUsuariosEnElCoche.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean  onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 UsuarioCoche usuarioItem = (UsuarioCoche)listViewUsuariosEnElCoche.getItemAtPosition(position);
                 confirmarEliminarUsuario(usuarioItem.getUsuarioDetalle().getIdUsuario(), usuarioItem.getIdCoche());
+                return true;
             }
         });
     }

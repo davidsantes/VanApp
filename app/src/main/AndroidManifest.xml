@@ -11,9 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".PresentationLayerRondas.RondasCocheActivity"></activity>
         <activity
             android:name=".MainActivity"
-            android:label="@string/titulo_login" >
+            android:label="@string/titulo_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,8 +24,7 @@
         <activity android:name=".MainSplashActivity" />
         <activity
             android:name=".MenuInicialActivity"
-            android:label="@string/titulo_menu_principal">
-        </activity>
+            android:label="@string/titulo_menu_principal"></activity>
         <activity
             android:name=".PresentationLayerUsuarios.UsuariosActivity"
             android:label="@string/titulo_usuarios"
@@ -44,7 +44,7 @@
         <activity
             android:name=".PresentationLayerCommon.UsuariosCochesActivity"
             android:label="@string/titulo_usuarios_coches"
-            android:parentActivityName=".PresentationLayerCoches.CochesActivity"></activity>
+            android:parentActivityName=".PresentationLayerCoches.CochesActivity" />
     </application>
 
 </manifest>

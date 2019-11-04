@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.example.vanapp.Common.Constantes;
 import com.example.vanapp.PresentationLayerCommon.UsuariosCochesActivity;
+import com.example.vanapp.PresentationLayerRondas.RondasCocheActivity;
 import com.example.vanapp.R;
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
@@ -64,13 +65,20 @@ public class CocheDetalleActivity extends MasterActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_extra_coche, menu);
+        inflater.inflate(R.menu.menu_extra_usuarios_coches, menu);
 
         //Establece el color del menú secundario
-        Drawable drawable = menu.findItem(R.id.opcionUsuariosDelCoche).getIcon();
-        drawable = DrawableCompat.wrap(drawable);
-        DrawableCompat.setTint(drawable, ContextCompat.getColor(this, R.color.colorWhite));
-        menu.findItem(R.id.opcionUsuariosDelCoche).setIcon(drawable);
+        Drawable dwUsuariosDelCoche = menu.findItem(R.id.opcionUsuariosDelCoche).getIcon();
+        Drawable dwRondasDelCoche = menu.findItem(R.id.opcionRondasDelCoche).getIcon();
+
+        dwUsuariosDelCoche = DrawableCompat.wrap(dwUsuariosDelCoche);
+        dwRondasDelCoche = DrawableCompat.wrap(dwRondasDelCoche);
+
+        DrawableCompat.setTint(dwUsuariosDelCoche, ContextCompat.getColor(this, R.color.colorWhite));
+        DrawableCompat.setTint(dwRondasDelCoche, ContextCompat.getColor(this, R.color.colorWhite));
+
+        menu.findItem(R.id.opcionUsuariosDelCoche).setIcon(dwUsuariosDelCoche);
+        menu.findItem(R.id.opcionRondasDelCoche).setIcon(dwRondasDelCoche);
 
         return true;
     }
@@ -81,6 +89,9 @@ public class CocheDetalleActivity extends MasterActivity {
         switch (item.getItemId()){
             case R.id.opcionUsuariosDelCoche:
                 mostrarActividadUsuariosEnCoche();
+                break;
+            case R.id.opcionRondasDelCoche:
+                mostrarActividadRondasEnCoche();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -379,6 +390,12 @@ public class CocheDetalleActivity extends MasterActivity {
 
     private void mostrarActividadUsuariosEnCoche() {
         Intent intent = new Intent(this, UsuariosCochesActivity.class);
+        intent.putExtra("ID_COCHE", idCoche);
+        startActivity(intent);
+    }
+
+    private void mostrarActividadRondasEnCoche() {
+        Intent intent = new Intent(this, RondasCocheActivity.class);
         intent.putExtra("ID_COCHE", idCoche);
         startActivity(intent);
     }
