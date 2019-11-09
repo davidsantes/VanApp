@@ -65,7 +65,7 @@ public class CocheDetalleActivity extends MasterActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_extra_usuarios_coches, menu);
+        inflater.inflate(R.menu.menu_extra_coche_detalle, menu);
 
         //Establece el color del menú secundario
         Drawable dwUsuariosDelCoche = menu.findItem(R.id.opcionUsuariosDelCoche).getIcon();

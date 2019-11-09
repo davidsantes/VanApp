@@ -28,9 +28,12 @@ import java.util.ArrayList;
 
 public class UsuariosCochesActivity extends MasterActivity {
 
+    //Variables
     DatabaseManager databaseManager;
     private Coche cocheActual;
     String idCoche;
+    ArrayList<UsuarioCoche> listaUsuariosDelCoche;
+    ArrayList<Usuario> listaUsuariosNoIncluidosEnCoche;
 
     //Componentes de la capa de presentación
     private Toolbar menuMasterToolbar;
@@ -38,10 +41,6 @@ public class UsuariosCochesActivity extends MasterActivity {
     private TextView textViewMatricula;
     private Button btnVincularUsuario;
     ListView listViewUsuariosEnElCoche;
-
-    //Variables
-    ArrayList<UsuarioCoche> listaUsuariosDelCoche;
-    ArrayList<Usuario> listaUsuariosNoIncluidosEnCoche;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

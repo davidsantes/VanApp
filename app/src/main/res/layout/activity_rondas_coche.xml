@@ -9,10 +9,53 @@
 
     <include layout="@layout/menu_layout"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/padding_activities"
+        android:orientation="horizontal" >
+        <TextView
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/tamanioLetraTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/paddingCeldasNormal"
+            android:text="@string/txtCoche" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorAccent"
+        android:layout_alignBottom="@id/textViewMatricula" />
+
+    <include layout="@layout/list_item_coche"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/padding_activities"
+        android:orientation="horizontal" >
+        <TextView
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/tamanioLetraTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/paddingCeldasNormal"
+            android:text="@string/txtRondasEnCoche" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorAccent"
+        android:layout_alignBottom="@id/textViewMatricula" />
+
     <ListView
-        android:id="@+id/listViewCoches"
+        android:id="@+id/listViewRondasEnElCoche"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:clickable="true"
         android:layout_weight="1"/>
 
     <LinearLayout
@@ -22,21 +65,21 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/btn_nuevo_coche"
+            android:id="@+id/btn_nueva_ronda"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawable="@drawable/ic_add_circle_outline"
-            android:text="@string/txtNuevo" />
+            android:text="@string/txtNueva" />
 
         <Button
-            android:id="@+id/btn_eliminar_todos"
+            android:id="@+id/btn_eliminar_todas"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/txtEliminarTodosLosCoches" />
+            android:text="@string/txtEliminarTodasLasRondas" />
     </LinearLayout>
 
 </LinearLayout>

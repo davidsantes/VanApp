@@ -11,6 +11,7 @@
     <string name="titulo_coche_detalle">Coche</string>
     <string name="titulo_usuarios_coches">Usuarios en el coche</string>
     <string name="titulo_rondas_coche">Rondas del coche</string>
+    <string name="titulo_ronda_coche_detalle">Ronda del coche</string>
     <string name="titulo_usuario_selecciona">Selecciona un usuario</string>
     <string name="tituloConfirmaSalir">Confirmar salir</string>
     <string name="tituloConfirmaEliminar">Confirmar eliminar</string>
@@ -21,22 +22,29 @@
     <string name="hint_alias">Alias</string>
     <string name="hint_email">Email</string>
     <string name="hint_fecha_alta">Fecha de alta</string>
+    <string name="hint_fecha_inicio">Fecha de inicio</string>
+    <string name="hint_fecha_fin">Fecha fin</string>
     <string name="hint_num_plazas">Número de plazas</string>
     <string name="hint_matricula">Matrícula</string>
 
     <string name="txtLogOff">Salir</string>
     <string name="txtNuevo">Nuevo</string>
+    <string name="txtNueva">Nueva</string>
     <string name="txtVincularUsuarioEnCoche">Vincular un usuario</string>
     <string name="txtEliminarTodosLosUsuarios">Eliminar usuarios</string>
     <string name="txtEliminarTodosLosCoches">Eliminar coches</string>
+    <string name="txtEliminarTodasLasRondas">Eliminar rondas</string>
     <string name="txtPersonalizacion">Mis cosas</string>
     <string name="txtUsuariosEnCoche">Usuarios en el coche</string>
+    <string name="txtRondasEnCoche">Rondas en el coche</string>
     <string name="txtCoche">Coche</string>
     <string name="txtConduce">¿Conduce?</string>
-
+    <string name="txtRondaFinalizada">¿Ronda finalizada?</string>
     <string name="txtEliminar">Eliminar</string>
     <string name="txtAceptar">Aceptar</string>
     <string name="txtCancelar">Cancelar</string>
+    <string name="txtFechaInicio">Fecha inicio</string>
+    <string name="txtFechaFin">Fecha de fin</string>
 
     <string name="opcionUsuarios">Usuarios</string>
     <string name="opcionCoches">Coches</string>
@@ -53,6 +61,7 @@
     <string name="msgConfirmarEliminarRelacionUsuarioCoche">Wow, esta acción eliminará el usuario con el coche ¿deseas continuar?</string>
     <string name="msgConfirmarEliminarTodosCoches">Wow, esta acción eliminará todos los coches y los datos relacionados ¿deseas continuar?</string>
     <string name="msgConfirmarEliminarCoche">Wow, esta acción eliminará el coche y los datos relacionados ¿deseas continuar?</string>
+    <string name="msgConfirmarEliminarTodasRondas">Wow, esta acción eliminará todas las rondas del coche ¿deseas continuar?</string>
     <string name="msgOperacionOk">Operación realizada correctamente</string>
     <string name="msgOperacionKo">Ups, algo ha salido mal :(</string>
     <string name="msgDatosIncorrectos">Me parece que los datos son incorrectos</string>

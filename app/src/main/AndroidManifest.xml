@@ -14,16 +14,17 @@
         <activity
             android:name=".Activities.MainActivity"
             android:label="@string/titulo_login">
+        </activity>
+        <activity android:name=".Activities.MainSplashActivity" />
+        <activity
+            android:name=".Activities.MenuInicialActivity"
+            android:label="@string/titulo_menu_principal" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.MainSplashActivity" />
-        <activity
-            android:name=".Activities.MenuInicialActivity"
-            android:label="@string/titulo_menu_principal"></activity>
         <activity
             android:name=".Activities.Usuarios.UsuariosActivity"
             android:label="@string/titulo_usuarios"
@@ -44,9 +45,13 @@
             android:name=".Activities.Common.UsuariosCochesActivity"
             android:label="@string/titulo_usuarios_coches"
             android:parentActivityName=".Activities.Coches.CochesActivity" />
-        <activity android:name=".Activities.Rondas.RondasCocheActivity"
+        <activity
+            android:name=".Activities.Rondas.RondasCocheActivity"
             android:label="@string/titulo_rondas_coche"
             android:parentActivityName=".Activities.Coches.CochesActivity" />
+        <activity android:name=".Activities.Rondas.RondaCocheDetalleActivity"
+            android:label="@string/titulo_ronda_coche_detalle"
+            android:parentActivityName=".Activities.Rondas.RondasCocheActivity" />
     </application>
 
 </manifest>

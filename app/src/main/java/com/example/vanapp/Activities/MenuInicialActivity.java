@@ -16,10 +16,10 @@ public class MenuInicialActivity extends MasterActivity {
 
     //Componentes de la capa de presentación
     private Toolbar menuMasterToolbar;
-    ImageButton imageViewUsuarios;
-    ImageButton imageViewCoches;
-    ImageButton imageViewCalendario;
-    ImageButton imageViewPagos;
+    private ImageButton imageViewUsuarios;
+    private ImageButton imageViewCoches;
+    private ImageButton imageViewCalendario;
+    private ImageButton imageViewPagos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

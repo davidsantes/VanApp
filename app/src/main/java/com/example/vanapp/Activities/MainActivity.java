@@ -19,7 +19,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private static final int MY_REQUEST_CODE = 7117; //Any number you want
-    List<AuthUI.IdpConfig> providers;
+    private List<AuthUI.IdpConfig> providers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

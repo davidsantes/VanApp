@@ -20,15 +20,16 @@ import com.example.vanapp.R;
 import java.util.ArrayList;
 
 public class UsuariosActivity extends MasterActivity {
-    //Componentes de la capa de presentación
-    private Toolbar menuMasterToolbar;
-    Button btn_nuevo_usuario;
-    Button btn_eliminar_todos;
-    ListView listViewUsuarios;
 
     //Variables
-    ArrayList<Usuario> listaUsuarios;
-    DatabaseManager databaseManager;
+    private ArrayList<Usuario> listaUsuarios;
+    private DatabaseManager databaseManager;
+
+    //Componentes de la capa de presentación
+    private Toolbar menuMasterToolbar;
+    private Button btn_nuevo_usuario;
+    private Button btn_eliminar_todos;
+    private ListView listViewUsuarios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

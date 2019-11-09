@@ -33,9 +33,10 @@ import com.example.vanapp.Entities.Usuario;
 
 public class UsuarioDetalleActivity extends MasterActivity {
 
-    DatabaseManager databaseManager;
-    Usuario usuarioActual;
-    String idUsuario;
+    //Variables
+    private DatabaseManager databaseManager;
+    private Usuario usuarioActual;
+    private String idUsuario;
 
     //Componentes de la capa de presentación
     private Toolbar menuMasterToolbar;
