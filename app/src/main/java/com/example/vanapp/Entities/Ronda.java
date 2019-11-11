@@ -36,10 +36,11 @@ public class Ronda {
     public void setIdRonda(String idRonda) { this.idRonda = idRonda; }
     public void setIdCoche(String idCoche) { this.idCoche = idCoche; }
     public void setAlias(String alias) { this.alias = alias; }
-    public void setFechaInicio(Date fechaInicio) { this.fechaInicio = fechaInicio; }
-    public void setFechaFin(Date fechaFin) { this.fechaFin = fechaFin; }
+    public void setFechaInicio(Date fechaDeInicio) { this.fechaInicio = fechaDeInicio; }
+    public void setFechaFin(Date fechaDeFin) { this.fechaFin = fechaDeFin; }
     public void setEsRondaFinalizada(boolean esRondaFinalizada) { this.esRondaFinalizada = esRondaFinalizada; }
     public void setActivo(boolean activo) { this.activo = activo; }
+
     public void setListaTurnosDeConduccion(ArrayList<UsuarioRonda> listaTurnosDeConduccion) {
         this.listaTurnosDeConduccion = listaTurnosDeConduccion;
     }

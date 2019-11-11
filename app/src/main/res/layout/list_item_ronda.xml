@@ -42,16 +42,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/paddingCeldasNormal"
-        android:layout_toLeftOf="@+id/switchConduce"
+        android:layout_toRightOf="@+id/iv_avatar"
+        android:layout_below="@+id/textViewNombreRonda"
         android:text="@string/txtRondaFinalizada" />
+
     <Switch
         android:id="@+id/switchRondaFinalizada"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:paddingLeft="@dimen/paddingCeldasNormal"
+        android:layout_toRightOf="@+id/textViewRondaFinalizada"
+        android:layout_below="@+id/textViewNombreRonda"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:clickable="false"
         android:text="" />
+
 
 </RelativeLayout>

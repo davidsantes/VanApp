@@ -51,7 +51,7 @@
             android:parentActivityName=".Activities.Coches.CochesActivity" />
         <activity android:name=".Activities.Rondas.RondaCocheDetalleActivity"
             android:label="@string/titulo_ronda_coche_detalle"
-            android:parentActivityName=".Activities.Rondas.RondasCocheActivity" />
+            android:parentActivityName=".Activities.Coches.CochesActivity" />
     </application>
 
 </manifest>

@@ -66,14 +66,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 app:srcCompat="@drawable/ic_timer" />
-
-            <TextView
-                android:id="@+id/textViewConduce"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_usuario_columna_insertar_datos"
-                android:layout_toLeftOf="@+id/switchRondaFinalizada"
-                android:text="@string/txtRondaFinalizada" />
             <Switch
                 android:id="@+id/switchRondaFinalizada"
                 android:layout_width="wrap_content"
@@ -81,6 +73,16 @@
                 android:layout_marginLeft="@dimen/margin_usuario_columna_insertar_datos"
                 android:text=""
                 android:checked="true"/>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+            <TextView
+                android:id="@+id/textViewConduce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="@string/txtRondaFinalizada" />
         </LinearLayout>
 
         <!-- Campo Fecha de inicio -->
@@ -98,7 +100,15 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 app:srcCompat="@drawable/ic_date_range" />
-
+            <TextView
+                android:id="@+id/tv_fecha_inicio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_usuario_columna_insertar_datos"
+                android:ems="10"
+                android:hint="@string/hint_fecha_inicio"
+                android:inputType="text"
+                android:singleLine="true" />
             <Button
                 android:id="@+id/boton_FechaInicio"
                 android:layout_width="wrap_content"
@@ -106,15 +116,7 @@
                 android:layout_marginLeft="@dimen/margin_usuario_columna_insertar_datos"
                 android:text="@string/txtFechaInicio" />
 
-            <TextView
-                android:id="@+id/tv_fecha_inicio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_usuario_columna_insertar_datos"
-                android:ems="10"
-                android:hint="@string/hint_fecha_inicio"
-                android:inputType="text"
-                android:singleLine="true" />
+
         </LinearLayout>
 
         <!-- Campo Fecha de fin -->
@@ -132,6 +134,15 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 app:srcCompat="@drawable/ic_date_range" />
+            <TextView
+                android:id="@+id/tv_fecha_fin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_usuario_columna_insertar_datos"
+                android:ems="10"
+                android:hint="@string/hint_fecha_fin"
+                android:inputType="text"
+                android:singleLine="true" />
             <Button
                 android:id="@+id/boton_FechaFin"
                 android:layout_width="wrap_content"
@@ -139,43 +150,7 @@
                 android:layout_marginLeft="@dimen/margin_usuario_columna_insertar_datos"
                 android:text="@string/txtFechaFin"
                 />
-            <TextView
-                android:id="@+id/tv_fecha_fin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_usuario_columna_insertar_datos"
-                android:ems="10"
-                android:hint="@string/hint_fecha_fin"
-                android:inputType="text"
-                android:singleLine="true" />
 
-        </LinearLayout>
-
-        <!-- Campo Fecha de alta -->
-        <LinearLayout
-            android:id="@+id/area_fecha_alta"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/area_fecha_alta"
-            android:layout_marginTop="12dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/img_fecha_alta"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                app:srcCompat="@drawable/ic_date_range" />
-
-            <TextView
-                android:id="@+id/tv_fecha_alta"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_usuario_columna_insertar_datos"
-                android:ems="10"
-                android:hint="@string/hint_fecha_alta"
-                android:inputType="text"
-                android:singleLine="true" />
         </LinearLayout>
 
         <!-- Barra de botones -->

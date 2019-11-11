@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -46,12 +47,14 @@ public class RondasCocheActivity extends MasterActivity {
         menuMasterToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(menuMasterToolbar);
 
+        databaseManager = DatabaseManager.obtenerInstancia(getApplicationContext());
+
         idCoche = setIdCoche();
         cocheActual = null;
 
         enlazarEventosConObjetos();
         mostrarCabecera();
-        mostrarUsuariosEnCoche();
+        mostrarRondasEnCoche();
 
         //Necesario para mostrar el botón para regresar al padre
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -92,7 +95,7 @@ public class RondasCocheActivity extends MasterActivity {
         btn_nueva_ronda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mostrarActividadRondaDetalle(idCoche);
+                mostrarActividadRondaDetalle("", idCoche);
             }
         });
 
@@ -134,6 +137,7 @@ public class RondasCocheActivity extends MasterActivity {
             Toast.makeText(getApplicationContext(), R.string.msgOperacionOk, Toast.LENGTH_SHORT).show();
             //Se carga a sí misma
             Intent intentActividad = new Intent(this, RondasCocheActivity.class);
+            intentActividad.putExtra("ID_COCHE", idCoche);
             startActivity(intentActividad);
         }
         else {
@@ -144,9 +148,9 @@ public class RondasCocheActivity extends MasterActivity {
     /**
      * Muestra los datos que hay en la tabla de resultados
      */
-    private void mostrarUsuariosEnCoche(){
+    private void mostrarRondasEnCoche(){
         listaRondasDelCoche = new ArrayList<Ronda>();
-        listViewRondasEnElCoche = findViewById(R.id.listViewUsuariosEnElCoche);
+        listViewRondasEnElCoche = findViewById(R.id.listViewRondasEnElCoche);
 
         //Se inserta la lista rellenada dentro del adapter
         listaRondasDelCoche = getCocheActual().getListaRondasDelCoche();
@@ -154,11 +158,20 @@ public class RondasCocheActivity extends MasterActivity {
             RondasCochesAdapter adapter = new RondasCochesAdapter(this, listaRondasDelCoche);
             listViewRondasEnElCoche.setAdapter(adapter);
         }
+
+        listViewRondasEnElCoche.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Ronda rondaItem = (Ronda)listViewRondasEnElCoche.getItemAtPosition(position);
+                mostrarActividadRondaDetalle(rondaItem.getIdRonda(), rondaItem.getIdCoche());
+            }
+        });
     }
 
-    private void mostrarActividadRondaDetalle(String idCoche) {
+    private void mostrarActividadRondaDetalle(String idRonda, String idCoche) {
         Intent intentActividad = new Intent(this, RondaCocheDetalleActivity.class);
         intentActividad.putExtra("ID_COCHE", idCoche);
+        intentActividad.putExtra("ID_RONDA", idRonda);
         startActivity(intentActividad);
     }
 }

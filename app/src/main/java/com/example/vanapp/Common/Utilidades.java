@@ -54,7 +54,9 @@ public class Utilidades {
     /*Sqlite no tiene formato DateTime, con lo que se debe guardar como String*/
     public static String getFechaToString(Date fecha){
         DateFormat dateFormat = new SimpleDateFormat(FORMATO_FECHA);
-        return dateFormat.format(fecha);
+        String fechaFormateada = "";
+        fechaFormateada = dateFormat.format(fecha);
+        return fechaFormateada;
     }
 
     /*Convierte un string de fecha a un formato Date sin horas, minutos, etc*/

@@ -73,7 +73,7 @@ public class DatabaseMapping {
         Date fechaInicioParseada = Utilidades.getFechaFromString(cursor.getString(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaRondas.FECHA_INICIO)));
         nuevaRonda.setFechaInicio(fechaInicioParseada);
         Date fechaFinParseada = Utilidades.getFechaFromString(cursor.getString(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaRondas.FECHA_FIN)));
-        nuevaRonda.setFechaInicio(fechaFinParseada);
+        nuevaRonda.setFechaFin(fechaFinParseada);
         nuevaRonda.setEsRondaFinalizada(cursor.getInt(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaRondas.ES_RONDA_FINALIZADA)) == 1);
         nuevaRonda.setActivo(cursor.getInt(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaRondas.ACTIVO)) == 1);
 
