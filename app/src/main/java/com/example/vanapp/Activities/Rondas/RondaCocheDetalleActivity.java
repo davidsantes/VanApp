@@ -26,6 +26,7 @@ import com.example.vanapp.R;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class RondaCocheDetalleActivity extends MasterActivity {
     //Variables
@@ -203,7 +204,10 @@ public class RondaCocheDetalleActivity extends MasterActivity {
     private boolean esEntradaDatosCorrecta() {
         if (esValorValido(til_alias)
                 && this.tv_fecha_inicio.getText().length() > 0
-                && this.tv_fecha_fin.getText().length() > 0){
+                && this.tv_fecha_fin.getText().length() > 0
+                && Utilidades.esRangoFechasCorrecto(Utilidades.getFechaFromString(this.tv_fecha_inicio.getText().toString())
+                , Utilidades.getFechaFromString(this.tv_fecha_fin.getText().toString())))
+        {
             return true;
         }
 

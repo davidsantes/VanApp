@@ -71,6 +71,10 @@ public class Utilidades {
         return fechaDate;
     }
 
+    public static boolean esRangoFechasCorrecto(Date fechaIni, Date fechaFin) {
+        return fechaFin.compareTo(fechaIni) >= 0;
+    }
+
     public static UsuarioCoche encuentraUsuarioCocheEnLista(ArrayList<UsuarioCoche> listaUsuariosCoches
             , String idUsuario, String idCoche)
     {
