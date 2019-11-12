@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activities.Calendario.CalendarioRondaElegirActivity">
+
+    <include layout="@layout/menu_layout"/>
+
+    <TextView
+        android:id="@+id/tituloEligeCoche"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/tamanioLetraTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/paddingCeldasNormal"
+        android:paddingTop="@dimen/padding_activities"
+        android:text="@string/txtEligeCoche" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorAccent"
+        android:layout_alignBottom="@id/tituloEligeCoche" />
+    <include layout="@layout/list_item_coche"/>
+    <Button
+        android:id="@+id/botonEligeCoche"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/txtEligeCoche" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorAccent" />
+
+    <TextView
+        android:id="@+id/tituloEligeRonda"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/tamanioLetraTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/paddingCeldasNormal"
+        android:paddingTop="@dimen/padding_activities"
+        android:text="@string/txtEligeRonda" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorAccent"
+        android:layout_alignBottom="@id/textViewMatricula" />
+    <include layout="@layout/list_item_ronda"/>
+    <Button
+        android:id="@+id/botonEligeRonda"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/txtEligeRonda" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorAccent" />
+
+    <!-- Barra de botones -->
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:gravity="bottom"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btnLimpiarValores"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawable="@drawable/ic_add_circle_outline"
+            android:text="@string/txtLimpiarValores" />
+        <Button
+            android:id="@+id/btnIrAlCanlendario"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawable="@drawable/ic_add_circle_outline"
+            android:text="@string/txtIrAlCalendario" />
+    </LinearLayout>
+</LinearLayout>

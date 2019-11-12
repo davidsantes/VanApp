@@ -12,6 +12,9 @@
     <string name="titulo_usuarios_coches">Usuarios en el coche</string>
     <string name="titulo_rondas_coche">Rondas del coche</string>
     <string name="titulo_ronda_coche_detalle">Ronda del coche</string>
+    <string name="titulo_elige_ronda">Elige ronda</string>
+    <string name="titulo_ronda_calendario">Calendario ronda</string>
+
     <string name="titulo_usuario_selecciona">Selecciona un usuario</string>
     <string name="tituloConfirmaSalir">Confirmar salir</string>
     <string name="tituloConfirmaEliminar">Confirmar eliminar</string>
@@ -30,6 +33,9 @@
     <string name="txtLogOff">Salir</string>
     <string name="txtNuevo">Nuevo</string>
     <string name="txtNueva">Nueva</string>
+    <string name="txtEligeCoche">Elige coche</string>
+    <string name="txtEligeRonda">Elige ronda</string>
+    <string name="txtIrAlCalendario">Ir al calendario</string>
     <string name="txtVincularUsuarioEnCoche">Vincular un usuario</string>
     <string name="txtEliminarTodosLosUsuarios">Eliminar usuarios</string>
     <string name="txtEliminarTodosLosCoches">Eliminar coches</string>
@@ -37,6 +43,7 @@
     <string name="txtPersonalizacion">Mis cosas</string>
     <string name="txtUsuariosEnCoche">Usuarios en el coche</string>
     <string name="txtRondasEnCoche">Rondas en el coche</string>
+    <string name="txtLimpiarValores">Limpiar valores</string>
     <string name="txtCoche">Coche</string>
     <string name="txtConduce">¿Conduce?</string>
     <string name="txtRondaFinalizada">¿Ronda finalizada?</string>

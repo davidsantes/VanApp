@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.vanapp.Activities.Calendario.CalendarioRondaElegirActivity;
 import com.example.vanapp.Activities.Coches.CochesActivity;
 import com.example.vanapp.Activities.Usuarios.UsuariosActivity;
 import com.example.vanapp.R;
@@ -77,11 +78,9 @@ public class MenuInicialActivity extends MasterActivity {
         startActivity(intentActividad);
     }
 
-    //TODO: por implementar
     private void mostrarActividadCalendario() {
-        Toast.makeText(getApplicationContext(), "Por implementar", Toast.LENGTH_SHORT).show();
-        //Intent intentActividad = new Intent(this, UsuarioDetalleActivity.class);
-        //startActivity(intentActividad);
+        Intent intentActividad = new Intent(this, CalendarioRondaElegirActivity.class);
+        startActivity(intentActividad);
     }
 
     //TODO: por implementar

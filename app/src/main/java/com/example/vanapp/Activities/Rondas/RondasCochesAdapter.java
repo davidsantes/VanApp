@@ -34,8 +34,6 @@ public class RondasCochesAdapter extends ArrayAdapter<Ronda> {
         TextView textViewPeriodo = (TextView) convertView.findViewById(R.id.textViewPeriodo);
         TextView textViewNombreRonda = (TextView) convertView.findViewById(R.id.textViewNombreRonda);
         Switch switchRondaFinalizada = (Switch)convertView.findViewById(R.id.switchRondaFinalizada);
-        ImageView iv_avatar = (ImageView)convertView.findViewById(R.id.iv_avatar);
-        iv_avatar.setColorFilter(R.color.colorPrimary);
 
         String periodo = Utilidades.getFechaToString(rondaActual.getFechaInicio())
                         + " - "
