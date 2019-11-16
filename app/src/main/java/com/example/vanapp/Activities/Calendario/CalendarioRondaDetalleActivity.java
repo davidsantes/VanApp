@@ -23,18 +23,15 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.vanapp.Activities.Common.UsuariosCochesAdapter;
 import com.example.vanapp.Activities.MasterActivity;
+import com.example.vanapp.Activities.Usuarios.UsuariosAdapter;
 import com.example.vanapp.Common.Utilidades;
 import com.example.vanapp.Dal.DatabaseManager;
 import com.example.vanapp.Entities.Ronda;
 import com.example.vanapp.Entities.Usuario;
-import com.example.vanapp.Entities.UsuarioCoche;
 import com.example.vanapp.Entities.UsuarioRonda;
 import com.example.vanapp.R;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.DayViewDecorator;
-import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.format.TitleFormatter;
@@ -49,25 +46,24 @@ public class CalendarioRondaDetalleActivity extends MasterActivity {
 
     //Variables
     private DatabaseManager databaseManager;
-    private String idCocheElegido;
     private String idRondaElegida;
     private Ronda rondaActual;
     private boolean mostrarRango;
-    UsuarioRonda nuevoConductorEnRonda;
+    private UsuarioRonda nuevoConductorEnRonda;
+    private ArrayList<Usuario> listaPosiblesConductores;
 
     //Componentes de la capa de presentación
     private Toolbar menuMasterToolbar;
     private MaterialCalendarView calendarioRonda;
     private Button botonMostrarRango;
-    private Button boton_aceptar;
 
+    //Cabecera
     private TextView textViewPeriodo;
     private TextView textViewNombreRonda;
     private Switch switchRondaFinalizada;
 
+    //Diálogo
     private ListView listViewPosiblesConductores;
-    private ArrayList<UsuarioCoche> listaPosiblesConductores;
-
     private TextView textViewNombreCompleto;
     private TextView textViewAlias;
     private ImageView iv_avatar;
@@ -85,7 +81,8 @@ public class CalendarioRondaDetalleActivity extends MasterActivity {
         enlazarDatosActividadPadre();
         obtenerRonda();
         enlazarEventosConObjetos();
-        mostraRonda();
+        mostrarCabecera();
+        mostrarRangoConConductores();
 
         //Necesario para mostrar el botón para regresar al padre
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -122,11 +119,9 @@ public class CalendarioRondaDetalleActivity extends MasterActivity {
     private void enlazarDatosActividadPadre(){
         Bundle extras = getIntent().getExtras();
         if(extras == null) {
-            idCocheElegido = "";
             idRondaElegida = "";
         }
         else{
-            idCocheElegido = extras.getString("ID_COCHE");
             idRondaElegida = extras.getString("ID_RONDA");
         }
     }
@@ -150,7 +145,7 @@ public class CalendarioRondaDetalleActivity extends MasterActivity {
                 .setMaximumDate(diaFinRondaPeriodo)
                 .commit();
 
-        //Work around para solucionar problema con el header
+        //Work around para solucionar problema con el header del calendario (no muestra el mes correcto)
         //https://stackoverflow.com/questions/41828592/android-calendar-header-shows-wrong-month-year-in-material-calendarview?rq=1
         final Calendar calendarFecha = Calendar.getInstance();
         calendarioRonda.setTitleFormatter(new TitleFormatter() {
@@ -168,7 +163,6 @@ public class CalendarioRondaDetalleActivity extends MasterActivity {
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                 final Date fechaDeConduccion = Utilidades.getDateFromCalendarDay(date);
                 abrirDialogoEligeConductor(fechaDeConduccion);
-                //Toast.makeText(CalendarioRondaDetalleActivity.this, String.valueOf(date.getDay()), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -177,20 +171,12 @@ public class CalendarioRondaDetalleActivity extends MasterActivity {
             @Override
             public void onClick(View view) {
                 mostrarRango = !mostrarRango;
-                dibujarRangoRonda();
-            }
-        });
-
-        boton_aceptar = findViewById(R.id.boton_aceptar);
-        boton_aceptar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //abrirDialogoEligeConductor();
+                mostrarRango();
             }
         });
     }
 
-    private void mostraRonda(){
+    private void mostrarCabecera(){
         String periodo = Utilidades.getFechaToString(rondaActual.getFechaInicio())
                 + " - "
                 + Utilidades.getFechaToString(rondaActual.getFechaFin());
@@ -199,7 +185,7 @@ public class CalendarioRondaDetalleActivity extends MasterActivity {
         switchRondaFinalizada.setChecked(rondaActual.EsRondaFinalizada());
     }
 
-    private void dibujarRangoRonda(){
+    private void mostrarRango(){
         if (mostrarRango){
             CalendarDay diaInicioRondaPeriodo = Utilidades.getCalendarDayFromDate(rondaActual.getFechaInicio());
             CalendarDay diaFinRondaPeriodo = Utilidades.getCalendarDayFromDate(rondaActual.getFechaFin());
@@ -210,23 +196,52 @@ public class CalendarioRondaDetalleActivity extends MasterActivity {
         }
     }
 
+    private void mostrarRangoConConductores(){
+        ArrayList<UsuarioRonda> listaConductoresDeLaRonda = new ArrayList<>();
+        listaConductoresDeLaRonda = databaseManager.obtenerUsuariosDeLaRonda(idRondaElegida);
+
+        //calendarioRonda.removeDecorators();
+        for (UsuarioRonda conductor: listaConductoresDeLaRonda) {
+            CalendarDay fechaEscogida = Utilidades.getCalendarDayFromDate(conductor.getFechaDeConduccion());
+            Usuario conductorDetalle = databaseManager.obtenerUsuario(conductor.getIdUsuario());
+
+            calendarioRonda.addDecorator(new EventDecorator(conductorDetalle.getColorUsuario(), fechaEscogida));
+        }
+    }
+
+    /*
+    * Crea un usuario vacío
+    * */
+    private Usuario GetConductorPorDefinir()
+    {
+        Usuario usuarioPorDefinir = new Usuario();
+        usuarioPorDefinir.setIdUsuario("");
+        usuarioPorDefinir.setNombre("Por definir");
+        usuarioPorDefinir.setApellido1("");
+        usuarioPorDefinir.setApellido2("");
+        usuarioPorDefinir.setColorUsuario("9a9a9a");
+        return usuarioPorDefinir;
+    }
+
     private void abrirDialogoEligeConductor(final Date fechaDeConduccion){
         if (rondaActual.EsRondaFinalizada()){
             Toast.makeText(CalendarioRondaDetalleActivity.this, R.string.msgRondaCerrada, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        listaPosiblesConductores = new ArrayList<UsuarioCoche>();
+        listaPosiblesConductores = new ArrayList<Usuario>();
         databaseManager = DatabaseManager.obtenerInstancia(getApplicationContext());
 
         //Se configura la lista que posteriormente se insertará en el diálogo
         LayoutInflater inflater = getLayoutInflater();
-        View vistaConductores = inflater.inflate(R.layout.lista_conductores_calendario, null);
+        View vistaConductores = inflater.inflate(R.layout.dialogo_conductores_calendario, null);
         listViewPosiblesConductores = vistaConductores.findViewById(R.id.listViewConductoresEnElCoche);
 
-        //Se inserta la lista rellenada dentro del adapter
+        //Se inserta la lista rellenada dentro del adapter, con un usuario vacío
         listaPosiblesConductores = databaseManager.obtenerConductoresDelCoche(rondaActual.getIdCoche());
-        UsuariosCochesAdapter conductoresCocheAdapter = new UsuariosCochesAdapter(this, listaPosiblesConductores);
+        listaPosiblesConductores.add(GetConductorPorDefinir());
+
+        UsuariosAdapter conductoresCocheAdapter = new UsuariosAdapter(this, listaPosiblesConductores);
         listViewPosiblesConductores.setAdapter(conductoresCocheAdapter);
 
         //Se configura la cabecera del diálogo
@@ -241,20 +256,23 @@ public class CalendarioRondaDetalleActivity extends MasterActivity {
             public void onClick(DialogInterface dialog, int which) {
                 //Inserta el conductor en la base de datos
                 boolean operacionOk = false;
-                operacionOk = databaseManager.insertarUsuarioRonda(nuevoConductorEnRonda);
-                if (operacionOk){
-
-                    //COJONUDO?
-                    //https://src-bin.com/es/q/1ff5d17
-                    CalendarDay fechaEscogida = Utilidades.getCalendarDayFromDate(nuevoConductorEnRonda.getFechaDeConduccion());
-                    calendarioRonda.addDecorator(new EventDecorator(16777215, fechaEscogida));
-
-
-                    //https://stackoverflow.com/questions/52396913/android-material-calendar-view-how-to-highlight-date-range-with-rounded-corner-b
-                    //https://github.com/prolificinteractive/material-calendarview/issues/739
-                    //calendarioRonda.setSelectionColor(Color.parseColor("#00BCD4"));
-                    //https://codeday.me/es/qa/20190903/1372605.html
+                if (nuevoConductorEnRonda.getIdUsuario() == "")
+                {
+                    operacionOk = databaseManager.eliminarRelacionDeUnDiaEnLaRonda(idRondaElegida, nuevoConductorEnRonda.getFechaDeConduccion(), false);
                 }
+                else
+                {
+                    operacionOk = databaseManager.insertarUsuarioRonda(nuevoConductorEnRonda);
+                }
+
+                if (operacionOk){
+                    Toast.makeText(CalendarioRondaDetalleActivity.this, R.string.msgOperacionOk, Toast.LENGTH_SHORT).show();
+                    mostrarRangoConConductores();
+                }
+                else{
+                    Toast.makeText(CalendarioRondaDetalleActivity.this, R.string.msgOperacionKo, Toast.LENGTH_SHORT).show();
+                }
+
 
                 dialog.dismiss();
             }
@@ -271,11 +289,11 @@ public class CalendarioRondaDetalleActivity extends MasterActivity {
         listViewPosiblesConductores.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                UsuarioCoche conductorEscogido = (UsuarioCoche)listViewPosiblesConductores.getItemAtPosition(position);
+                Usuario conductorEscogido = (Usuario)listViewPosiblesConductores.getItemAtPosition(position);
 
                 nuevoConductorEnRonda = new UsuarioRonda();
                 nuevoConductorEnRonda.setIdRonda(idRondaElegida);
-                nuevoConductorEnRonda.setIdUsuario(conductorEscogido.getUsuarioDetalle().getIdUsuario());
+                nuevoConductorEnRonda.setIdUsuario(conductorEscogido.getIdUsuario());
                 nuevoConductorEnRonda.setFechaDeConduccion(fechaDeConduccion);
                 nuevoConductorEnRonda.setActivo(true);
 
@@ -284,9 +302,9 @@ public class CalendarioRondaDetalleActivity extends MasterActivity {
                 textViewAlias = view.getRootView().findViewById(R.id.textViewAlias);
                 iv_avatar = view.getRootView().findViewById(R.id.iv_avatar);
 
-                textViewNombreCompleto.setText(conductorEscogido.getUsuarioDetalle().getNombreCompleto());
-                textViewAlias.setText(conductorEscogido.getUsuarioDetalle().getAlias());
-                iv_avatar.setColorFilter(Color.parseColor("#" + conductorEscogido.getUsuarioDetalle().getColorUsuario()));
+                textViewNombreCompleto.setText(conductorEscogido.getNombreCompleto());
+                textViewAlias.setText(conductorEscogido.getAlias());
+                iv_avatar.setColorFilter(Color.parseColor("#" + conductorEscogido.getColorUsuario()));
             }
         });
 
@@ -299,14 +317,12 @@ public class CalendarioRondaDetalleActivity extends MasterActivity {
         textViewNombreCompleto = vistaConductores.findViewById(R.id.textViewNombreCompleto);
         textViewAlias = vistaConductores.findViewById(R.id.textViewAlias);
         iv_avatar = vistaConductores.findViewById(R.id.iv_avatar);
-        if (conductor != null){
-            iv_avatar.setColorFilter(Color.parseColor("#" + conductor.getColorUsuario()));
-            textViewNombreCompleto.setText(conductor.getNombreCompleto());
-            textViewAlias.setText(conductor.getAlias());
-        }else
-        {
-            textViewNombreCompleto.setText("Por definir");
-            textViewAlias.setText("Por definir");
+        if (conductor == null){
+            conductor = GetConductorPorDefinir();
         }
+
+        textViewNombreCompleto.setText(conductor.getNombreCompleto());
+        textViewAlias.setText(conductor.getAlias());
+        iv_avatar.setColorFilter(Color.parseColor("#" + conductor.getColorUsuario()));
     }
 }

@@ -106,15 +106,14 @@ public class RepositoryUsuariosRonda {
      * @param idRonda a eliminar.
      * @param esBorradoLogico indica si el borrado es lógico (se actualiza el campo activo) o físico (se elimina definitivamente de la Bdd)
      */
-    public boolean eliminarRelacionDeUsuarioConRonda(String idUsuario, String idRonda, Date fechaDeConduccion, boolean esBorradoLogico) {
+    public boolean eliminarRelacionDeUnDiaEnLaRonda(String idRonda, Date fechaDeConduccion, boolean esBorradoLogico) {
         int resultado = 0;
         SQLiteDatabase db = baseDatos.getWritableDatabase();
 
-        String whereClause = String.format("%s=? AND %s=? AND %s=?"
-                , DatabaseSchemaContracts.UsuariosRondas.ID_USUARIO
+        String whereClause = String.format("%s=? AND %s=?"
                 , DatabaseSchemaContracts.UsuariosRondas.ID_RONDA
                 , DatabaseSchemaContracts.UsuariosRondas.FECHA_DE_CONDUCCION);
-        final String[] whereArgs = {idUsuario, idRonda, Utilidades.getFechaToString(fechaDeConduccion)};
+        final String[] whereArgs = {idRonda, Utilidades.getFechaToString(fechaDeConduccion)};
 
         if (esBorradoLogico) {
             ContentValues valores = new ContentValues();

@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.vanapp.Activities.Coches.CochesAdapter;
 import com.example.vanapp.Activities.MasterActivity;
@@ -83,7 +84,7 @@ public class CalendarioRondaElegirActivity extends MasterActivity {
         btnIrAlCanlendario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mostrarActividadCalendarioRondaDetalle(idCocheElegido,idRondaElegida);
+                mostrarActividadCalendarioRondaDetalle(idRondaElegida);
             }
         });
 
@@ -103,7 +104,7 @@ public class CalendarioRondaElegirActivity extends MasterActivity {
 
         //Se configura la lista que posteriormente se insertará en el diálogo
         LayoutInflater inflater = getLayoutInflater();
-        View vistaListaCochesPersonalizada = inflater.inflate(R.layout.lista_coches_calendario, null);
+        View vistaListaCochesPersonalizada = inflater.inflate(R.layout.dialogo_coches_calendario, null);
         listViewCoches = vistaListaCochesPersonalizada.findViewById(R.id.listViewCoches);
         //Se inserta la lista rellenada dentro del adapter
         listaCoches = databaseManager.obtenerCoches();
@@ -158,7 +159,7 @@ public class CalendarioRondaElegirActivity extends MasterActivity {
 
         //Se configura la lista que posteriormente se insertará en el diálogo
         LayoutInflater inflater = getLayoutInflater();
-        View vistaListaRondasDelCochePersonalizada = inflater.inflate(R.layout.lista_rondas_calendario, null);
+        View vistaListaRondasDelCochePersonalizada = inflater.inflate(R.layout.dialogo_rondas_calendario, null);
         listViewRondasEnElCoche = vistaListaRondasDelCochePersonalizada.findViewById(R.id.listViewRondasEnElCoche);
         //Se inserta la lista rellenada dentro del adapter
         listaRondasDelCoche = databaseManager.obtenerRondasDelCoche(idCocheElegido);
@@ -172,6 +173,7 @@ public class CalendarioRondaElegirActivity extends MasterActivity {
         alertDialog.setPositiveButton(R.string.txtAceptar, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(CalendarioRondaElegirActivity.this, R.string.msgEleccionCalendarioOk, Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });
@@ -250,9 +252,8 @@ public class CalendarioRondaElegirActivity extends MasterActivity {
 
     }
 
-    private void mostrarActividadCalendarioRondaDetalle(String idCoche, String idRonda) {
+    private void mostrarActividadCalendarioRondaDetalle(String idRonda) {
         Intent intentActividad = new Intent(this, CalendarioRondaDetalleActivity.class);
-        intentActividad.putExtra("ID_COCHE", idCoche);
         intentActividad.putExtra("ID_RONDA", idRonda);
         startActivity(intentActividad);
     }

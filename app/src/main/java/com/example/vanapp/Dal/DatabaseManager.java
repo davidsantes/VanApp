@@ -142,7 +142,17 @@ public class DatabaseManager {
     }
 
     public ArrayList obtenerConductoresDelCoche(String idCoche) {
-        return repositoryUsuariosCoche.obtenerUsuariosDelCoche(idCoche, true);
+        ArrayList<UsuarioCoche> listaUsuariosDelCoche = new ArrayList<>();
+        listaUsuariosDelCoche = repositoryUsuariosCoche.obtenerUsuariosDelCoche(idCoche, true);
+
+        ArrayList<Usuario> listaConductores = new ArrayList<>();
+        for (UsuarioCoche usuarioCoche: listaUsuariosDelCoche) {
+            Usuario nuevoConductor = new Usuario();
+            nuevoConductor = usuarioCoche.getUsuarioDetalle();
+            listaConductores.add(nuevoConductor);
+        }
+
+        return listaConductores;
     }
 
     public ArrayList obtenerUsuariosNoDelCoche(String idCoche) {
@@ -263,10 +273,7 @@ public class DatabaseManager {
     }
 
     public boolean insertarUsuarioRonda(UsuarioRonda usuarioRonda) {
-        repositoryUsuariosRonda.eliminarRelacionDeUsuarioConRonda(usuarioRonda.getIdUsuario()
-                , usuarioRonda.getIdRonda()
-                , usuarioRonda.getFechaDeConduccion()
-                , false);
+        this.eliminarRelacionDeUnDiaEnLaRonda(usuarioRonda.getIdRonda(), usuarioRonda.getFechaDeConduccion(), false);
         return repositoryUsuariosRonda.insertarUsuarioRonda(usuarioRonda);
     }
 
@@ -282,8 +289,8 @@ public class DatabaseManager {
      * @param idRonda a eliminar.
      * @param esBorradoLogico indica si el borrado es lógico (se actualiza el campo activo) o físico (se elimina definitivamente de la Bdd)
      */
-    public boolean eliminarRelacionDeUsuarioConRonda(String idUsuario, String idRonda, Date fechaDeConduccion, boolean esBorradoLogico) {
-        return repositoryUsuariosRonda.eliminarRelacionDeUsuarioConRonda(idUsuario, idRonda, fechaDeConduccion, esBorradoLogico);
+    public boolean eliminarRelacionDeUnDiaEnLaRonda(String idRonda, Date fechaDeConduccion, boolean esBorradoLogico) {
+        return repositoryUsuariosRonda.eliminarRelacionDeUnDiaEnLaRonda(idRonda, fechaDeConduccion, esBorradoLogico);
     }
 
     /**
