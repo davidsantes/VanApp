@@ -16,7 +16,7 @@ public class RepositoryUsuariosCoche {
         this.baseDatos = baseDatos;
     }
 
-    public ArrayList obtenerUsuariosDelCoche(String idCoche) {
+    public ArrayList obtenerUsuariosDelCoche(String idCoche, boolean excluirNoConductores) {
         ArrayList<UsuarioCoche> listaUsuariosDelCoche = new ArrayList<>();
         SQLiteDatabase db = baseDatos.getReadableDatabase();
 
@@ -33,6 +33,9 @@ public class RepositoryUsuariosCoche {
         sqlFrom += " INNER JOIN Usuarios ON Usuarios.Id = Usuarios_Coches.IdUsuario";
         sqlWhere += " WHERE Coches.Id='" + idCoche + "'";
         sqlWhere += " AND Coches.Activo=1 AND Usuarios.Activo=1 AND Usuarios_Coches.Activo=1";
+        if (excluirNoConductores){
+            sqlWhere += " AND Usuarios.EsConductor=1";
+        }
 
         sqlTotal = sqlSelect + sqlFrom + sqlWhere;
         Cursor cursor = db.rawQuery(sqlTotal, null);

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <TextView
+        android:id="@+id/tituloConductorElegido"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/tamanioLetraTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/paddingCeldasNormal"
+        android:paddingTop="@dimen/padding_activities"
+        android:text="@string/txtConductorElegido" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorAccent"
+        android:layout_alignBottom="@id/tituloConductorElegido" />
+    <include layout="@layout/list_item_usuario"/>
+
+    <TextView
+        android:id="@+id/tituloPosiblesConductores"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/tamanioLetraTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/paddingCeldasNormal"
+        android:paddingTop="@dimen/padding_activities"
+        android:text="@string/txtPosiblesConductores" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorAccent"
+        android:layout_alignBottom="@id/tituloPosiblesConductores" />
+
+    <ListView
+        android:id="@+id/listViewConductoresEnElCoche"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+
+</LinearLayout>

@@ -52,6 +52,11 @@
     <string name="txtCancelar">Cancelar</string>
     <string name="txtFechaInicio">Fecha inicio</string>
     <string name="txtFechaFin">Fecha de fin</string>
+    <string name="txtRango">Rango</string>
+    <string name="txtEligeConductor">Elige conductor</string>
+    <string name="txtConductorElegido">Conductor elegido</string>
+    <string name="txtPosiblesConductores">Posibles conductores</string>
+    <string name="txtGuardar">Guardar</string>
 
     <string name="opcionUsuarios">Usuarios</string>
     <string name="opcionCoches">Coches</string>
@@ -73,4 +78,5 @@
     <string name="msgOperacionOk">Operación realizada correctamente</string>
     <string name="msgOperacionKo">Ups, algo ha salido mal :(</string>
     <string name="msgDatosIncorrectos">Me parece que los datos son incorrectos</string>
+    <string name="msgRondaCerrada">La ronda se encuentra cerrada, para realizar cambios, debes abrirla</string>
 </resources>

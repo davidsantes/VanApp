@@ -10,6 +10,7 @@ import com.example.vanapp.Entities.UsuarioCoche;
 import com.example.vanapp.Entities.UsuarioRonda;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Clase auxiliar que implementa a {@link DatabaseSchema} para llevar a cabo el CRUD
@@ -137,7 +138,11 @@ public class DatabaseManager {
 
     // INICIO [OPERACIONES_USUARIOS_COCHE]
     public ArrayList obtenerUsuariosDelCoche(String idCoche) {
-        return repositoryUsuariosCoche.obtenerUsuariosDelCoche(idCoche);
+        return repositoryUsuariosCoche.obtenerUsuariosDelCoche(idCoche, false);
+    }
+
+    public ArrayList obtenerConductoresDelCoche(String idCoche) {
+        return repositoryUsuariosCoche.obtenerUsuariosDelCoche(idCoche, true);
     }
 
     public ArrayList obtenerUsuariosNoDelCoche(String idCoche) {
@@ -238,12 +243,30 @@ public class DatabaseManager {
     }
     // FIN [RONDAS]
 
-    // INICIO [OPERACIONES_USUARIOS_COCHE]
+    // INICIO [OPERACIONES_USUARIOS_RONDA]
     public ArrayList obtenerUsuariosDeLaRonda(String idRonda) {
         return repositoryUsuariosRonda.obtenerUsuariosDeLaRonda(idRonda);
     }
 
+    public Usuario obtenerConductorEnTurnoDeConduccion(String idRonda, Date fechaDeConduccion) {
+        UsuarioRonda usuarioEnTurnoDeConduccion;
+        Usuario conductor;
+        usuarioEnTurnoDeConduccion = repositoryUsuariosRonda.obtenerConductorEnTurnoDeConduccion(idRonda, fechaDeConduccion);
+        if (usuarioEnTurnoDeConduccion != null && usuarioEnTurnoDeConduccion.getIdUsuario() != null)
+        {
+            conductor = this.obtenerUsuario(usuarioEnTurnoDeConduccion.getIdUsuario());
+        }
+        else {
+            conductor = null;
+        }
+        return conductor;
+    }
+
     public boolean insertarUsuarioRonda(UsuarioRonda usuarioRonda) {
+        repositoryUsuariosRonda.eliminarRelacionDeUsuarioConRonda(usuarioRonda.getIdUsuario()
+                , usuarioRonda.getIdRonda()
+                , usuarioRonda.getFechaDeConduccion()
+                , false);
         return repositoryUsuariosRonda.insertarUsuarioRonda(usuarioRonda);
     }
 
@@ -259,8 +282,8 @@ public class DatabaseManager {
      * @param idRonda a eliminar.
      * @param esBorradoLogico indica si el borrado es lógico (se actualiza el campo activo) o físico (se elimina definitivamente de la Bdd)
      */
-    public boolean eliminarRelacionDeUsuarioConRonda(String idUsuario, String idRonda, boolean esBorradoLogico) {
-        return repositoryUsuariosRonda.eliminarRelacionDeUsuarioConRonda(idUsuario, idRonda, esBorradoLogico);
+    public boolean eliminarRelacionDeUsuarioConRonda(String idUsuario, String idRonda, Date fechaDeConduccion, boolean esBorradoLogico) {
+        return repositoryUsuariosRonda.eliminarRelacionDeUsuarioConRonda(idUsuario, idRonda, fechaDeConduccion, esBorradoLogico);
     }
 
     /**
@@ -281,5 +304,5 @@ public class DatabaseManager {
         return repositoryUsuariosRonda.eliminarRelacionDeRondaConTodosLosUsuarios(idRonda, esBorradoLogico);
     }
 
-    // FIN [OPERACIONES_USUARIOS_COCHE]
+    // FIN [OPERACIONES_USUARIOS_RONDA]
 }

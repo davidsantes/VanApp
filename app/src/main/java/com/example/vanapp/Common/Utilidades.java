@@ -2,11 +2,13 @@ package com.example.vanapp.Common;
 
 import com.example.vanapp.Entities.Usuario;
 import com.example.vanapp.Entities.UsuarioCoche;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.regex.Matcher;
@@ -69,6 +71,27 @@ public class Utilidades {
         }
 
         return fechaDate;
+    }
+
+    public static CalendarDay getCalendarDayFromDate(Date fecha){
+        Calendar calendarFecha = Calendar.getInstance();
+        calendarFecha.setTime(fecha);
+        CalendarDay diaTipoCalendarDay = CalendarDay.from(calendarFecha.get(Calendar.YEAR)
+                ,calendarFecha.get(Calendar.MONTH)+1
+                ,calendarFecha.get(Calendar.DAY_OF_MONTH));
+        return diaTipoCalendarDay;
+    }
+
+    public static Date getDateFromCalendarDay(CalendarDay fecha){
+        Date fechaTipoDate;
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, fecha.getYear());
+        calendar.set(Calendar.MONTH, fecha.getMonth() -1);
+        calendar.set(Calendar.DAY_OF_MONTH, fecha.getDay());
+        fechaTipoDate = calendar.getTime();
+
+        return fechaTipoDate;
     }
 
     public static boolean esRangoFechasCorrecto(Date fechaIni, Date fechaFin) {

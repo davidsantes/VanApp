@@ -8,6 +8,7 @@ import com.example.vanapp.Common.Utilidades;
 import com.example.vanapp.Entities.UsuarioRonda;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class RepositoryUsuariosRonda {
     private DatabaseSchema baseDatos;
@@ -43,6 +44,35 @@ public class RepositoryUsuariosRonda {
         return listaUsuariosDeLaRonda;
     }
 
+    public UsuarioRonda obtenerConductorEnTurnoDeConduccion(String idRonda, Date fechaDeConduccion) {
+        UsuarioRonda usuarioEnTurnoDeConduccion = new UsuarioRonda();
+        SQLiteDatabase db = baseDatos.getReadableDatabase();
+
+        String sqlTotal = "";
+        String sqlSelect = "";
+        String sqlFrom = "";
+        String sqlWhere = "";
+
+        sqlSelect = " SELECT Usuarios_Rondas.IdUsuario, Usuarios_Rondas.IdRonda, Usuarios_Rondas.FechaDeConduccion, Usuarios_Rondas.Activo";
+        sqlFrom += " FROM USUARIOS_RONDAS";
+        sqlWhere += " WHERE Usuarios_Rondas.IdRonda='" + idRonda + "'";
+        sqlWhere += " AND Usuarios_Rondas.Activo=1";
+        sqlWhere += " AND Usuarios_Rondas.FechaDeConduccion='" + Utilidades.getFechaToString(fechaDeConduccion) + "'";
+
+        sqlTotal = sqlSelect + sqlFrom + sqlWhere;
+        Cursor cursor = db.rawQuery(sqlTotal, null);
+
+        if (cursor.moveToFirst())
+        {
+            usuarioEnTurnoDeConduccion = null;
+            do{
+                usuarioEnTurnoDeConduccion = DatabaseMapping.obtenerInstancia().mapearUsuarioRonda(cursor);
+            }while (cursor.moveToNext());
+        }
+
+        return usuarioEnTurnoDeConduccion;
+    }
+
     public boolean insertarUsuarioRonda(UsuarioRonda usuarioRonda) {
         SQLiteDatabase db = baseDatos.getWritableDatabase();
 
@@ -76,12 +106,15 @@ public class RepositoryUsuariosRonda {
      * @param idRonda a eliminar.
      * @param esBorradoLogico indica si el borrado es lógico (se actualiza el campo activo) o físico (se elimina definitivamente de la Bdd)
      */
-    public boolean eliminarRelacionDeUsuarioConRonda(String idUsuario, String idRonda, boolean esBorradoLogico) {
+    public boolean eliminarRelacionDeUsuarioConRonda(String idUsuario, String idRonda, Date fechaDeConduccion, boolean esBorradoLogico) {
         int resultado = 0;
         SQLiteDatabase db = baseDatos.getWritableDatabase();
 
-        String whereClause = String.format("%s=? AND %s=?", DatabaseSchemaContracts.UsuariosRondas.ID_USUARIO, DatabaseSchemaContracts.UsuariosRondas.ID_RONDA);
-        final String[] whereArgs = {idUsuario, idRonda};
+        String whereClause = String.format("%s=? AND %s=? AND %s=?"
+                , DatabaseSchemaContracts.UsuariosRondas.ID_USUARIO
+                , DatabaseSchemaContracts.UsuariosRondas.ID_RONDA
+                , DatabaseSchemaContracts.UsuariosRondas.FECHA_DE_CONDUCCION);
+        final String[] whereArgs = {idUsuario, idRonda, Utilidades.getFechaToString(fechaDeConduccion)};
 
         if (esBorradoLogico) {
             ContentValues valores = new ContentValues();

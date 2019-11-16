@@ -60,6 +60,31 @@ public class CocheDetalleActivity extends MasterActivity {
     private Button botonEligeColor;
     private ImageView iv_avatar;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_coche_detalle);
+
+        idCoche = setIdCoche();
+
+        menuMasterToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(menuMasterToolbar);
+
+        databaseManager = DatabaseManager.obtenerInstancia(getApplicationContext());
+
+        enlazarEventosConObjetos();
+
+        //Necesario para mostrar el botón para regresar al padre
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        botonEliminar.setVisibility(View.INVISIBLE);
+        if (!esAltaCoche())
+        {
+            mostrarDetalleCoche();
+        }
+    }
+
+
     /*Además del menú de MasterActivity, inyecta otro menú*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -95,30 +120,6 @@ public class CocheDetalleActivity extends MasterActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_coche_detalle);
-
-        idCoche = setIdCoche();
-
-        menuMasterToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(menuMasterToolbar);
-
-        databaseManager = DatabaseManager.obtenerInstancia(getApplicationContext());
-
-        enlazarEventosConObjetos();
-
-        //Necesario para mostrar el botón para regresar al padre
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        botonEliminar.setVisibility(View.INVISIBLE);
-        if (!esAltaCoche())
-        {
-            mostrarDetalleCoche();
-        }
     }
 
     /*En caso de que retorne "" quiere decir que es un alta */

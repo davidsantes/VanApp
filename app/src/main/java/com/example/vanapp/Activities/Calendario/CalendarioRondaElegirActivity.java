@@ -41,7 +41,7 @@ public class CalendarioRondaElegirActivity extends MasterActivity {
     private Button btnEligeRonda;
     private Button btnIrAlCanlendario;
     private Button btnLimpiarValores;
-    ListView listViewCoches;
+    private ListView listViewCoches;
     private ListView listViewRondasEnElCoche;
 
     @Override
@@ -83,7 +83,7 @@ public class CalendarioRondaElegirActivity extends MasterActivity {
         btnIrAlCanlendario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mostrarActividadCalendarioRondaDetalle("","");
+                mostrarActividadCalendarioRondaDetalle(idCocheElegido,idRondaElegida);
             }
         });
 
