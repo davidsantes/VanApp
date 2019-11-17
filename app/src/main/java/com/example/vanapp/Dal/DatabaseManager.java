@@ -216,7 +216,18 @@ public class DatabaseManager {
     }
 
     public Ronda obtenerRonda(String idRonda){
-        return repositoryRondas.obtenerRonda(idRonda);
+        Ronda nuevaRonda = null;
+        nuevaRonda = repositoryRondas.obtenerRonda(idRonda);
+
+        if (nuevaRonda != null){
+            ArrayList<UsuarioRonda> listaUsuariosDeLaRonda = new ArrayList<>();
+            listaUsuariosDeLaRonda = this.obtenerUsuariosDeLaRonda(idRonda);
+            if (listaUsuariosDeLaRonda != null){
+                nuevaRonda.setListaTurnosDeConduccion(listaUsuariosDeLaRonda);
+            }
+        }
+
+        return nuevaRonda;
     }
 
     public boolean insertarRondaDelCoche(Ronda ronda) {

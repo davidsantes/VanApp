@@ -25,13 +25,15 @@ public class RepositoryUsuariosRonda {
         String sqlSelect = "";
         String sqlFrom = "";
         String sqlWhere = "";
+        String sqlOrderBy = "";
 
         sqlSelect = " SELECT Usuarios_Rondas.IdUsuario, Usuarios_Rondas.IdRonda, Usuarios_Rondas.FechaDeConduccion, Usuarios_Rondas.Activo";
         sqlFrom += " FROM USUARIOS_RONDAS";
         sqlWhere += " WHERE Usuarios_Rondas.IdRonda='" + idRonda + "'";
         sqlWhere += " AND Usuarios_Rondas.Activo=1";
+        sqlOrderBy += " ORDER BY FechaDeConduccion";
 
-        sqlTotal = sqlSelect + sqlFrom + sqlWhere;
+        sqlTotal = sqlSelect + sqlFrom + sqlWhere + sqlOrderBy;
         Cursor cursor = db.rawQuery(sqlTotal, null);
 
         if (cursor.moveToFirst())

@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -27,8 +28,10 @@ import com.example.vanapp.Activities.MasterActivity;
 import com.example.vanapp.Activities.Usuarios.UsuariosAdapter;
 import com.example.vanapp.Common.Utilidades;
 import com.example.vanapp.Dal.DatabaseManager;
+import com.example.vanapp.Entities.Coche;
 import com.example.vanapp.Entities.Ronda;
 import com.example.vanapp.Entities.Usuario;
+import com.example.vanapp.Entities.UsuarioCoche;
 import com.example.vanapp.Entities.UsuarioRonda;
 import com.example.vanapp.R;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -41,6 +44,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import static com.example.vanapp.Common.Constantes.SALTO_LINEA;
 
 public class CalendarioRondaDetalleActivity extends MasterActivity {
 
@@ -79,7 +84,7 @@ public class CalendarioRondaDetalleActivity extends MasterActivity {
         databaseManager = DatabaseManager.obtenerInstancia(getApplicationContext());
 
         enlazarDatosActividadPadre();
-        obtenerRonda();
+        obtenerActualizarRonda();
         enlazarEventosConObjetos();
         mostrarCabecera();
         mostrarRangoConConductores();
@@ -110,7 +115,7 @@ public class CalendarioRondaDetalleActivity extends MasterActivity {
     public boolean onOptionsItemSelected (MenuItem item){
         switch (item.getItemId()){
             case R.id.opcionCompartir:
-                //mostrarActividadUsuariosEnCoche();
+                mailEviar();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -126,7 +131,7 @@ public class CalendarioRondaDetalleActivity extends MasterActivity {
         }
     }
 
-    private void obtenerRonda(){
+    private void obtenerActualizarRonda(){
         rondaActual = databaseManager.obtenerRonda(idRondaElegida);
     }
 
@@ -273,7 +278,6 @@ public class CalendarioRondaDetalleActivity extends MasterActivity {
                     Toast.makeText(CalendarioRondaDetalleActivity.this, R.string.msgOperacionKo, Toast.LENGTH_SHORT).show();
                 }
 
-
                 dialog.dismiss();
             }
         });
@@ -284,7 +288,6 @@ public class CalendarioRondaDetalleActivity extends MasterActivity {
                 dialog.dismiss();
             }
         });
-
 
         listViewPosiblesConductores.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -324,5 +327,71 @@ public class CalendarioRondaDetalleActivity extends MasterActivity {
         textViewNombreCompleto.setText(conductor.getNombreCompleto());
         textViewAlias.setText(conductor.getAlias());
         iv_avatar.setColorFilter(Color.parseColor("#" + conductor.getColorUsuario()));
+    }
+
+    private void mailEviar(){
+        obtenerActualizarRonda();
+
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.setType("text/plain");
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, mailComponerDestinatarios());
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, mailComponerAsunto());
+        emailIntent.putExtra(Intent.EXTRA_TEXT, mailComponerCuerpoMail());
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Enviando mail..."));
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(CalendarioRondaDetalleActivity.this, "No ha un cliente para enviar mails instalado.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private String[] mailComponerDestinatarios()
+    {
+        String[] listaDestinatarios;
+        ArrayList<UsuarioCoche> listaDestinatariosMensaje;
+        listaDestinatariosMensaje = databaseManager.obtenerUsuariosDelCoche(rondaActual.getIdCoche());
+        listaDestinatarios = new String[listaDestinatariosMensaje.size()];
+
+        if(listaDestinatariosMensaje != null){
+            for (int i = 0; i < listaDestinatariosMensaje.size(); i++) {
+                listaDestinatarios[i] = listaDestinatariosMensaje.get(i).getUsuarioDetalle().getEmail();
+            }
+        }
+
+        return listaDestinatarios;
+    }
+
+    private String mailComponerAsunto(){
+        String asunto = "";
+        asunto += "Turnos de la Ronda: ";
+        asunto += rondaActual.getAlias();
+        asunto += " (" + Utilidades.getFechaToString(rondaActual.getFechaInicio());
+        asunto += " - " + Utilidades.getFechaToString(rondaActual.getFechaFin())+ ")";
+        return asunto;
+    }
+
+    private String mailComponerCuerpoMail(){
+        Coche cocheActual = databaseManager.obtenerCoche(rondaActual.getIdCoche());
+
+        String cuerpoMail = "";
+
+        cuerpoMail += "Coche: " + cocheActual.getNombre() + " - " + cocheActual.getMatricula();
+        cuerpoMail += SALTO_LINEA + SALTO_LINEA;
+
+        cuerpoMail += "Ronda: " + rondaActual.getAlias();
+        cuerpoMail += " (" + Utilidades.getFechaToString(rondaActual.getFechaInicio());
+        cuerpoMail += " - " + Utilidades.getFechaToString(rondaActual.getFechaFin())+ ")";
+        cuerpoMail += SALTO_LINEA + SALTO_LINEA;
+
+        cuerpoMail += "Turnos: " + SALTO_LINEA;
+
+        if (rondaActual.getListaTurnosDeConduccion() != null && rondaActual.getListaTurnosDeConduccion().size() > 0){
+            for (UsuarioRonda turnoConductor: rondaActual.getListaTurnosDeConduccion()) {
+                Usuario conductorDetalle = databaseManager.obtenerUsuario(turnoConductor.getIdUsuario());
+                cuerpoMail += "- " + conductorDetalle.getAlias() + ": " + Utilidades.getFechaToString(turnoConductor.getFechaDeConduccion());
+                cuerpoMail += SALTO_LINEA;
+            }
+        }
+
+        return cuerpoMail;
     }
 }
