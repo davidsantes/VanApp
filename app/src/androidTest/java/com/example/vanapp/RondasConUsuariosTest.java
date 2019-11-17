@@ -37,9 +37,9 @@ public class RondasConUsuariosTest {
         //Arrange
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         databaseManager = DatabaseManager.obtenerInstancia(appContext);
-        int numeroCochesParaInsertar = 1;
+        int numeroCochesParaInsertar = 5;
         int numeroUsuariosParaRondas = 1;
-        int numeroRondasParaInsertar = 1;
+        int numeroRondasParaInsertar = 10;
         String idCoche = "";
         String idRonda = "";
 

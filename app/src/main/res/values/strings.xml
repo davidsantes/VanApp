@@ -76,8 +76,11 @@
     <string name="msgConfirmarEliminarCoche">Wow, esta acción eliminará el coche y los datos relacionados ¿deseas continuar?</string>
     <string name="msgConfirmarEliminarTodasRondas">Wow, esta acción eliminará todas las rondas del coche ¿deseas continuar?</string>
     <string name="msgOperacionOk">Operación realizada correctamente</string>
-    <string name="msgOperacionKo">Ups, algo ha salido mal :(</string>
+    <string name="msgOperacionKo">Ups, ¿seguro que había algo para hacer en esta acción? :(</string>
     <string name="msgDatosIncorrectos">Me parece que los datos son incorrectos</string>
     <string name="msgRondaCerrada">La ronda se encuentra cerrada, para realizar cambios, debes abrirla</string>
     <string name="msgEleccionCalendarioOk">Elección completa, puedes acceder al calendario si lo deseas</string>
+    <string name="msgProximaVersion">¡Tendrás que esperar a la siguiente versión! :)</string>
+    <string name="msgNoExistenUsuarios">Antes de entrar a esta opción, debes crear usuarios</string>
+    <string name="msgNoExistenRondas">Antes de entrar a esta opción, debes crear rondas dentro del coche</string>
 </resources>

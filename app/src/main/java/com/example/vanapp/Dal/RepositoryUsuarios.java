@@ -16,6 +16,33 @@ public class RepositoryUsuarios {
         this.baseDatos = baseDatos;
     }
 
+    public boolean existenUsuarios() {
+        boolean existenUsuarios = false;
+        SQLiteDatabase db = baseDatos.getReadableDatabase();
+
+        String sqlTotal = "";
+        String sqlSelect = "";
+        String sqlFrom = "";
+        String sqlWhere = "";
+
+        sqlSelect = " SELECT Count(*) AS TotalUsuarios";
+        sqlFrom += " FROM USUARIOS";
+        sqlWhere += " WHERE Usuarios.Activo=1";
+
+        sqlTotal = sqlSelect + sqlFrom + sqlWhere;
+        Cursor cursor = db.rawQuery(sqlTotal, null);
+
+        if (cursor.moveToFirst())
+        {
+            do{
+                int totalUsuarios = cursor.getInt(cursor.getColumnIndex("TotalUsuarios"));
+                existenUsuarios = totalUsuarios > 0 ? true : false;
+            }while (cursor.moveToNext());
+        }
+
+        return existenUsuarios;
+    }
+
     public ArrayList obtenerUsuarios() {
         ArrayList<Usuario> listaUsuarios = new ArrayList<>();
         SQLiteDatabase db = baseDatos.getReadableDatabase();

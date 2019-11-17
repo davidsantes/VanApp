@@ -58,6 +58,10 @@ public class DatabaseManager {
     }
 
     // INICIO [OPERACIONES_USUARIO]
+    public boolean existenUsuarios(){
+        return repositoryUsuarios.existenUsuarios();
+    }
+
     public ArrayList obtenerUsuarios() {
         return repositoryUsuarios.obtenerUsuarios();
     }
@@ -79,7 +83,7 @@ public class DatabaseManager {
      */
     public boolean eliminarUsuariosTodos() {
         this.eliminarRelacionDeUsuariosConCochesTodos();
-        this.eliminarRondasTodas();
+        this.eliminarRelacionDeUsuariosConRondasTodos();
         return repositoryUsuarios.eliminarUsuariosTodos();
     }
 
@@ -132,6 +136,13 @@ public class DatabaseManager {
      */
     public boolean eliminarCoche(String idCoche, boolean esBorradoLogico) {
         this.eliminarRelacionDeCocheConTodosLosUsuarios(idCoche, esBorradoLogico);
+
+        ArrayList<Ronda> listaRondas = new ArrayList<>();
+        listaRondas = this.obtenerRondasDelCoche(idCoche);
+        for (Ronda ronda: listaRondas) {
+            this.eliminarRonda(ronda.getIdRonda(), esBorradoLogico);
+        }
+
         return repositoryCoches.eliminarCoche(idCoche, esBorradoLogico);
     }
     // FIN [OPERACIONES_COCHE]
@@ -220,7 +231,7 @@ public class DatabaseManager {
      * Elimina todas las rondas.
      */
     private boolean eliminarRondasTodas() {
-        //eliminarRelacionDeUsuariosConRondasTodos();
+        this.eliminarRelacionDeUsuariosConRondasTodos();
         return repositoryRondas.eliminarRondasTodas();
     }
 
@@ -254,6 +265,10 @@ public class DatabaseManager {
     // FIN [RONDAS]
 
     // INICIO [OPERACIONES_USUARIOS_RONDA]
+    public boolean existenRondas(){
+        return repositoryRondas.existenRondas();
+    }
+
     public ArrayList obtenerUsuariosDeLaRonda(String idRonda) {
         return repositoryUsuariosRonda.obtenerUsuariosDeLaRonda(idRonda);
     }

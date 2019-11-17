@@ -16,6 +16,33 @@ public class RepositoryRondas {
         this.baseDatos = baseDatos;
     }
 
+    public boolean existenRondas() {
+        boolean existenRondas = false;
+        SQLiteDatabase db = baseDatos.getReadableDatabase();
+
+        String sqlTotal = "";
+        String sqlSelect = "";
+        String sqlFrom = "";
+        String sqlWhere = "";
+
+        sqlSelect = " SELECT Count(*) AS TotalRondas";
+        sqlFrom += " FROM Rondas";
+        sqlWhere += " WHERE Rondas.Activo=1";
+
+        sqlTotal = sqlSelect + sqlFrom + sqlWhere;
+        Cursor cursor = db.rawQuery(sqlTotal, null);
+
+        if (cursor.moveToFirst())
+        {
+            do{
+                int totalRondas = cursor.getInt(cursor.getColumnIndex("TotalRondas"));
+                existenRondas = totalRondas > 0 ? true : false;
+            }while (cursor.moveToNext());
+        }
+
+        return existenRondas;
+    }
+
     public ArrayList obtenerRondasDelCoche(String idCoche) {
         ArrayList<Ronda> listaRondasDelCoche = new ArrayList<>();
         SQLiteDatabase db = baseDatos.getReadableDatabase();
@@ -24,14 +51,16 @@ public class RepositoryRondas {
         String sqlSelect = "";
         String sqlFrom = "";
         String sqlWhere = "";
+        String sqlOrderBy = "";
 
         sqlSelect = " SELECT Coches.Id, Coches.Nombre, Coches.Activo,";
         sqlSelect += " Rondas.Id, Rondas.IdCoche, Rondas.Alias, Rondas.FechaInicio, Rondas.FechaFin, Rondas.EsRondaFinalizada, Rondas.Activo";
         sqlFrom += " FROM Coches INNER JOIN Rondas ON Coches.Id = Rondas.IdCoche";
         sqlWhere += " WHERE Coches.Id='" + idCoche + "'";
         sqlWhere += " AND Coches.Activo=1 AND Rondas.Activo=1";
+        sqlOrderBy += " Order by Rondas.FechaInicio ";
 
-        sqlTotal = sqlSelect + sqlFrom + sqlWhere;
+        sqlTotal = sqlSelect + sqlFrom + sqlWhere + sqlOrderBy;
         Cursor cursor = db.rawQuery(sqlTotal, null);
 
         if (cursor.moveToFirst())

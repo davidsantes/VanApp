@@ -11,9 +11,13 @@ import android.widget.Toast;
 import com.example.vanapp.Activities.Calendario.CalendarioRondaElegirActivity;
 import com.example.vanapp.Activities.Coches.CochesActivity;
 import com.example.vanapp.Activities.Usuarios.UsuariosActivity;
+import com.example.vanapp.Dal.DatabaseManager;
 import com.example.vanapp.R;
 
 public class MenuInicialActivity extends MasterActivity {
+
+    //Variables
+    private DatabaseManager databaseManager;
 
     //Componentes de la capa de presentación
     private Toolbar menuMasterToolbar;
@@ -29,6 +33,8 @@ public class MenuInicialActivity extends MasterActivity {
 
         menuMasterToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(menuMasterToolbar);
+
+        databaseManager = DatabaseManager.obtenerInstancia(getApplicationContext());
 
         enlazarEventosConObjetos();
     }
@@ -74,18 +80,30 @@ public class MenuInicialActivity extends MasterActivity {
     }
 
     private void mostrarActividadCoches() {
-        Intent intentActividad = new Intent(this, CochesActivity.class);
-        startActivity(intentActividad);
+        boolean existenUsuarios = databaseManager.existenUsuarios();
+        if (existenUsuarios){
+            Intent intentActividad = new Intent(this, CochesActivity.class);
+            startActivity(intentActividad);
+        }
+        else{
+            Toast.makeText(getApplicationContext(), R.string.msgNoExistenUsuarios, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void mostrarActividadCalendario() {
-        Intent intentActividad = new Intent(this, CalendarioRondaElegirActivity.class);
-        startActivity(intentActividad);
+        boolean existenRondasConUsuariosAsignados = databaseManager.existenRondas();
+        if (existenRondasConUsuariosAsignados){
+            Intent intentActividad = new Intent(this, CalendarioRondaElegirActivity.class);
+            startActivity(intentActividad);
+        }
+        else{
+            Toast.makeText(getApplicationContext(), R.string.msgNoExistenRondas, Toast.LENGTH_SHORT).show();
+        }
     }
 
     //TODO: por implementar
     private void mostrarActividadPagos() {
-        Toast.makeText(getApplicationContext(), "¡Tendrás que esperar a la siguiente versión! :)", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), R.string.msgProximaVersion, Toast.LENGTH_SHORT).show();
         //Intent intentActividad = new Intent(this, UsuarioDetalleActivity.class);
         //startActivity(intentActividad);
     }
