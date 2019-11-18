@@ -17,6 +17,7 @@
     <string name="titulo_informes">Informes</string>
     <string name="titulo_informe_total_conducciones">Informe total de conducciones</string>
     <string name="titulo_usuario_selecciona">Selecciona un usuario</string>
+    <string name="titulo_acerca_de">Acerca de</string>
     <string name="tituloConfirmaSalir">Confirmar salir</string>
     <string name="tituloConfirmaEliminar">Confirmar eliminar</string>
     <string name="tituloIntroduceAnyoInforme">Introduce año del informe</string>
@@ -62,6 +63,7 @@
     <string name="txtBuscar">Buscar</string>
     <string name="txtTotalConducciones">Total conducciones: </string>
     <string name="txtAnyoBusqueda">Año de búsqueda: </string>
+    <string name="txtGitHub">Ir a Github</string>
 
     <string name="opcionUsuarios">Usuarios</string>
     <string name="opcionCoches">Coches</string>
@@ -69,6 +71,7 @@
     <string name="opcionInformes">Informes</string>
     <string name="opcionSalir">Salir</string>
     <string name="opcionRondas">Rondas</string>
+    <string name="opcionQuienesSomos">Quiénes somos</string>
 
     <string name="msgInfoColorSeleccionado">Color seleccionado</string>
     <string name="msgInfoEligeColor">Elige color</string>

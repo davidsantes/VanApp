@@ -22,8 +22,13 @@
         android:orderInCategory="40">
     </item>
     <item
+        android:id="@+id/opcionQuienesSomos"
+        android:title="@string/opcionQuienesSomos"
+        android:orderInCategory="50">
+    </item>
+    <item
         android:id="@+id/opcionSalir"
         android:title="@string/opcionSalir"
-        android:orderInCategory="50">
+        android:orderInCategory="60">
     </item>
 </menu>

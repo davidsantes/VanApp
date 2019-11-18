@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activities.QuienesSomosActivity">
+
+    <include layout="@layout/menu_layout"/>
+
+    <TextView
+        android:id="@+id/textViewTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="@dimen/tamanioLetraXXl"
+        android:gravity="center"
+        android:text="Quiénes somos"
+        android:layout_marginTop="@dimen/activity_vertical_margin"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorAccent"
+        android:layout_alignBottom="@id/textViewTitulo" />
+
+    <TextView
+        android:id="@+id/textViewQuienesSomos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/tamanioLetraTitulo"
+        android:text="No, no somos ninguna empresa. Esta aplicación ha nacido a raíz de un proyecto final para un ciclo formativo de Desarrollo de Aplicaciones Multiplataforma.\n\nEspero que, en un futuro, mis compañeros de trabajo me ayuden a desarrollar futuras versiones que les faciliten sus trayectos hasta el trabajo :)"
+        android:layout_margin="@dimen/activity_vertical_margin"/>
+
+    <Button
+        android:id="@+id/btIrGithub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txtGitHub"
+        android:background="@drawable/rectanglebg"
+        android:padding="@dimen/tamanioLetraTitulo"
+        android:textSize="@dimen/tamanioLetraTitulo"
+        android:layout_marginTop="@dimen/tamanioLetraXXl"
+        android:layout_gravity="center"
+        />
+
+</LinearLayout>

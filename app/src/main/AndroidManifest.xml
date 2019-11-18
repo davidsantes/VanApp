@@ -13,9 +13,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activities.MainActivity"
-            android:label="@string/titulo_login" >
-
-        </activity>
+            android:label="@string/titulo_login"></activity>
         <activity android:name=".Activities.MainSplashActivity" />
         <activity
             android:name=".Activities.MenuInicialActivity"
@@ -62,12 +60,17 @@
             android:name=".Activities.Calendario.CalendarioRondaDetalleActivity"
             android:label="@string/titulo_ronda_calendario"
             android:parentActivityName=".Activities.Calendario.CalendarioRondaElegirActivity" />
-        <activity android:name=".Activities.Informes.InformesMenuActivity"
+        <activity
+            android:name=".Activities.Informes.InformesMenuActivity"
             android:label="@string/titulo_informes"
             android:parentActivityName=".Activities.MenuInicialActivity" />
-        <activity android:name=".Activities.Informes.InformeConduccionesActivity"
+        <activity
+            android:name=".Activities.Informes.InformeConduccionesActivity"
             android:label="@string/titulo_informe_total_conducciones"
             android:parentActivityName=".Activities.Informes.InformesMenuActivity" />
+        <activity android:name=".Activities.QuienesSomosActivity"
+            android:label="@string/titulo_acerca_de"
+            android:parentActivityName=".Activities.MenuInicialActivity" />
     </application>
 
 </manifest>

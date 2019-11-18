@@ -38,6 +38,9 @@ public class MenuInicialActivity extends MasterActivity {
         databaseManager = DatabaseManager.obtenerInstancia(getApplicationContext());
 
         enlazarEventosConObjetos();
+
+        //Necesario para mostrar el botón para regresar al padre
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void enlazarEventosConObjetos(){

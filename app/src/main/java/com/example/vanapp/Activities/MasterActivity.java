@@ -54,6 +54,9 @@ public abstract class MasterActivity extends AppCompatActivity {
             case R.id.opcionInformes:
                 mostrarActividadInformes();
                 break;
+            case R.id.opcionQuienesSomos:
+                mostrarActividadQuienesSomos();
+                break;
             case R.id.opcionSalir:
                 confirmarSalir();
                 break;
@@ -92,6 +95,11 @@ public abstract class MasterActivity extends AppCompatActivity {
 
     private void mostrarActividadInformes() {
         Intent intentActividad = new Intent(this, InformesMenuActivity.class);
+        startActivity(intentActividad);
+    }
+
+    private void mostrarActividadQuienesSomos() {
+        Intent intentActividad = new Intent(this, QuienesSomosActivity.class);
         startActivity(intentActividad);
     }
 
