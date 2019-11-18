@@ -55,6 +55,7 @@ public class InformesMenuActivity extends MasterActivity {
         alert.setTitle(R.string.tituloIntroduceAnyoInforme);
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        input.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         input.setText(Integer.toString(anyoBusqueda));
         input.setRawInputType(Configuration.KEYBOARD_12KEY);
         alert.setView(input);
