@@ -17,6 +17,36 @@ public class RepositoryUsuariosRonda {
         this.baseDatos = baseDatos;
     }
 
+    public boolean existenRondasParaUsuarioEnCoche(String idUsuario, String idCoche) {
+        boolean existenRondasParaUsuarioEnCoche = false;
+        SQLiteDatabase db = baseDatos.getReadableDatabase();
+
+        String sqlTotal = "";
+        String sqlSelect = "";
+        String sqlFrom = "";
+        String sqlWhere = "";
+
+        sqlSelect = " SELECT Count(*) AS TotalTurnos";
+        sqlFrom += " FROM Coches INNER JOIN Rondas ON Coches.Id = Rondas.IdCoche";
+        sqlFrom += " INNER JOIN Usuarios_Rondas ON Rondas.Id = Usuarios_Rondas.IdRonda";
+        sqlWhere += " WHERE Usuarios_Rondas.IdUsuario='" + idUsuario + "'";
+        sqlWhere += " AND Rondas.IdCoche='" + idCoche + "'";
+        sqlWhere += " AND Coches.Activo=1 AND Rondas.Activo=1 AND Usuarios_Rondas.Activo=1";
+
+        sqlTotal = sqlSelect + sqlFrom + sqlWhere;
+        Cursor cursor = db.rawQuery(sqlTotal, null);
+
+        if (cursor.moveToFirst())
+        {
+            do{
+                int totalTurnos = cursor.getInt(cursor.getColumnIndex("TotalTurnos"));
+                existenRondasParaUsuarioEnCoche = totalTurnos > 0 ? true : false;
+            }while (cursor.moveToNext());
+        }
+
+        return existenRondasParaUsuarioEnCoche;
+    }
+
     public ArrayList obtenerUsuariosDeLaRonda(String idRonda) {
         ArrayList<UsuarioRonda> listaUsuariosDeLaRonda = new ArrayList<>();
         SQLiteDatabase db = baseDatos.getReadableDatabase();

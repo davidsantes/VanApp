@@ -25,6 +25,7 @@ public class DatabaseManager {
     private static RepositoryUsuariosCoche repositoryUsuariosCoche;
     private static RepositoryRondas repositoryRondas;
     private static RepositoryUsuariosRonda repositoryUsuariosRonda;
+    private static RepositoryInformes repositoryInformes;
 
     private DatabaseManager() {
 
@@ -48,6 +49,9 @@ public class DatabaseManager {
         }
         if (repositoryUsuariosRonda == null){
             repositoryUsuariosRonda = new RepositoryUsuariosRonda(baseDatos);
+        }
+        if (repositoryInformes == null){
+            repositoryInformes = new RepositoryInformes(baseDatos);
         }
 
         return instancia;
@@ -273,6 +277,10 @@ public class DatabaseManager {
 
         return operacionOk;
     }
+
+    public boolean existenRondasParaUsuarioEnCoche(String idUsuario, String idCoche) {
+        return repositoryUsuariosRonda.existenRondasParaUsuarioEnCoche(idUsuario, idCoche);
+    }
     // FIN [RONDAS]
 
     // INICIO [OPERACIONES_USUARIOS_RONDA]
@@ -338,4 +346,12 @@ public class DatabaseManager {
     }
 
     // FIN [OPERACIONES_USUARIOS_RONDA]
+
+    //INICIO [INFORMES]
+
+    public ArrayList obtenerUsuariosInformeConducciones(int anyoBusqueda) {
+        return repositoryInformes.obtenerUsuariosInformeConducciones(anyoBusqueda);
+    }
+
+    // FIN [INFORMES]
 }

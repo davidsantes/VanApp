@@ -11,10 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".Activities.MainActivity"
-            android:label="@string/titulo_login" />
+            android:label="@string/titulo_login" >
+
+        </activity>
         <activity android:name=".Activities.MainSplashActivity" />
         <activity
             android:name=".Activities.MenuInicialActivity"
@@ -53,12 +54,20 @@
             android:name=".Activities.Rondas.RondaCocheDetalleActivity"
             android:label="@string/titulo_ronda_coche_detalle"
             android:parentActivityName=".Activities.Coches.CochesActivity" />
-        <activity android:name=".Activities.Calendario.CalendarioRondaElegirActivity"
+        <activity
+            android:name=".Activities.Calendario.CalendarioRondaElegirActivity"
             android:label="@string/titulo_elige_ronda"
-            android:parentActivityName=".Activities.MenuInicialActivity"></activity>
-        <activity android:name=".Activities.Calendario.CalendarioRondaDetalleActivity"
+            android:parentActivityName=".Activities.MenuInicialActivity" />
+        <activity
+            android:name=".Activities.Calendario.CalendarioRondaDetalleActivity"
             android:label="@string/titulo_ronda_calendario"
-            android:parentActivityName=".Activities.Calendario.CalendarioRondaElegirActivity"></activity>
+            android:parentActivityName=".Activities.Calendario.CalendarioRondaElegirActivity" />
+        <activity android:name=".Activities.Informes.InformesMenuActivity"
+            android:label="@string/titulo_informes"
+            android:parentActivityName=".Activities.MenuInicialActivity" />
+        <activity android:name=".Activities.Informes.InformeConduccionesActivity"
+            android:label="@string/titulo_informe_total_conducciones"
+            android:parentActivityName=".Activities.Informes.InformesMenuActivity" />
     </application>
 
 </manifest>

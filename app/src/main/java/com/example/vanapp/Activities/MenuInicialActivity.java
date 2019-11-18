@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.vanapp.Activities.Calendario.CalendarioRondaElegirActivity;
 import com.example.vanapp.Activities.Coches.CochesActivity;
+import com.example.vanapp.Activities.Informes.InformesMenuActivity;
 import com.example.vanapp.Activities.Usuarios.UsuariosActivity;
 import com.example.vanapp.Dal.DatabaseManager;
 import com.example.vanapp.R;
@@ -24,7 +25,7 @@ public class MenuInicialActivity extends MasterActivity {
     private ImageButton imageViewUsuarios;
     private ImageButton imageViewCoches;
     private ImageButton imageViewCalendario;
-    private ImageButton imageViewPagos;
+    private ImageButton imageViewInformes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class MenuInicialActivity extends MasterActivity {
         imageViewUsuarios = findViewById(R.id.imageViewUsuarios);
         imageViewCoches = findViewById(R.id.imageViewCoches);
         imageViewCalendario = findViewById(R.id.imageViewCalendario);
-        imageViewPagos = findViewById(R.id.imageViewPagos);
+        imageViewInformes = findViewById(R.id.imageViewInformes);
 
         imageViewUsuarios.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,10 +67,10 @@ public class MenuInicialActivity extends MasterActivity {
             }
         });
 
-        imageViewPagos.setOnClickListener(new View.OnClickListener() {
+        imageViewInformes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mostrarActividadPagos();
+                mostrarActividadInformes();
             }
         });
     }
@@ -91,8 +92,8 @@ public class MenuInicialActivity extends MasterActivity {
     }
 
     private void mostrarActividadCalendario() {
-        boolean existenRondasConUsuariosAsignados = databaseManager.existenRondas();
-        if (existenRondasConUsuariosAsignados){
+        boolean existenRondas = databaseManager.existenRondas();
+        if (existenRondas){
             Intent intentActividad = new Intent(this, CalendarioRondaElegirActivity.class);
             startActivity(intentActividad);
         }
@@ -101,10 +102,8 @@ public class MenuInicialActivity extends MasterActivity {
         }
     }
 
-    //TODO: por implementar
-    private void mostrarActividadPagos() {
-        Toast.makeText(getApplicationContext(), R.string.msgProximaVersion, Toast.LENGTH_SHORT).show();
-        //Intent intentActividad = new Intent(this, UsuarioDetalleActivity.class);
-        //startActivity(intentActividad);
+    private void mostrarActividadInformes() {
+        Intent intentActividad = new Intent(this, InformesMenuActivity.class);
+        startActivity(intentActividad);
     }
 }

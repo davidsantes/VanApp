@@ -7,8 +7,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.vanapp.Activities.Calendario.CalendarioRondaElegirActivity;
 import com.example.vanapp.Activities.Coches.CochesActivity;
+import com.example.vanapp.Activities.Informes.InformesMenuActivity;
 import com.example.vanapp.Activities.Usuarios.UsuariosActivity;
+import com.example.vanapp.Dal.DatabaseManager;
 import com.example.vanapp.R;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,6 +25,10 @@ import androidx.appcompat.app.AppCompatActivity;
 // Sugerencia de la guía de desarrolladores de Android, para compartir métodos
 // https://developer.android.com/guide/topics/ui/menus
 public abstract class MasterActivity extends AppCompatActivity {
+
+    //Variables
+    private DatabaseManager databaseManager;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -36,22 +43,56 @@ public abstract class MasterActivity extends AppCompatActivity {
 
         switch (item.getItemId()){
             case R.id.opcionUsuarios:
-                intentActivity = new Intent(this, UsuariosActivity.class);
-                startActivity(intentActivity);
+                mostrarActividadUsuarios();
                 break;
             case R.id.opcionCoches:
-                intentActivity = new Intent(this, CochesActivity.class);
-                startActivity(intentActivity);
+                mostrarActividadCoches();
                 break;
-            case R.id.opcionRondas:
-                intentActivity = new Intent(this, UsuariosActivity.class);
-                startActivity(intentActivity);
+            case R.id.opcionCalendario:
+                mostrarActividadCalendario();
+                break;
+            case R.id.opcionInformes:
+                mostrarActividadInformes();
                 break;
             case R.id.opcionSalir:
                 confirmarSalir();
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void mostrarActividadUsuarios() {
+        Intent intentActividad = new Intent(this, UsuariosActivity.class);
+        startActivity(intentActividad);
+    }
+
+    private void mostrarActividadCoches() {
+        databaseManager = DatabaseManager.obtenerInstancia(getApplicationContext());
+        boolean existenUsuarios = databaseManager.existenUsuarios();
+        if (existenUsuarios){
+            Intent intentActividad = new Intent(this, CochesActivity.class);
+            startActivity(intentActividad);
+        }
+        else{
+            Toast.makeText(getApplicationContext(), R.string.msgNoExistenUsuarios, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void mostrarActividadCalendario() {
+        databaseManager = DatabaseManager.obtenerInstancia(getApplicationContext());
+        boolean existenRondas = databaseManager.existenRondas();
+        if (existenRondas){
+            Intent intentActividad = new Intent(this, CalendarioRondaElegirActivity.class);
+            startActivity(intentActividad);
+        }
+        else{
+            Toast.makeText(getApplicationContext(), R.string.msgNoExistenRondas, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void mostrarActividadInformes() {
+        Intent intentActividad = new Intent(this, InformesMenuActivity.class);
+        startActivity(intentActividad);
     }
 
     private void confirmarSalir(){

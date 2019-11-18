@@ -6,6 +6,7 @@ import com.example.vanapp.Entities.Coche;
 import com.example.vanapp.Entities.Ronda;
 import com.example.vanapp.Entities.Usuario;
 import com.example.vanapp.Entities.UsuarioCoche;
+import com.example.vanapp.Entities.UsuarioInformeConducciones;
 import com.example.vanapp.Entities.UsuarioRonda;
 
 import java.util.Date;
@@ -90,5 +91,19 @@ public class DatabaseMapping {
         nuevaUsuarioRonda.setActivo(cursor.getInt(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaUsuariosRondas.ACTIVO)) == 1);
 
         return nuevaUsuarioRonda;
+    }
+
+    /* Retorna un usuario mapeado a través de los datos proporcionados por el cursor  */
+    public UsuarioInformeConducciones mapearUsuarioInformeConducciones(Cursor cursor){
+        UsuarioInformeConducciones nuevoUsuarioInforme = new UsuarioInformeConducciones();
+        nuevoUsuarioInforme.setIdUsuario(cursor.getString(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaUsuarios.ID_USUARIO)));
+        nuevoUsuarioInforme.setNombre(cursor.getString(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaUsuarios.NOMBRE)));
+        nuevoUsuarioInforme.setApellido1(cursor.getString(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaUsuarios.APELLIDO_1)));
+        nuevoUsuarioInforme.setApellido2(cursor.getString(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaUsuarios.APELLIDO_2)));
+        nuevoUsuarioInforme.setAlias(cursor.getString(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaUsuarios.ALIAS)));
+        nuevoUsuarioInforme.setColorUsuario(cursor.getString(cursor.getColumnIndex(DatabaseSchemaContracts.ColumnasTablaUsuarios.COLOR_USUARIO)));
+        nuevoUsuarioInforme.setTotalConducciones(cursor.getInt(cursor.getColumnIndex("TotalConducciones")));
+
+        return nuevoUsuarioInforme;
     }
 }

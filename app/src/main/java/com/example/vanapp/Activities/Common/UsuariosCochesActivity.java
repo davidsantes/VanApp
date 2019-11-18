@@ -50,6 +50,8 @@ public class UsuariosCochesActivity extends MasterActivity {
         menuMasterToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(menuMasterToolbar);
 
+        databaseManager = DatabaseManager.obtenerInstancia(getApplicationContext());
+
         idCoche = setIdCoche();
         cocheActual = null;
 
@@ -63,7 +65,7 @@ public class UsuariosCochesActivity extends MasterActivity {
 
     public Coche getCocheActual() {
         if (cocheActual == null){
-            cocheActual = databaseManager.obtenerInstancia(getApplicationContext()).obtenerCoche(idCoche);
+            cocheActual = databaseManager.obtenerCoche(idCoche);
         }
         return cocheActual;
     }
@@ -94,7 +96,15 @@ public class UsuariosCochesActivity extends MasterActivity {
             @Override
             public boolean  onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 UsuarioCoche usuarioItem = (UsuarioCoche)listViewUsuariosEnElCoche.getItemAtPosition(position);
-                confirmarEliminarUsuario(usuarioItem.getUsuarioDetalle().getIdUsuario(), usuarioItem.getIdCoche());
+
+                boolean existenRondasParaUsuarioEnCoche = databaseManager.existenRondasParaUsuarioEnCoche(usuarioItem.getUsuarioDetalle().getIdUsuario(), idCoche);
+                if (existenRondasParaUsuarioEnCoche) {
+                    Toast.makeText(getApplicationContext(), R.string.msgExistenRondasAsignadasParaUsuario, Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    confirmarEliminarUsuario(usuarioItem.getUsuarioDetalle().getIdUsuario(), usuarioItem.getIdCoche());
+                }
+
                 return true;
             }
         });
@@ -132,7 +142,7 @@ public class UsuariosCochesActivity extends MasterActivity {
 
         //Carga de los usuarios que aún no están incluidos en el coche
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(UsuariosCochesActivity.this, android.R.layout.select_dialog_singlechoice);
-        listaUsuariosNoIncluidosEnCoche = databaseManager.obtenerInstancia(getApplicationContext()).obtenerUsuariosNoDelCoche(idCoche);
+        listaUsuariosNoIncluidosEnCoche = databaseManager.obtenerUsuariosNoDelCoche(idCoche);
         for (Usuario usuario: listaUsuariosNoIncluidosEnCoche) {
             String usuarioAlias = usuario.getAlias();
             arrayAdapter.add(usuarioAlias);
@@ -154,7 +164,7 @@ public class UsuariosCochesActivity extends MasterActivity {
                 UsuarioCoche nuevoUsuarioCoche = new UsuarioCoche(nuevoUsuario.getIdUsuario(), idCoche);
                 nuevoUsuarioCoche.setUsuarioDetalle(nuevoUsuario);
 
-                databaseManager.obtenerInstancia(getApplicationContext()).insertarUsuarioCoche(nuevoUsuarioCoche);
+                databaseManager.insertarUsuarioCoche(nuevoUsuarioCoche);
 
                 AlertDialog.Builder builderInner = new AlertDialog.Builder(UsuariosCochesActivity.this);
                 builderInner.setTitle(R.string.titulo_usuario_selecciona);
@@ -195,7 +205,7 @@ public class UsuariosCochesActivity extends MasterActivity {
 
     private void eliminarUsuario(String idUsuario, String idCoche){
         boolean esOperacionCorrecta = false;
-        esOperacionCorrecta = databaseManager.obtenerInstancia(getApplicationContext()).eliminarRelacionDeUsuarioConCoche(idUsuario, idCoche, false);
+        esOperacionCorrecta = databaseManager.eliminarRelacionDeUsuarioConCoche(idUsuario, idCoche, false);
 
         if (esOperacionCorrecta){
             Toast.makeText(getApplicationContext(), R.string.msgOperacionOk, Toast.LENGTH_SHORT).show();
