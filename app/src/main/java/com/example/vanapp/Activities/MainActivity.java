@@ -32,9 +32,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void initProviders() {
         providers = Arrays.asList(
-                new AuthUI.IdpConfig.EmailBuilder().build(), //Email Builder
-                new AuthUI.IdpConfig.PhoneBuilder().build(), //PhoneBuilder Builder
-                new AuthUI.IdpConfig.GoogleBuilder().build() //GoogleBuilder Builder
+                new AuthUI.IdpConfig.EmailBuilder().build()//, //Email Builder
+                //new AuthUI.IdpConfig.PhoneBuilder().build(), //PhoneBuilder Builder
+                //new AuthUI.IdpConfig.GoogleBuilder().build() //GoogleBuilder Builder
         );
     }
 
