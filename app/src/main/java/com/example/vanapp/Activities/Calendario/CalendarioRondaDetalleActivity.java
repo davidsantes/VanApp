@@ -78,10 +78,12 @@ public class CalendarioRondaDetalleActivity extends MasterActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendario_ronda_detalle);
 
+        //Clase para el manejo de la base de datos
+        databaseManager = DatabaseManager.obtenerInstancia(getApplicationContext());
+
+        //Configuración del menú general
         menuMasterToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(menuMasterToolbar);
-
-        databaseManager = DatabaseManager.obtenerInstancia(getApplicationContext());
 
         enlazarDatosActividadPadre();
         obtenerActualizarRonda();

@@ -36,6 +36,10 @@ public class UsuariosActivity extends MasterActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuarios);
 
+        //Clase para el manejo de la base de datos
+        databaseManager = DatabaseManager.obtenerInstancia(getApplicationContext());
+
+        //Configuración del menú general
         menuMasterToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(menuMasterToolbar);
 
@@ -70,7 +74,6 @@ public class UsuariosActivity extends MasterActivity {
     private void mostrarResultados(){
         listaUsuarios = new ArrayList<Usuario>();
         listViewUsuarios = findViewById(R.id.listViewUsuarios);
-        databaseManager = DatabaseManager.obtenerInstancia(getApplicationContext());
 
         //Se inserta la lista rellenada dentro del adapter
         listaUsuarios = databaseManager.obtenerUsuarios();

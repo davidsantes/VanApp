@@ -35,6 +35,10 @@ public class CochesActivity extends MasterActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coches);
 
+        //Clase para el manejo de la base de datos
+        databaseManager = DatabaseManager.obtenerInstancia(getApplicationContext());
+
+        //Configuración del menú general
         menuMasterToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(menuMasterToolbar);
 
@@ -78,7 +82,6 @@ public class CochesActivity extends MasterActivity {
     private void mostrarResultados(){
         listaCoches = new ArrayList<Coche>();
         listViewCoches = findViewById(R.id.listViewCoches);
-        databaseManager = DatabaseManager.obtenerInstancia(getApplicationContext());
 
         //Se inserta la lista rellenada dentro del adapter
         listaCoches = databaseManager.obtenerCoches();

@@ -50,6 +50,10 @@ public class CalendarioRondaElegirActivity extends MasterActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendario_ronda_elegir);
 
+        //Clase para el manejo de la base de datos
+        databaseManager = DatabaseManager.obtenerInstancia(getApplicationContext());
+
+        //Configuración del menú general
         menuMasterToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(menuMasterToolbar);
 
@@ -100,7 +104,6 @@ public class CalendarioRondaElegirActivity extends MasterActivity {
 
     private void abrirDialogoEligeCoche(){
         listaCoches = new ArrayList<Coche>();
-        databaseManager = DatabaseManager.obtenerInstancia(getApplicationContext());
 
         //Se configura la lista que posteriormente se insertará en el diálogo
         LayoutInflater inflater = getLayoutInflater();

@@ -31,6 +31,10 @@ public class InformeConduccionesActivity extends MasterActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_informe_conducciones);
 
+        //Clase para el manejo de la base de datos
+        databaseManager = DatabaseManager.obtenerInstancia(getApplicationContext());
+
+        //Configuración del menú general
         menuMasterToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(menuMasterToolbar);
 
@@ -66,7 +70,6 @@ public class InformeConduccionesActivity extends MasterActivity {
     private void mostrarResultados(){
         listaUsuarios = new ArrayList<UsuarioInformeConducciones>();
         listViewInforme = findViewById(R.id.listViewInforme);
-        databaseManager = DatabaseManager.obtenerInstancia(getApplicationContext());
 
         //Se inserta la lista rellenada dentro del adapter
         listaUsuarios = databaseManager.obtenerUsuariosInformeConducciones(anyoBusqueda);

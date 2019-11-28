@@ -13,16 +13,18 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activities.MainActivity"
-            android:label="@string/titulo_login"></activity>
-        <activity android:name=".Activities.MainSplashActivity" />
-        <activity
-            android:name=".Activities.MenuInicialActivity"
-            android:label="@string/titulo_menu_principal">
+            android:label="@string/titulo_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".Activities.MainSplashActivity" />
+        <activity
+            android:name=".Activities.MenuInicialActivity"
+            android:label="@string/titulo_menu_principal">
+
         </activity>
         <activity
             android:name=".Activities.Usuarios.UsuariosActivity"

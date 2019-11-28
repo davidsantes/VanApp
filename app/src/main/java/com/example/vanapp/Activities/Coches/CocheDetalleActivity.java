@@ -66,15 +66,16 @@ public class CocheDetalleActivity extends MasterActivity {
         setContentView(R.layout.activity_coche_detalle);
 
         idCoche = setIdCoche();
+        //Clase para el manejo de la base de datos
+        databaseManager = DatabaseManager.obtenerInstancia(getApplicationContext());
 
+        //Configuración del menú general
         menuMasterToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(menuMasterToolbar);
 
-        databaseManager = DatabaseManager.obtenerInstancia(getApplicationContext());
-
         enlazarEventosConObjetos();
 
-        //Necesario para mostrar el botón para regresar al padre
+        //Configuración del botón de regreso al padre
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         botonEliminar.setVisibility(View.INVISIBLE);

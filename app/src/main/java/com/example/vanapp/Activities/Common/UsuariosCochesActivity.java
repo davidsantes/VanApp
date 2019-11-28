@@ -47,10 +47,12 @@ public class UsuariosCochesActivity extends MasterActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuarios_coches);
 
+        //Clase para el manejo de la base de datos
+        databaseManager = DatabaseManager.obtenerInstancia(getApplicationContext());
+
+        //Configuración del menú general
         menuMasterToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(menuMasterToolbar);
-
-        databaseManager = DatabaseManager.obtenerInstancia(getApplicationContext());
 
         idCoche = setIdCoche();
         cocheActual = null;
